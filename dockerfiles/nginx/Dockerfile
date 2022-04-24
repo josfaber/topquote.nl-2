@@ -1,0 +1,22 @@
+FROM nginx:1.18-alpine
+
+ENV USER=www-data
+ENV UID=12345
+ENV GID=23456
+
+RUN adduser \
+    --disabled-password \
+    --gecos "" \
+    --home "$(pwd)" \
+    --ingroup "$USER" \
+    --no-create-home \
+    --uid "$UID" \
+    "$USER"
+
+RUN rm /etc/nginx/conf.d/default.conf
+
+COPY ./dockerfiles/nginx/nginx.conf /etc/nginx/nginx.conf
+COPY ./dockerfiles/nginx/default.conf /etc/nginx/templates/default.conf.template
+
+# Tell docker that all future commands should run as the appuser user
+# USER www-data

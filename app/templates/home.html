@@ -1,0 +1,15 @@
+{% extends "base.html" %}
+
+{% block title %}Home{% endblock %}
+{% block head %}
+    {{ parent() }}
+    
+{% endblock %}
+{% block content %}
+##-{{ route }}-##
+##-{{ params.by }}-##
+    <blockquote>
+        <p>{{ quote.quote }}</p>
+    </blockquote>
+    {{ quote.sayer }}
+{% endblock %}

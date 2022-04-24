@@ -1,0 +1,144 @@
+@mixin bodyfont() {
+  font-family: 'Merriweather', serif;
+}
+
+@mixin headingfont() {
+  font-family: 'Metropolis', sans-serif;
+}
+
+@mixin abs-pseu() {
+  position: absolute;
+  content:"";
+}
+
+@mixin bgimg() {
+  background-size: cover;
+  background-position: center;
+  background-repeat: no-repeat;
+}
+
+// @mixin nav-breakpoint {
+//   @media screen and (max-width: 1300px) {
+//     @content;
+//   }
+// }
+
+// @mixin max-site {
+//   @media screen and (max-width: $max-header-width) {
+//     @content;
+//   }
+// }
+
+@mixin iPad-landscape {
+  @media screen and (max-width: 1024px) {
+    @content;
+  }
+}
+
+@mixin underiPad-landscape {
+  @media screen and (max-width: 1023px) {
+    @content;
+  }
+}
+
+@mixin under860 {
+  @media screen and (max-width: 860px) {
+    @content;
+  }
+}
+
+@mixin iPhoneX-landscape {
+  @media screen and (max-width: 812px) {
+    @content;
+  }
+}
+
+@mixin iPad-portrait {
+  @media screen and (max-width: 768px) {
+    @content;
+  }
+}
+
+@mixin underiPad-portrait {
+  @media screen and (max-width: 767px) {
+    @content;
+  }
+}
+
+@mixin iPhone7plus-landscape {
+  @media screen and (max-width: 736px) {
+    @content;
+  }
+}
+
+@mixin under-iPhone7plus-landscape {
+  @media screen and (max-width: 735px) {
+    @content;
+  }
+}
+
+@mixin iPhone7-landscape {
+  @media screen and (max-width: 667px) {
+    @content;
+  }
+}
+
+@mixin sixhundred {
+  @media screen and (max-width: 600px) {
+    @content;
+  }
+}
+
+@mixin surfaceduo {
+  @media screen and (max-width: 540px) {
+    @content;
+  }
+}
+
+@mixin less-surfaceduo {
+  @media screen and (max-width: 539px) {
+    @content;
+  }
+}
+
+@mixin fivehundred {
+  @media screen and (max-width: 500px) {
+    @content;
+  }
+}
+
+@mixin less-fivehundred {
+  @media screen and (max-width: 499px) {
+    @content;
+  }
+}
+
+@mixin iPhone7plus-portrait {
+  @media screen and (max-width: 414px) {
+    @content;
+  }
+}
+
+@mixin underiPhone7plus-portrait {
+  @media screen and (max-width: 413px) {
+    @content;
+  }
+}
+
+@mixin iPhoneSE-portrait {
+  @media screen and (max-width: 375px) {
+    @content;
+  }
+}
+
+@mixin iPhone5-portrait {
+  @media screen and (max-width: 320px) {
+    @content;
+  }
+}
+
+@mixin galaxyFold {
+  @media screen and (max-width: 240px) {
+    @content;
+  }
+}

@@ -1,0 +1,15 @@
+{
+    "name": "jos/app",
+    "authors": [
+        {
+            "name": "Jos",
+            "email": "795480+josfaber@users.noreply.github.com"
+        }
+    ],
+    "require": {
+        "kint-php/kint": "^4.1",
+        "twig/twig": "^3.0",
+        "symfony/dotenv": "^6.0",
+        "bcosca/fatfree-core": "^3.8"
+    }
+}

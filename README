@@ -1,0 +1,9 @@
+Development:
+
+    npm run dev     - single time compile for development
+    npm run watch   - compile and watch and hot reload with browsersync over proxy
+
+Production:
+
+    npm run prod    - single time compile for production
+
