@@ -5,6 +5,7 @@
 /*!**********************************************************************************************************************************************************************************************************************!*\
   !*** css ./node_modules/css-loader/dist/cjs.js!./node_modules/resolve-url-loader/index.js??ruleSet[1].rules[1].use[2]!./node_modules/sass-loader/dist/cjs.js??ruleSet[1].rules[1].use[3]!./src/scss/styles.scss (1) ***!
   \**********************************************************************************************************************************************************************************************************************/
+@charset "UTF-8";
 /*! normalize.css v8.0.1 | MIT License | github.com/necolas/normalize.css */
 /* Document
    ========================================================================== */
@@ -570,23 +571,18 @@ body {
   background-color: #000000;
   color: #ffffff;
   font-family: neue-haas-grotesk-display, sans-serif;
-  font-weight: 500;
-  font-style: normal; }
+  font-weight: 500; }
 
 a {
   color: #E5007C;
+  font-weight: 600;
   text-decoration: none; }
   a:hover {
     text-decoration: underline; }
 
-blockquote p {
-  font-weight: 700;
-  font-size: 40px;
-  line-height: 48px; }
-
 main {
-  padding-top: 48px;
-  margin: 0 1rem; }
+  padding-top: 72px;
+  margin: 0 1em; }
 
 .full-h {
   min-height: calc(100vh - 48px - 24px); }
@@ -667,4 +663,38 @@ main {
       transform: rotate(-270deg); }
     .topbar .menu-items .menu-cb:checked + label .menu-panel {
       transform: translateX(0); }
+
+blockquote {
+  width: 100%; }
+  blockquote .sayer {
+    font-size: 16px;
+    font-weight: 600;
+    margin-bottom: 0.5rem; }
+  blockquote .quote {
+    font-size: 26px;
+    font-weight: 700;
+    line-height: 32px;
+    quotes: "“" "”" "‘" "’"; }
+    blockquote .quote::before {
+      content: open-quote;
+      color: #4d4d4d; }
+    blockquote .quote::after {
+      content: close-quote;
+      color: #4d4d4d; }
+  blockquote .meta {
+    font-size: 12px;
+    line-height: 24px;
+    display: flex;
+    flex-wrap: wrap;
+    justify-content: flex-end;
+    margin-top: 1em; }
+    blockquote .meta > div:not(:first-child) {
+      margin-left: 0.5rem; }
+    blockquote .meta [class^="icon-"], blockquote .meta [class*=" icon-"] {
+      margin-right: 0.5em; }
+    blockquote .meta a.tag:not(:last-child) {
+      margin-right: 8px; }
+
+.quotes-list blockquote {
+  margin-bottom: 2em; }
 

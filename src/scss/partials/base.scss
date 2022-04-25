@@ -19,12 +19,12 @@ body {
     color: $white;
     
     font-family: neue-haas-grotesk-display, sans-serif;
-    font-weight: 500;
-    font-style: normal;
+    @include roman55;
 }
 
 a {
     color: $primary;
+    @include medium65;
     text-decoration: none;
 
     &:hover {
@@ -32,18 +32,9 @@ a {
     }
 }
 
-blockquote {
-
-    p {
-        @include bold75;
-        font-size: 40px;
-        line-height: 48px;
-    }
-}
-
 main {
-    padding-top: $topbar-height;
-    margin: 0 1rem;
+    padding-top: $topbar-height * 1.5;
+    margin: 0 1em;
 }
 
 .full-h {

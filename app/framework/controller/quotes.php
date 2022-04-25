@@ -20,7 +20,7 @@ class Quotes {
 
 		// render
 		render_template('quotes.html', [
-			"quotes" => $quotes,
+			"quotes" => $quotes["results"],
 		], [], [site_url($assets_manifest["quotes.js"])]);
 	}
 
@@ -30,8 +30,16 @@ class Quotes {
 	 */
 	function by(\Base $f3, $params) {
 		global $assets_manifest;
+		global $dataproxy;
+
+		// get order properties
+		global $orderby, $order;
+
+		// get quotes
+		$quotes = $dataproxy->get_quotes($params["slug"], null, null, $orderby, $order, QUOTES_PER_PAGE);
 
 		render_template('quotes.html', [
+			"quotes" => $quotes["results"],
 		], [], [site_url($assets_manifest["quotes.js"])]);
 	}
 
@@ -41,8 +49,16 @@ class Quotes {
 	 */
 	function from(\Base $f3, $params) {
 		global $assets_manifest;
+		global $dataproxy;
+
+		// get order properties
+		global $orderby, $order;
+
+		// get quotes
+		$quotes = $dataproxy->get_quotes(null, $params["slug"], null, $orderby, $order, QUOTES_PER_PAGE);
 
 		render_template('quotes.html', [
+			"quotes" => $quotes["results"],
 		], [], [site_url($assets_manifest["quotes.js"])]);
 	}
 
@@ -52,8 +68,16 @@ class Quotes {
 	 */
 	function tag(\Base $f3, $params) {
 		global $assets_manifest;
+		global $dataproxy;
+
+		// get order properties
+		global $orderby, $order;
+
+		// get quotes
+		$quotes = $dataproxy->get_quotes(null, null, $params["slug"], $orderby, $order, QUOTES_PER_PAGE);
 
 		render_template('quotes.html', [
+			"quotes" => $quotes["results"],
 		], [], [site_url($assets_manifest["quotes.js"])]);
 	}
 

@@ -42,46 +42,55 @@ class Dev {
 			if ($n++ == 10) !s($tags, $quote->_createdAt, date('Y-m-d H:i:s', $time));
 
 			$slug = slugify($quote->quote, 200);
+
+			$hits = isset($quote->hits) ? (int) $quote->hits : 0;
+			$likes = isset($quote->likes) ? (int) $quote->likes : 0;
+
 			// !d( $slug );
-			$result = $db->exec('SELECT id FROM quotes WHERE slug = ?', [ $slug ]);
-			if ($db->count() == 0) {
-				$db->exec('INSERT INTO quotes (
-					import_id, 
-					created, 
-					slug, 
-					quote, 
-					quote_lc, 
-					sayer, 
-					sayer_lc, 
-					sayer_slug, 
-					submitter, 
-					submitter_lc, 
-					submitter_slug, 
-					tags, 
-					tags_lc
-					) VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?)', [
-						$quote->_id,
-						date('Y-m-d H:i:s', $time), 
-						$slug, 
-						$quote->quote,
-						strtolower($quote->quote),
-						$quote->sayer,
-						strtolower($quote->sayer),
-						slugify($quote->sayer),
-						$quote->submitter,
-						strtolower($quote->submitter),
-						slugify($quote->submitter),
-						$tags,
-						strtolower($tags)
-					]);
-			} else {
-				// s('already exists');
+			
+			$db_quote = new \DB\SQL\Mapper($db, 'quotes');
+			$db_quote->load(array('import_id=?', $quote->_id));
+			
+			if(!$db_quote->dry()) {
+				// exists
+				continue;
 			}
-			// echo $db->log();
+
+			$db->exec('INSERT INTO quotes (
+				import_id, 
+				created, 
+				slug, 
+				quote, 
+				quote_lc, 
+				sayer, 
+				sayer_lc, 
+				sayer_slug, 
+				submitter, 
+				submitter_lc, 
+				submitter_slug, 
+				tags, 
+				tags_lc,
+				hits,
+				likes
+				) VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?)', [
+					$quote->_id,
+					date('Y-m-d H:i:s', $time), 
+					$slug, 
+					$quote->quote,
+					strtolower($quote->quote),
+					$quote->sayer,
+					strtolower($quote->sayer),
+					slugify($quote->sayer),
+					$quote->submitter,
+					strtolower($quote->submitter),
+					slugify($quote->submitter),
+					$tags,
+					strtolower($tags),
+					$hits,
+					$likes
+				]);
+
 		}
-
-		// $db->exec('SELECT brandName FROM wherever');
-
 
 	}
 }

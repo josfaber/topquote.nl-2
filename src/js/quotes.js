@@ -1,16 +1,19 @@
 const axios = require( 'axios' ).default;
 
-let current_page = window.tqd.p;
+let current_page = window.tqd.page;
 
 let canLoadMore = true;
 
 const loadMore = () => {
 
     let data = new URLSearchParams();
-    data.append( 'ob', window.tqd.ob );
-    data.append( 'o', window.tqd.o );
-    data.append( 'p', current_page + 1 );
+    data.append( 'orderby', window.tqd.orderby );
+    data.append( 'order', window.tqd.order );
+    data.append( 'page', current_page + 1 );
     data.append( 'render', true );
+
+    if (window.tqd.hasOwnProperty('filter')) data.append( 'filter', window.tqd.filter );
+    if (window.tqd.hasOwnProperty('slug')) data.append( 'slug', window.tqd.slug );
 
     axios( {
         method: 'post',
@@ -23,7 +26,10 @@ const loadMore = () => {
             console.log( response.data );
             document.getElementById('quotes_list').innerHTML += response.data.html;
             current_page++;
-            setTimeout(() => canLoadMore = true, 500);
+
+            if (!response.data.hasOwnProperty('EOD') || response.data.EOD != true) {
+                setTimeout(() => canLoadMore = true, 500);
+            }
         } )
         .catch( function ( error ) {
             // handle error

@@ -21,15 +21,10 @@
         </nav>
         <main>
             {% block content %}
-            <div class="content">
                 content
-            </div>
             {% endblock %}
         </main>
-        <script>window.tqd = { 
-            {% for key, value in tqd %} {{ key }}: '{{ value }}', {% endfor %} 
-            {% for key, value in tqd_num %} {{ key }}: {{ value }}, {% endfor %} 
-        };</script>
+        <script>window.tqd = { {% for key, value in tqd %} {{ key }}: '{{ value }}', {% endfor %}{% for key, value in tqd_num %} {{ key }}: {{ value }}, {% endfor %} };</script>
         {% for js_file in js_files %}
             <script src="{{ js_file}}"></script>
         {% endfor %}

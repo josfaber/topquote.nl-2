@@ -26,30 +26,25 @@ function get_css_js_array($extra_css_files = [], $extra_js_files = []) {
 }
 
 function get_defaults_array() {
-	global $orderby, $order, $page;
+	global $orderby, $order, $page, $f3;
 
 	return [
-		"tqd" => [
+		"tqd" => array_merge($f3->get("PARAMS"), [ // merge filter and slug with defaults
 			"site_url"		=> site_url(),	
 			"api_url"		=> site_url('api'),
-			"ob"			=> $orderby,
-			"o"				=> $order,	
-		],
+			"orderby"		=> $orderby,
+			"order"			=> $order,	
+		]),
 		"tqd_num" => [
-			"p"				=> $page,
+			"page"			=> $page,
 			"qpp"			=> QUOTES_PER_PAGE,
 		],
+		"website_schema" => get_website_schema(),
 	];
 }
 
 function render_template($filename, $vars, $extra_css_files = [], $extra_js_files = []) {
 	$template = get_twig()->load($filename);
-	// !d(array_merge(
-	// 	$vars, 
-	// 	get_css_js_array($extra_css_files, $extra_js_files), 
-	// 	get_defaults_array() 
-	// ));
-	// !s(array_merge($vars, get_defaults_array()) );	
 	echo $template->render(array_merge(
 		$vars, 
 		get_css_js_array($extra_css_files, $extra_js_files), 
@@ -95,22 +90,33 @@ function time_elapsed_string($datetime, $full = false) {
     $diff->d -= $diff->w * 7;
 
     $string = array(
-        'y' => 'year',
-        'm' => 'month',
-        'w' => 'week',
-        'd' => 'day',
-        'h' => 'hour',
-        'i' => 'minute',
-        's' => 'second',
+        'y' => ['jaar', 'jaren'],
+        'm' => ['maand', 'maanden'],
+        'w' => ['week', 'weken'],
+        'd' => ['dag', 'dagen'],
+        'h' => ['uur', 'uur'],
+        'i' => ['minuut', 'minuten'],
+        's' => ['seconde', 'seconden'],
     );
     foreach ($string as $k => &$v) {
         if ($diff->$k) {
-            $v = $diff->$k . ' ' . $v . ($diff->$k > 1 ? 's' : '');
+            $v = $diff->$k . ' ' . ($diff->$k > 1 ? $v[1] : $v[0]);
         } else {
             unset($string[$k]);
         }
     }
 
     if (!$full) $string = array_slice($string, 0, 1);
-    return $string ? implode(', ', $string) . ' ago' : 'just now';
+    return $string ? implode(', ', $string) . ' geleden' : 'zojuist';
+}
+
+function get_website_schema() {
+	return <<<EOT
+{
+	"@type": "Website",
+	"url": "https://topquote.nl"
+	"name": "TopQuote",
+	"description": "Hilarische, ontroerende en betekenisvolle quotes, citaten en uitspraken van je collega's, kinderen, vrienden, bekenden en celebrities.",
+}	
+EOT;
 }

@@ -1,4 +1,17 @@
 <blockquote>
-    <p><a href="{{ quote.link }}">{{ quote.quote }}</a></p>
+    <div class="sayer">
+        <a href="{{ quote.sayer_link }}">{{ quote.sayer }}</a>
+    </div>
+    <div class="quote">
+        {% if not is_single_quote %}<a href="{{ quote.link }}">{% endif %}
+        {{ quote.quote }}
+        {% if not is_single_quote %}</a>{% endif %}
+    </div>
+    <div class="meta">
+        <div><span class="icon-clock"></span> {{ quote.ago }}</div>
+        <div><span class="icon-pencil"></span> <a href="{{ quote.submitter_link }}">{{ quote.submitter }}</a></div>
+        <div><span class="icon-heart1"></span> {{ quote.likes }}</div>
+        <div><span class="icon-share"></span></div>
+        <div><span class="icon-price-tags"></span>{{ quote.tags_links|raw }}</div>
+    </div>
 </blockquote>
-{{ quote.sayer }} {{ quote.ago }}

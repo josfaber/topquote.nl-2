@@ -12,10 +12,13 @@
 
 {% endfor %} #}
 
-<section id="quotes_list">
+<section id="quotes_list" class="quotes-list">
 {% for quote in quotes %}
     {{ include('partials/blockquote.html') }}
 {% endfor %}
+{% if not quotes %}
+    <p>Geen quotes gevonden</p>
+{% endif %}
 </section>
 
 {% endblock %}

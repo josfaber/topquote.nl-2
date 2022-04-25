@@ -3,7 +3,22 @@
 {% block title %}Quote{% endblock %}
 {% block head %}
     {{ parent() }}
-    
+    <script type="application/ld+json">
+    {
+        "@context": "http://schema.org/",
+        "@type": "Quotation",
+        "creator": {
+            "@type": "Person",
+            "name": "{{ quote.sayer }}"
+        },
+        "editor": {
+            "@type": "Person",
+            "name": "{{ quote.submitter }}"
+        },
+        "text": "{{ quote.quote }}",
+        "archivedAt": {{ website_schema|raw }},
+    }
+    </script>
 {% endblock %}
 {% block content %}
 <div class="full-h">

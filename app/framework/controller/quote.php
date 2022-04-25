@@ -24,6 +24,7 @@ class Quote {
 		// !d( $results );
 
 		render_template('quote.html', [
+			"is_single_quote" => true,
 			"quote" => $quote,
 		]);
 	}
