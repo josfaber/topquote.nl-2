@@ -1,6 +1,6 @@
 <?php 
 function site_url($route = '') {
-	return SITE_URL . '/' . trim($route, '/');
+	return SITE_URL . ($route != '' ? '/' : '') . trim($route, '/');
 }
 
 function uri_segments() {
@@ -12,33 +12,47 @@ function get_twig() {
 	return new \Twig\Environment($loader, USE_TWIG_CACHE ? array('cache' => BASE_DIR . '/templates/cache') : array('cache' => false));
 }
 
-function get_db() {
-	return new \DB\SQL( 'mysql:host=' . DB_HOST . ';port=3306;dbname=' . DB_NAME, DB_USER, DB_PASSWORD );
-}
-
 function get_asset_manifest() {
 	return json_decode(file_get_contents(PUBLIC_DIR . "/assets-manifest.json"), true);
 }
 
-function get_css_js_array() {
-	$assets_manifest = get_asset_manifest();
+function get_css_js_array($extra_css_files = [], $extra_js_files = []) {
+	global $assets_manifest;
+	// $assets_manifest = get_asset_manifest();
 	return [
-		'css_files'		=> [site_url($assets_manifest["main.css"])],
-		'js_files'		=> [site_url($assets_manifest["main.js"])],
+		'css_files'		=> array_merge( [site_url($assets_manifest["main.css"])], $extra_css_files ),
+		'js_files'		=> array_merge( [site_url($assets_manifest["main.js"])], $extra_js_files ),
 	];
 }
 
 function get_defaults_array() {
+	global $orderby, $order, $page;
+
 	return [
-		"site_url"		=> site_url(),	
+		"tqd" => [
+			"site_url"		=> site_url(),	
+			"api_url"		=> site_url('api'),
+			"ob"			=> $orderby,
+			"o"				=> $order,	
+		],
+		"tqd_num" => [
+			"p"				=> $page,
+			"qpp"			=> QUOTES_PER_PAGE,
+		],
 	];
 }
 
-function render_template($filename, $vars) {
+function render_template($filename, $vars, $extra_css_files = [], $extra_js_files = []) {
 	$template = get_twig()->load($filename);
+	// !d(array_merge(
+	// 	$vars, 
+	// 	get_css_js_array($extra_css_files, $extra_js_files), 
+	// 	get_defaults_array() 
+	// ));
+	// !s(array_merge($vars, get_defaults_array()) );	
 	echo $template->render(array_merge(
 		$vars, 
-		get_css_js_array(), 
+		get_css_js_array($extra_css_files, $extra_js_files), 
 		get_defaults_array() 
 	));
 }
@@ -64,4 +78,39 @@ function slugify($text, $length = null) {
         $text = rtrim(substr($text, 0, $length), '-');
 
     return $text;
+}
+
+function ajax_output($data) {
+	header('Content-Type: application/json');
+	echo json_encode($data);
+	exit;
+}
+
+function time_elapsed_string($datetime, $full = false) {
+    $now = new DateTime;
+    $ago = new DateTime($datetime);
+    $diff = $now->diff($ago);
+
+    $diff->w = floor($diff->d / 7);
+    $diff->d -= $diff->w * 7;
+
+    $string = array(
+        'y' => 'year',
+        'm' => 'month',
+        'w' => 'week',
+        'd' => 'day',
+        'h' => 'hour',
+        'i' => 'minute',
+        's' => 'second',
+    );
+    foreach ($string as $k => &$v) {
+        if ($diff->$k) {
+            $v = $diff->$k . ' ' . $v . ($diff->$k > 1 ? 's' : '');
+        } else {
+            unset($string[$k]);
+        }
+    }
+
+    if (!$full) $string = array_slice($string, 0, 1);
+    return $string ? implode(', ', $string) . ' ago' : 'just now';
 }

@@ -23,8 +23,29 @@ body {
     font-style: normal;
 }
 
-blockquote p {
-    @include bold75;
-    font-size: 40px;
-    line-height: 48px;
+a {
+    color: $primary;
+    text-decoration: none;
+
+    &:hover {
+        text-decoration: underline;
+    }
+}
+
+blockquote {
+
+    p {
+        @include bold75;
+        font-size: 40px;
+        line-height: 48px;
+    }
+}
+
+main {
+    padding-top: $topbar-height;
+    margin: 0 1rem;
+}
+
+.full-h {
+    min-height: calc(100vh - #{$topbar-height} - #{$full-h-peak});
 }

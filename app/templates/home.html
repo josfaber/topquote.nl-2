@@ -6,10 +6,7 @@
     
 {% endblock %}
 {% block content %}
-##-{{ route }}-##
-##-{{ params.by }}-##
-    <blockquote>
-        <p>{{ quote.quote }}</p>
-    </blockquote>
-    {{ quote.sayer }}
+{# ##-{{ route }}-##
+##-{{ params.by }}-## #}
+{{ include('partials/blockquote.html') }}
 {% endblock %}

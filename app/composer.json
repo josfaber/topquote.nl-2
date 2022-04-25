@@ -11,5 +11,8 @@
         "twig/twig": "^3.0",
         "symfony/dotenv": "^6.0",
         "bcosca/fatfree-core": "^3.8"
+    },
+    "autoload": {
+        "psr-4": {"TopQuote\\": "framework/"}
     }
 }

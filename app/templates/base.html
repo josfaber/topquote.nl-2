@@ -20,17 +20,17 @@
             {% endblock %}
         </nav>
         <main>
-            <div id="content">
-                {% block content %}
-                {% endblock %}
+            {% block content %}
+            <div class="content">
+                content
             </div>
-        </main>
-        <footer>
-            {% block footer %}
-            {{ include('partials/footer.html') }}
             {% endblock %}
-        </footer>
-        {% for js_files in js_files %}
+        </main>
+        <script>window.tqd = { 
+            {% for key, value in tqd %} {{ key }}: '{{ value }}', {% endfor %} 
+            {% for key, value in tqd_num %} {{ key }}: {{ value }}, {% endfor %} 
+        };</script>
+        {% for js_file in js_files %}
             <script src="{{ js_file}}"></script>
         {% endfor %}
     </body>

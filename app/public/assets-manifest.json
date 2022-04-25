@@ -5,5 +5,6 @@
   "font/icomoon.woff?iienk7": "font/icomoon.woff",
   "main.css": "css/main.bundle.css",
   "main.js": "js/main.bundle.js",
+  "quotes.js": "js/quotes.bundle.js",
   "version": "0.1.0"
 }

@@ -1,0 +1,28 @@
+{% extends "base.html" %}
+
+{% block title %}Quote{% endblock %}
+{% block head %}
+    {{ parent() }}
+    
+{% endblock %}
+{% block content %}
+<div class="full-h">
+    {% for param in params %}
+        {{ param }} : {{ params[param] }}
+    {% endfor %}
+    {{ include('partials/blockquote.html') }}
+</div>
+Related
+Lorum ipsum<br>
+Lorum ipsum<br>
+Lorum ipsum<br>
+Lorum ipsum<br>
+Lorum ipsum<br>
+Lorum ipsum<br>
+Lorum ipsum<br>
+Lorum ipsum<br>
+Lorum ipsum<br>
+Lorum ipsum<br>
+Lorum ipsum<br>
+Lorum ipsum<br>
+{% endblock %}

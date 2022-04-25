@@ -1,5 +1,20 @@
 <div class="topbar">
-    <div class="search"><span class="icon-search"></span></div>
-    <div class="title"><a href="{{ site_url }}">topquote.nl</a></div>
-    <div class="menu"><span class="icon-ellipsis"></span></div>
+    <div class="menu-items">
+        <div class="search"><span class="icon-search"></span></div>
+        <div class="title"><a href="{{ tqd.site_url }}">topquote.nl</a></div>
+        <div class="menu">
+            <input type="checkbox" class="menu-cb" id="menucb">
+            <label for="menucb">
+                <div class="spinner-container"><span class="icon-ellipsis"></span></div>
+                <div class="menu-panel">
+                    <ul>
+                        <li><a href="{{ tqd.site_url }}/quotes"><span class="icon-clock"></span>Nieuwste</a></li>
+                        <li><a href="{{ tqd.site_url }}/quotes?ob=likes"><span class="icon-heart1"></span>Meeste&nbsp;likes</a></li>
+                        <li><a href="{{ tqd.site_url }}/add"><span class="icon-plus"></span>Toevoegen</a></li>
+                        <li><a href="http://eepurl.com/hm_WEr" target="_blank" rel="noopener"><span class="icon-mail"></span>Mailinglijst</a></li>
+                    </ul>
+                </div>
+            </label>
+        </div>
+    </div>
 </div>

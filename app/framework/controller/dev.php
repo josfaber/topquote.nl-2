@@ -9,7 +9,7 @@ class Dev {
 		$data = array_map('json_decode', $jsonData);
 		// !d($data);
 
-		$db = get_db();
+		$db = new \DB\SQL( 'mysql:host=' . DB_HOST . ';port=3306;dbname=' . DB_NAME, DB_USER, DB_PASSWORD );
 		
 		$n=1;
 		foreach ($data as $quote) {
@@ -36,7 +36,7 @@ class Dev {
 			// 	]
 			// )
 			
-			$time = strtotime($quote->_createdAt);
+			$time = strtotime($quote->created);
 			$tags = implode(",", array_map("trim", $quote->tags ?? [])) ?? "";
 			
 			if ($n++ == 10) !s($tags, $quote->_createdAt, date('Y-m-d H:i:s', $time));

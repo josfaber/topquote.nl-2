@@ -1,46 +1,125 @@
 .topbar {
     position: fixed;
     width: 100%;
-    height: 48px;
-    display: flex;
-    justify-content: space-between;
-    align-items: center;
-    background-color: $black;
-    box-shadow: 0 2px 20px black;
+    height: $topbar-height;
     
-    .search,
-    .menu {
-        color: $primary;
-        // flex: auto;
+    .menu-items {
+        position: absolute;
+        width: 100%;
+        height: $topbar-height;
+        background-color: $black;
         display: flex;
-        justify-content: center;
-        // background: green;
-    }
-    
-    .search {
-        margin-right: auto;
-        font-size: 1.4rem;
-        padding-left: 1rem;
-    }
-    
-    .title {
-        padding: 0 1rem;
-        margin: auto;
-        font-size: 14px;
-        @include medium65;
-        flex: 0 auto;
-        // background: blue;
-        
-        a {
+        justify-content: space-between;
+        align-items: center;
+        box-shadow: 0 2px 20px black;
+
+        .search,
+        .menu {
+            position: relative;
             color: $primary;
-            text-decoration: none;
+            // flex: auto;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            height: $topbar-height;
+            // background: green;
         }
-    }
+        
+        .search {
+            margin-right: auto;
+            font-size: 1.4rem;
+            padding-left: 1rem;
+        }
+        
+        .title {
+            padding: 0 1rem;
+            margin: auto;
+            font-size: 18px;
+            @include medium65;
+            flex: 0 auto;
+            // background: blue;
+            
+            a {
+                color: $primary;
+                text-decoration: none;
+            }
+        }
+        
+        .menu {
+            margin-left: auto;
+            font-size: 2rem;
+            padding-right: calc(1rem - 8px);
     
-    .menu {
-        margin-left: auto;
-        font-size: 2rem;
-        padding-right: calc(1rem - 8px);
-        // background: blue
+            input[type=checkbox] {
+                display: none;
+            }
+    
+            label {
+                // background: red;
+    
+                .spinner-container {
+                    // background: blue;
+                    transition: transform 600ms $ease-smooth;
+    
+                    .icon-ellipsis {
+                        // background: purple;
+                        cursor: pointer;
+                    }
+                }
+                
+                .menu-panel {
+                    z-index: 1;
+                    position: absolute;
+                    top: $topbar-height;
+                    right: 0;
+                    display: flex;
+                    justify-content: space-between;
+                    align-items: center;
+                    background-color: rgba(black, 0.9);
+                    box-shadow: 0 2px 20px black;
+                    transform: translateX(101%);
+                    transition: transform 600ms $ease-smooth;
+                    max-width: 320px;
+                    width: 100vw;
+            
+                    ul, 
+                    li {
+                        width: 100%;
+                        list-style: none;
+                    }
+            
+                    ul {
+                        margin: 0;
+                        padding: 0 3em;
+                    }
+            
+                    li a {
+                        display: block;
+                        // text-align: center;
+                        padding: 1rem 0;
+                        @include roman55;
+                        font-size: 18px;
+                        
+                        [class^="icon-"], [class*=" icon-"] {
+                            margin-right: 1rem;
+                        }
+                    }
+                }
+            }
+        }
+    
+        .menu-cb:checked + label {
+            .spinner-container {
+                transform: rotate(-270deg);
+
+                .icon-ellipsis {
+                    // background: green;
+                }
+            }
+
+            .menu-panel {
+                transform: translateX(0);
+            }
+        }
     }
 }

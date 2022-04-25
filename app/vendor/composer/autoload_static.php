@@ -16,6 +16,7 @@ class ComposerStaticInit3073c3aa05562afcfc31b8737fc45ce7
         'T' => 
         array (
             'Twig\\' => 5,
+            'TopQuote\\' => 9,
         ),
         'S' => 
         array (
@@ -33,6 +34,10 @@ class ComposerStaticInit3073c3aa05562afcfc31b8737fc45ce7
         'Twig\\' => 
         array (
             0 => __DIR__ . '/..' . '/twig/twig/src',
+        ),
+        'TopQuote\\' => 
+        array (
+            0 => __DIR__ . '/../..' . '/framework',
         ),
         'Symfony\\Polyfill\\Mbstring\\' => 
         array (

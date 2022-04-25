@@ -1,0 +1,21 @@
+{% extends "base.html" %}
+
+{% block title %}Quotes{% endblock %}
+{% block head %}
+    {{ parent() }}
+    
+{% endblock %}
+{% block content %}
+
+{# {% for param in params %}
+    {{ param }} : {{ params[param] }}
+
+{% endfor %} #}
+
+<section id="quotes_list">
+{% for quote in quotes %}
+    {{ include('partials/blockquote.html') }}
+{% endfor %}
+</section>
+
+{% endblock %}
