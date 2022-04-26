@@ -44,6 +44,15 @@ body {
     @include roman55;
 }
 
+h1, h2, h3 {
+    &.full {
+        width: 100%;
+        text-align: center;
+        padding: 0 0.5rem;
+        margin-bottom: 0.5rem;
+    }
+}
+
 a {
     color: var(--primary-color);
     transition: color var(--color-transition-time) $ease-smooth;
@@ -82,4 +91,45 @@ main {
 
 .full-h {
     min-height: calc(100vh - #{1.5 * $topbar-height} - #{$full-h-peak});
+}
+
+.readable {
+    max-width: 820px;
+    margin: auto;
+}
+
+.centered {
+    display: flex;
+    justify-content: center;
+}
+
+.pad-top-20 { padding-top: 20px; }
+.marg-bot { margin-bottom: 3em; }
+
+a.btn {
+    position: relative;
+    display: inline-block;
+    padding: 0.5rem 1rem;
+    margin: 0.5rem;
+    border-radius: 0.05rem;
+    background-color: var(--primary-color);
+    color: $black;
+    // color: var(--primary-color);
+    transition: color var(--color-transition-time) $ease-smooth;
+    text-decoration: none;
+    font-size: 1rem;
+    text-transform: uppercase;
+    @include medium65;
+    border-bottom: 4px solid var(--primary-color);
+
+    &::after {
+        position: absolute;
+        bottom: 0;
+        left: 0;
+        height: 4px;
+        width: 100%;
+        content: '';
+        background-color: rgba(black, 0.4);
+        transform: translateY(100%);
+    }
 }

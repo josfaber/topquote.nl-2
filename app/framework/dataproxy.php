@@ -48,25 +48,25 @@ class DataProxy {
 		return $this->hydrate_quote($results[0]);
 	}
 
-	public function get_quotes($by = null, $from = null, $tag = null, $orderby = 'created', $order = 'DESC', $quotes_per_page = QUOTES_PER_PAGE, $page = 1) {
+	public function get_quotes($by = null, $from = null, $tag = null, $orderby = 'created', $order = 'DESC', $quotes_per_page = QUOTES_PER_PAGE, $page = 1, $AND = "") {
 		$offset_base = ($page - 1) * $quotes_per_page;
 		
 		$SELECT = "SELECT * ";
 		
 		$FROM = "FROM quotes ";
 		
-		$WHERE = "";
+		$WHERE = "WHERE 1";
 		$bounds = [];
 		if ($by != null) {
-			$WHERE .= "WHERE sayer_slug = :sayer ";
+			$WHERE = "WHERE sayer_slug = :sayer ";
 			$bounds = [ ":sayer" => $by ];
 		}
 		if ($from != null) {
-			$WHERE .= "WHERE submitter_slug = :submitter ";
+			$WHERE = "WHERE submitter_slug = :submitter ";
 			$bounds = [ ":submitter" => $from ];
 		}
 		if ($tag != null) {
-			$WHERE .= "WHERE tags_lc LIKE :tag ";
+			$WHERE = "WHERE tags_lc LIKE :tag ";
 			$bounds = [ ":tag" => "%{$tag}%" ];
 		}
 
@@ -91,6 +91,7 @@ class DataProxy {
 			{$SELECT}
 			{$FROM}
 			{$WHERE}
+			{$AND}
 			{$ORDER}
 			{$LIMIT}
 		";

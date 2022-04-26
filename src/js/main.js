@@ -29,12 +29,20 @@ document.body.onload = ( () => {
     const menucb = document.getElementById('menucb');
     const main_el = document.getElementsByTagName('main')[0];
     
+    const bodyClickHandler = (e) => {
+        !main_el || main_el.removeEventListener('click', bodyClickHandler);
+        !main_el || main_el.classList.remove('blur');
+        menucb.checked = false;
+    }
+
     // onchange menucb
     menucb.onchange = ( () => setTimeout(() => {
         if (menucb.checked) {
             !main_el || main_el.classList.add('blur');
+            !main_el || main_el.addEventListener('click', bodyClickHandler);
         } else {
             !main_el || main_el.classList.remove('blur');
+            !main_el || main_el.removeEventListener('click', bodyClickHandler);
         }
     }, 50) );
 
@@ -48,7 +56,7 @@ document.body.onload = ( () => {
     }));
 
     // if in large mode, check for sayer height 
-    console.log(window.innerWidth);
+    // console.log(window.innerWidth);
     if (window.innerWidth >= 1024) {
         // for every blockquote 
         document.querySelectorAll('blockquote').forEach( (el) => {
