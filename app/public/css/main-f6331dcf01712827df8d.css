@@ -617,10 +617,12 @@ main {
       align-items: center;
       height: 48px; }
     .topbar .menu-items .search {
+      z-index: 11;
       margin-right: auto;
       font-size: 1.4rem;
       padding-left: 1rem; }
     .topbar .menu-items .title {
+      z-index: 12;
       padding: 0 1rem;
       margin: auto;
       font-size: 18px;

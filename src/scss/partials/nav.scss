@@ -2,6 +2,7 @@
     position: fixed;
     width: 100%;
     height: $topbar-height;
+    z-index: 10;
     
     .menu-items {
         position: absolute;
@@ -32,6 +33,7 @@
         }
         
         .title {
+            z-index: 11;
             padding: 0 1rem;
             margin: auto;
             font-size: 18px;
@@ -58,6 +60,7 @@
                 // background: red;
     
                 .spinner-container {
+                    z-index: 12;
                     // background: blue;
                     transition: transform 600ms $ease-smooth;
     
@@ -65,6 +68,18 @@
                         // background: purple;
                         cursor: pointer;
                     }
+                }
+
+                .menu-backdrop {
+                    position: absolute;
+                    top: 0;
+                    right: 0;
+                    width: 100vw;
+                    height: 100vh;
+                    background-color: black;
+                    opacity: 0;
+                    visibility: hidden;
+                    transition: opacity 600ms $ease-smooth, visibility 600ms $ease-smooth;
                 }
                 
                 .menu-panel {
@@ -78,7 +93,7 @@
                     background-color: rgba(black, 0.9);
                     box-shadow: 0 2px 20px black;
                     transform: translateX(101%);
-                    transition: transform 600ms $ease-smooth;
+                    transition: transform 400ms $ease-smooth;
                     max-width: 320px;
                     width: 100vw;
             
@@ -115,6 +130,11 @@
                 .icon-ellipsis {
                     // background: green;
                 }
+            }
+
+            .menu-backdrop {
+                opacity: 0.5;
+                visibility: visible;
             }
 
             .menu-panel {

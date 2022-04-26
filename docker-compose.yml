@@ -11,8 +11,8 @@ services:
       MYSQL_USER: ${DB_USER}
       MYSQL_PASSWORD: ${DB_PASSWORD}
       MYSQL_RANDOM_ROOT_PASSWORD: "yes"
-    # volumes:
-      # - ./dockerfiles/db/initial.sql:/docker-entrypoint-initdb.d/db.sql
+    volumes:
+      - ./dockerfiles/db/topquote-nl-with-data.sql:/docker-entrypoint-initdb.d/db.sql
 
   php:
     build:

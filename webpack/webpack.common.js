@@ -8,7 +8,8 @@ module.exports = {
         'quotes': './src/js/quotes.js',
     },
     output: {
-        filename: 'js/[name].bundle.js',
+        // filename: 'js/[name].bundle.js',
+        filename: 'js/[name]-[hash].js',
         path: path.resolve( __dirname, '../app/public' )
     },
     module: {
@@ -51,8 +52,10 @@ module.exports = {
     },
     plugins: [
         new MiniCssExtractPlugin( {
-            filename: "css/[name].bundle.css",
-            chunkFilename: "css/[name][id].bundle.css"
+            // filename: "css/[name].bundle.css",
+            // chunkFilename: "css/[name][id].bundle.css"
+            filename: "css/[name]-[hash].css",
+            chunkFilename: "css/[name][id]-[hash].css"
         } ),
         new webpack.ProvidePlugin( {
         } ),

@@ -3,8 +3,8 @@
   "font/icomoon.ttf?iienk7": "font/icomoon.ttf",
   "font/icomoon.woff2?iienk7": "font/icomoon.woff2",
   "font/icomoon.woff?iienk7": "font/icomoon.woff",
-  "main.css": "css/main.bundle.css",
-  "main.js": "js/main.bundle.js",
-  "quotes.js": "js/quotes.bundle.js",
+  "main.css": "css/main-d390e7858ae434b9b9a0.css",
+  "main.js": "js/main-d390e7858ae434b9b9a0.js",
+  "quotes.js": "js/quotes-d390e7858ae434b9b9a0.js",
   "version": "0.1.0"
 }

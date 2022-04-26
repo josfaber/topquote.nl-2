@@ -35,6 +35,15 @@ a {
 main {
     padding-top: $topbar-height * 1.5;
     margin: 0 1em;
+    transition: 400ms filter linear;
+    -webkit-transition: 400ms -webkit-filter linear;
+    -moz-transition: 400ms -moz-filter linear;
+    -ms-transition: 400ms -ms-filter linear;
+    -o-transition: 400ms -o-filter linear;
+
+    &.blur {
+        filter: blur(3px);
+    }
 }
 
 .full-h {
