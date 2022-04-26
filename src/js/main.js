@@ -47,4 +47,18 @@ document.body.onload = ( () => {
         window.localStorage.setItem('topquote-color-num', c);
     }));
 
+    // if in large mode, check for sayer height 
+    console.log(window.innerWidth);
+    if (window.innerWidth >= 1024) {
+        // for every blockquote 
+        document.querySelectorAll('blockquote').forEach( (el) => {
+            let sayer_el = el.querySelector('.sayer');
+            let meta_el = el.querySelector('.meta');
+            if (!sayer_el || !meta_el) return;
+            let sayer_top = sayer_el.getBoundingClientRect().top;
+            let sayer_height = sayer_el.offsetHeight;
+            meta_el.style.top = `${4 + sayer_height}px`;
+        });
+    }
+
 } )();

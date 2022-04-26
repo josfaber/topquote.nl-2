@@ -90,9 +90,9 @@ function time_elapsed_string($datetime, $full = false) {
     $diff->d -= $diff->w * 7;
 
     $string = array(
-        'y' => ['jaar', 'jaren'],
-        'm' => ['maand', 'maanden'],
-        'w' => ['week', 'weken'],
+        'y' => ['jaar', 'jaar'],
+        'm' => ['maand', 'maand'],
+        'w' => ['week', 'week'],
         'd' => ['dag', 'dagen'],
         'h' => ['uur', 'uur'],
         'i' => ['minuut', 'minuten'],

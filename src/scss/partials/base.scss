@@ -81,5 +81,5 @@ main {
 }
 
 .full-h {
-    min-height: calc(100vh - #{$topbar-height} - #{$full-h-peak});
+    min-height: calc(100vh - #{1.5 * $topbar-height} - #{$full-h-peak});
 }
