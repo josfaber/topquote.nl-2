@@ -5,18 +5,24 @@ $black: #000000;
 $white: #ffffff;
 $dark-grey: #4d4d4d;
 $grey: #85858b;
-$lighter-grey: #ccc;
+$lighter-grey: #a7a7a7;
 $light-grey: #eee;
 
 $primary: #E5007C;
+
+$alt-color-1: #00c9d8;
+$alt-color-2: #07d490;
+$alt-color-3: #ffb900;
+$alt-color-4: #ad4dbb;
+$alt-color-5: #545353;
 
 
 /**
  * Sizes
  */
-$topbar-height: 48px;
+$topbar-height: 56px;
 $full-h-peak: 24px;
-
+$site-max-width: 1366px;
 
 /**
  * Type
@@ -24,6 +30,7 @@ $full-h-peak: 24px;
 $headingfont: "Fira Sans", Arial, Helvetica, sans-serif;
 $bodyfont: "Open Sans", Arial, Helvetica, sans-serif;
 
+$font-base: 16px;
 
 /**
  * Tweens

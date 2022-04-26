@@ -1,18 +1,34 @@
+.explainer {
+    padding: 1rem 0 3rem;
+    text-align: center;
+    
+    p {
+        font-size-adjust: 24px/$font-base * 1rem;
+        @include light45;
+        color: $white;
+
+        span.em {
+            @include medium65;
+        }
+    }
+}
+
 blockquote {
     // background: blue;
     width: 100%;
     
     .sayer {
-        font-size: 16px;
+        font-size: 1rem;
         @include medium65;
         margin-bottom: 0.5rem;
     }
     
     .quote {
-        font-size: 26px;
+        font-size: 26px/$font-base * 1rem;
         @include bold75;
-        line-height: 32px;
+        line-height: 32px/$font-base * 1rem;
         quotes: "“" "”" "‘" "’";
+        color: $white;
         
         &::before {
             content: open-quote;
@@ -26,8 +42,8 @@ blockquote {
     }
 
     .meta {
-        font-size: 12px;
-        line-height: 24px;
+        font-size: 12px/$font-base * 1rem;
+        line-height: 24px/$font-base * 1rem;
         display: flex;
         flex-wrap: wrap;
         justify-content: flex-end;

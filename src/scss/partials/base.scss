@@ -2,13 +2,33 @@
     margin:0; padding:0; 
 } 
 
+:root {
+    --primary-color: #{$primary};
+    --alt-color-0: #{$primary};
+    --alt-color-1: #{$alt-color-1};
+    --alt-color-2: #{$alt-color-2};
+    --alt-color-3: #{$alt-color-3};
+    --alt-color-4: #{$alt-color-4};
+    --alt-color-5: #{$alt-color-5};
+
+    --color-transition-time: 700ms;
+}
+
 html, body, form{
     // height: 100%;
 }
 
 html {
-    font-size: 16px;
+    font-size: $font-base;
     line-height: 1.4rem;
+
+    @media screen and (min-width: 540px) {
+        font-size: $font-base * 1.2;
+    }
+
+    @media screen and (min-width: 768px) {
+        font-size: $font-base * 1.4;
+    }
 }
 
 body {
@@ -16,14 +36,17 @@ body {
     padding: 0;
     margin: 0;
     background-color: $black;
-    color: $white;
+    // background-color: blue;
+    // color: $white;
+    color: $lighter-grey;
     
     font-family: neue-haas-grotesk-display, sans-serif;
     @include roman55;
 }
 
 a {
-    color: $primary;
+    color: var(--primary-color);
+    transition: color var(--color-transition-time) $ease-smooth;
     @include medium65;
     text-decoration: none;
 
@@ -33,16 +56,27 @@ a {
 }
 
 main {
-    padding-top: $topbar-height * 1.5;
-    margin: 0 1em;
-    transition: 400ms filter linear;
-    -webkit-transition: 400ms -webkit-filter linear;
-    -moz-transition: 400ms -moz-filter linear;
-    -ms-transition: 400ms -ms-filter linear;
-    -o-transition: 400ms -o-filter linear;
+    // padding-top: $topbar-height * 1.5;
+    padding: $topbar-height * 1.5 0.75rem 0;
+    margin: 0 auto;
+    transition: 400ms filter $ease-smooth;
+    -webkit-transition: 400ms -webkit-filter $ease-smooth;
+    -moz-transition: 400ms -moz-filter $ease-smooth;
+    -ms-transition: 400ms -ms-filter $ease-smooth;
+    -o-transition: 400ms -o-filter $ease-smooth;
+    max-width: $site-max-width;
+    // background-color: $black;
 
     &.blur {
-        filter: blur(3px);
+        filter: blur(3px) brightness(0.6);
+    }
+
+    @media screen and (min-width: 540px) {
+        padding: $topbar-height * 1.5 1rem 0;
+    }
+
+    @media screen and (min-width: 768px) {
+        padding: $topbar-height * 1.5 1.2rem 0;
     }
 }
 

@@ -25,17 +25,6 @@ $order = $f3->get('GET.o') ?? $dataproxy::$ORDER_DESC;
 $page = $f3->get('GET.p') ?? 1;
 
 // Routes
-$f3->route('GET /', 						'Controller\Home->index');
-
-$f3->route('GET /quotes', 					'Controller\Quotes->index');
-$f3->route('GET /quotes/@filter/@slug', 	'Controller\Quotes->@filter');
-$f3->route('GET /quote/@slug', 				'Controller\Quote->detail');
-
-$f3->route('GET /add', 						'Controller\Quote->add');
-$f3->route('POST /add', 					'Controller\Quote->store');
-
-$f3->route('GET /import',  					'Controller\Dev->import');
-
-$f3->route('POST /api/quotes [ajax]',		'Controller\Api->quotes');
+require FW_DIR . '/routes.php';
 
 $f3->run();

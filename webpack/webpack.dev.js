@@ -48,7 +48,6 @@ module.exports = merge( common, {
                 path.resolve( __dirname, '../app/**/*.js' ),
                 path.resolve( __dirname, '../app/**/*.php' ),
                 path.resolve( __dirname, '../app/**/*.html' ),
-                path.resolve( __dirname, '../app/**/*.twig' ),
             ],
             proxy: 'http://192.168.2.108/',
             open: false,

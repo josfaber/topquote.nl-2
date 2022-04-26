@@ -30,7 +30,10 @@ class Quote {
 	}
 
 	function add(\Base $f3, $params) {
-		!d( "Add Quote.");
+		// !d( "Add Quote.");
+
+		render_template('add.html', [
+		]);
 	}
 
 }

@@ -5,13 +5,17 @@
         <div class="menu">
             <input type="checkbox" class="menu-cb" id="menucb">
             <label for="menucb">
-                <div class="menu-backdrop"></div>
                 <div class="menu-panel">
                     <ul>
                         <li><a href="{{ tqd.site_url }}/quotes"><span class="icon-clock"></span>Nieuwste</a></li>
                         <li><a href="{{ tqd.site_url }}/quotes?ob=likes"><span class="icon-heart1"></span>Meeste&nbsp;likes</a></li>
                         <li><a href="{{ tqd.site_url }}/add"><span class="icon-plus"></span>Toevoegen</a></li>
                         <li><a href="http://eepurl.com/hm_WEr" target="_blank" rel="noopener"><span class="icon-mail"></span>Mailinglijst</a></li>
+                        <li class="clrs">
+                            {% for i in 0..5 %}
+                            <div class="clr c-{{ i }}{% if i == 0 %} active{% endif %}" data-c="{{ i }}"></div>
+                            {% endfor %}
+                        </li>
                     </ul>
                 </div>
                 <div class="spinner-container"><span class="icon-ellipsis"></span></div>

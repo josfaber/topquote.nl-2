@@ -7,10 +7,9 @@
 {% endblock %}
 {% block content %}
 
-{# {% for param in params %}
-    {{ param }} : {{ params[param] }}
-
-{% endfor %} #}
+<section class="explainer">
+    <p>{{ list_title|raw }}</p>
+</section>
 
 <section id="quotes_list" class="quotes-list">
 {% for quote in quotes %}
