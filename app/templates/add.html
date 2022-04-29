@@ -60,16 +60,16 @@
         {% endif %}
         <fieldset class="submit">
             <button>Opslaan</button>
+            {% if not edit %}
+                <p class="disclaimer">Dit formulier wordt beschermd door reCAPTCHA en Google’s <a target="_blank"
+                rel="noopener norererer" href="https://policies.google.com/privacy">Privacybeleid</a> en <a target="_blank"
+                rel="noopener norererer" href="https://policies.google.com/terms">Servicevoorwaarden</a> zijn van
+                toepassing.</p>
+            {% endif %}
             <!---->
         </fieldset>
         <input type="hidden" name="rtoken" id="rtoken">
         <!---->
-        {% if not edit %}
-        <p class="disclaimer">Dit formulier wordt beschermd door reCAPTCHA en Google’s <a target="_blank"
-                rel="noopener norererer" href="https://policies.google.com/privacy">Privacybeleid</a> en <a target="_blank"
-                rel="noopener norererer" href="https://policies.google.com/terms">Servicevoorwaarden</a> zijn van
-            toepassing.</p>
-        {% endif %}
         <!---->
         {% if edit %}
         <fieldset>

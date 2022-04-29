@@ -393,6 +393,9 @@ a {
   a:hover {
     text-decoration: underline; }
 
+.disclaimer a {
+  color: #85858b; }
+
 main {
   padding: 84px 0.75rem 0;
   margin: 0 auto;
@@ -499,6 +502,18 @@ fieldset {
   border: 0;
   padding: 0.35em 0.5em 0.625em;
   box-sizing: border-box; }
+  fieldset.submit button {
+    margin-top: 1rem; }
+
+.add-form .cols {
+  display: -webkit-box;
+  display: -ms-flexbox;
+  display: flex;
+  -webkit-box-pack: justify;
+  -ms-flex-pack: justify;
+  justify-content: space-between; }
+  .add-form .cols fieldset {
+    flex: 1; }
 
 .add-form .label-group {
   display: flex;
@@ -528,7 +543,7 @@ fieldset {
   margin: 0; }
 
 .add-form .disclaimer {
-  font-size: 0.8rem;
+  font-size: 0.7rem;
   line-height: 1.2;
   margin: 0.3rem 0;
   font-weight: 400; }
@@ -635,21 +650,23 @@ a.delete {
           align-items: center;
           background-color: rgba(0, 0, 0, 0.7);
           box-shadow: 0 2px 20px black;
-          transform: translateY(-20%);
+          pointer-events: none;
           transition: transform 400ms cubic-bezier(0.175, 0.885, 0.32, 1.275), opacity 600ms cubic-bezier(0.23, 1, 0.32, 1), visibility 600ms cubic-bezier(0.23, 1, 0.32, 1);
+          transform: translateY(-20%);
           opacity: 0;
-          visibility: hidden;
-          width: 320px;
-          pointer-events: none; }
+          visibility: hidden; }
           .topbar .menu-items .menu label .menu-panel ul,
           .topbar .menu-items .menu label .menu-panel li {
-            width: 100%;
             list-style: none; }
           .topbar .menu-items .menu label .menu-panel ul {
-            margin: 0; }
+            margin: 0;
+            display: flex;
+            flex-direction: column;
+            align-items: center; }
+          .topbar .menu-items .menu label .menu-panel li {
+            box-sizing: border-box;
+            padding: 0.4rem 0.5rem; }
           .topbar .menu-items .menu label .menu-panel li a {
-            display: block;
-            padding: 1rem 3em;
             max-width: 320px;
             font-weight: 500;
             font-size: 1.125rem; }
@@ -671,7 +688,12 @@ a.delete {
         width: 26px;
         height: 26px;
         border-radius: 50%;
-        cursor: pointer; }
+        cursor: pointer;
+        margin: 0 0.4rem; }
+        @media screen and (max-width: 540px) {
+          .topbar .menu-items .clrs .clr {
+            width: 24px;
+            height: 24px; } }
         .topbar .menu-items .clrs .clr:first-child {
           margin-left: 2rem; }
         .topbar .menu-items .clrs .clr:last-child {

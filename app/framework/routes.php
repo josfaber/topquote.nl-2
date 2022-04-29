@@ -9,6 +9,9 @@ $f3->route('GET /quote/@slug', 				'Controller\Quote->detail');
 $f3->route('GET /add', 						'Controller\Quote->add');
 $f3->route('POST /add', 					'Controller\Quote->store');
 
+$f3->route('GET /feedback',					'Controller\Tools->feedback');
+$f3->route('POST /feedback',				'Controller\Tools->save_feedback');
+
 $f3->route('GET /mod', 						'Controller\Quote->edit');
 $f3->route('POST /mod', 					'Controller\Quote->update');
 

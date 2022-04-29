@@ -67,6 +67,10 @@ a {
     }
 }
 
+.disclaimer a {
+    color: $grey;
+}
+
 main {
     // padding-top: $topbar-height * 1.5;
     padding: $topbar-height * 1.5 0.75rem 0;
@@ -205,9 +209,27 @@ fieldset {
     border: 0;
     padding: 0.35em 0.5em 0.625em;
     box-sizing: border-box;
+
+    &.submit button {
+        margin-top: 1rem;
+    }
 }
 
 .add-form {
+    .cols {
+        display: -webkit-box;
+        display: -ms-flexbox;
+        display: flex;
+        -webkit-box-pack: justify;
+        -ms-flex-pack: justify;
+        justify-content: space-between;
+
+        fieldset {
+            flex: 1;
+
+        }
+    }
+
     .label-group {
         display: flex;
         justify-content: space-between;
@@ -242,7 +264,7 @@ fieldset {
     }
 
     .disclaimer {
-        font-size: 0.8rem;
+        font-size: 0.7rem;
         line-height: 1.2;
         margin: 0.3rem 0;
         @include light45;

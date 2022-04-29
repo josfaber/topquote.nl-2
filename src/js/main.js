@@ -1,5 +1,7 @@
 import '../scss/styles.scss';
 
+import Cookies from 'js-cookie'
+
 const updateColor = (c) => {
     // set doc's primary color
     let altClr = getComputedStyle(document.documentElement).getPropertyValue(`--alt-color-${c}`);
@@ -83,14 +85,41 @@ document.body.onload = ( () => {
         });
     }
 
+    // handle feedback form 
+    const feedbackForm = document.getElementById('feedbackForm');
+    if (feedbackForm) {
+        const f_email = document.getElementById('f_email');
+        !f_email || (f_email.value = Cookies.get('topquote-email') || "");
+        const f_from = document.getElementById('f_from');
+        !f_from || (f_from.value = Cookies.get('topquote-from') || "");
+        
+        feedbackForm.addEventListener('submit', (e) => {
+            e.preventDefault();
+            grecaptcha.ready(function() {
+              grecaptcha.execute(window.tqd.rsk, {action: 'submit'}).then((token) => {
+                  document.getElementById('rtoken').value = token;
+                  if (f_email) Cookies.set('topquote-email', f_email.value, { expires: 365 });
+                  if (f_from) Cookies.set('topquote-from', f_from.value, { expires: 365 });
+                  e.target.submit();
+              });
+            });
+        });
+    }
+
     // handle add form 
     const addForm = document.getElementById('addForm');
     if (addForm) {
+        const f_email = document.getElementById('f_email');
+        !f_email || (f_email.value = Cookies.get('topquote-email') || "");
+        const f_from = document.getElementById('f_from');
+        !f_from || (f_from.value = Cookies.get('topquote-from') || "");
         addForm.addEventListener('submit', (e) => {
             e.preventDefault();
             grecaptcha.ready(function() {
               grecaptcha.execute(window.tqd.rsk, {action: 'submit'}).then((token) => {
                   document.getElementById('rtoken').value = token;
+                  if (f_email) Cookies.set('topquote-email', f_email.value, { expires: 365 });
+                  if (f_from) Cookies.set('topquote-from', f_from.value, { expires: 365 });
                   e.target.submit();
               });
             });

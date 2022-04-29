@@ -1,0 +1,49 @@
+{% extends "base.html" %}
+
+{% block title %}Feedback{% endblock %}
+{% block head %}
+{{ parent() }}
+{% endblock %}
+{% block content %}
+
+<div class="readable">
+    <form id="feedbackForm" method="post" class="add-form">
+        <fieldset>
+            <legend>Feedback</legend>
+            <div class="label-group">
+                <label for="message">Bericht</label>
+            </div>
+            <div class="v"><textarea required name="message" rows="3" id="message">{{ message }}</textarea></div>
+        </fieldset>
+        <div class="cols">
+            <fieldset>
+                <div class="label-group">
+                    <label for="from">Afzender</label>
+                </div>  
+                <div class="v"><input required type="text" name="from" id="f_from" value="{{ from }}"></div>
+            </fieldset>
+            <fieldset><label for="email">E-mailadres</label>
+                <div class="v"><input required type="email" name="email" id="f_email" value="{{ email }}"></div>
+            </fieldset>
+        </div>
+        <fieldset class="submit">
+            <button>Versturen</button>
+            <p class="disclaimer">Dit formulier wordt beschermd door reCAPTCHA en Google’s <a target="_blank"
+                    rel="noopener norererer" href="https://policies.google.com/privacy">Privacybeleid</a> en <a target="_blank"
+                    rel="noopener norererer" href="https://policies.google.com/terms">Servicevoorwaarden</a> zijn van
+                toepassing.</p>
+            <!---->
+        </fieldset>
+        <input type="hidden" name="rtoken" id="rtoken">
+        <!---->
+        <!---->
+
+    </form>
+</div>
+
+{% endblock %}
+
+{% block scripts %}
+<script src="https://www.google.com/recaptcha/api.js?render={{ RECAPTCHA_SITE_KEY }}"></script>
+{{ parent() }}
+{% endblock %}
