@@ -21,6 +21,7 @@ class Quotes {
 		// render
 		render_template('quotes.html', [
 			"list_title" => "Alle uitspraken",
+			"list_url" => site_url('quotes'),
 			"quotes" => $quotes["results"],
 		], [], [site_url($assets_manifest["quotes.js"])]);
 	}
@@ -41,6 +42,7 @@ class Quotes {
 		
 		render_template('quotes.html', [
 			"list_title" => "Alle uitspraken van <span class=\"em\">{$quotes["results"][0]["sayer"]}</span>",
+			"list_url" => site_url('quotes/by/' . $params["slug"]),
 			"quotes" => $quotes["results"],
 		], [], [site_url($assets_manifest["quotes.js"])]);
 	}
@@ -61,6 +63,7 @@ class Quotes {
 
 		render_template('quotes.html', [
 			"list_title" => "Alle uitspraken opgeslagen door <span class=\"em\">{$quotes["results"][0]["submitter"]}</span>",
+			"list_url" => site_url('quotes/from/' . $params["slug"]),
 			"quotes" => $quotes["results"],
 		], [], [site_url($assets_manifest["quotes.js"])]);
 	}
@@ -81,6 +84,7 @@ class Quotes {
 
 		render_template('quotes.html', [
 			"list_title" => "Alle uitspraken met tag <span class=\"em\">{$params["slug"]}</span>",
+			"list_url" => site_url('quotes/tag/' . $params["slug"]),
 			"quotes" => $quotes["results"],
 		], [], [site_url($assets_manifest["quotes.js"])]);
 	}

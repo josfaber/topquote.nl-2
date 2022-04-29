@@ -3,7 +3,11 @@
 {% block title %}Voeg nieuwe quote toe{% endblock %}
 {% block head %}
 {{ parent() }}
-
+<meta property="og:title" content="{{ site_title }}" />
+<meta property="og:url" content="{{ tqd.site_url }}/add" />
+<meta property="og:type" content="website" />
+<meta name="description" content="Sla alle quotes, citaten en uitspraken van je collega s, kinderen, vrienden en (on)bekenden op zonder account">
+<meta property="og:description" content="Sla alle quotes, citaten en uitspraken van je collega s, kinderen, vrienden en (on)bekenden op zonder account" />
 {% endblock %}
 {% block content %}
 

@@ -1,4 +1,13 @@
-body.home h1 {
+#home_title_bg {
+    visibility: hidden;
+    
+    &.fixed {
+        position: fixed;
+    }
+}
+
+body.home h1,
+body.home h2{
     position: relative;
     width: 100%;
     box-sizing: border-box;
@@ -6,6 +15,17 @@ body.home h1 {
     color: var(--primary-color);
     font-size: 3rem;
     margin: 1rem 0 4rem;
+    z-index: 50;
+
+    &.fixed {
+        position: fixed;
+        top: 0;
+        left: 50%;
+        transform: translateX(-50%);
+        font-size: 1.125rem;
+        margin: 14px 0;
+        width: 80%;
+    }
 
     @media screen and (min-width: 540px) {
         font-size: 3.6rem;
@@ -23,30 +43,22 @@ body.home h1 {
     }
 
     // &::before {
-    //     font-family: 'icomoon' !important;
-    //     speak: never;
-    //     font-style: normal;
-    //     font-weight: normal;
-    //     font-variant: normal;
-    //     text-transform: none;
-    //     line-height: 1;
-    //     -webkit-font-smoothing: antialiased;
-    //     -moz-osx-font-smoothing: grayscale;
-    //     content: "\e901";
-    //     font-size: 1.2rem;
-    //     @include medium65;
-    //     color: $dark-grey;
     //     position: absolute;
-    //     bottom: 1rem;
-    //     left: 50%;
-    //     transform: translateX(-7.2rem);
+    //     top: 50%;
+    //     left: 0;
+    //     width: 100%;
+    //     height: 4px;
+    //     background-color: $black;
+    //     transform: rotate(-2deg);
+    //     z-index: 10;
+    //     content:"";
     // }
     
     &::after {
         content:".nl";
-        font-size: 1rem;
+        font-size: 1.125rem;
         @include medium65;
-        margin-left: -0.2rem;
+        // margin-left: -0.2rem;
         // @include roman55;
         // @include light45;
         // color: $grey;
@@ -55,10 +67,17 @@ body.home h1 {
 }
 
 body.home nav .title {
-    opacity: 0;
-    transition: opacity var(--color-transition-time) $ease-smooth;
+    // opacity: 0;
+    // transition: opacity var(--color-transition-time) $ease-smooth;
 
-    &.active {
-        opacity: 1;
+    // &.active {
+    //     opacity: 1;
+    // }
+    visibility: hidden;
+}
+
+body.home a.h1 {
+    &:hover {
+        text-decoration: none;
     }
 }

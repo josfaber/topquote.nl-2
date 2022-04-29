@@ -14,3 +14,6 @@ define("QUOTES_PER_PAGE",		48);
 define("MAILCHIMP_URL",			getenv("MAILCHIMP_URL"));
 define("RECAPTCHA_SITE_KEY",	getenv("RECAPTCHA_SITE_KEY"));
 define("RECAPTCHA_SECRET_KEY",	getenv("RECAPTCHA_SECRET_KEY"));
+
+define("SITE_TITLE",			'topquote');
+define("SITE_DESCRIPTION",		'Hilarische, ontroerende en betekenisvolle quotes, citaten en uitspraken van je collega s, kinderen, vrienden en (on)bekenden.');

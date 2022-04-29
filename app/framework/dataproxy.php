@@ -96,8 +96,10 @@ class DataProxy
 		$key_post = ($by ?? "") . '-' . ($from ?? "") . '-' . ($tag ?? "") . '-' . ($orderby ?? "") . '-' . ($order ?? "") . '-' . ($quotes_per_page ?? "") . '-' . ($page ?? "") . '-' . ($AND ?? "");
 		// !d($key_post, md5($key_post));
 		$cache_key = 'quotes_' . md5($key_post);
-		$cache_time = 60 * 5;
+		$cache_time = $orderby == self::$ORDER_RANDOM ? 30 : 60 * 5;
+
 		if ($results = $this->from_cache($cache_key)) { 
+			// !d("redis");
 			return [ "results" => json_decode($results, true) ];
 		}
 
@@ -125,17 +127,17 @@ class DataProxy
 		$LIMIT = "LIMIT {$offset_base}, {$quotes_per_page}";
 
 		switch ($orderby) {
-			case self::$ORDER_CREATED:
-			default:
-				$ORDER = "ORDER BY created {$order}";
-				break;
-
 			case self::$ORDER_LIKES:
 				$ORDER = "ORDER BY likes {$order}";
 				break;
 
 			case self::$ORDER_RANDOM:
 				$ORDER = "ORDER BY RAND()";
+				break;
+
+			case self::$ORDER_CREATED:
+			default:
+				$ORDER = "ORDER BY created {$order}";
 				break;
 		}
 
@@ -147,6 +149,8 @@ class DataProxy
 			{$ORDER}
 			{$LIMIT}
 		";
+
+		// !d($key_post, $sql);
 
 		$results = $this->db->exec($sql, $bounds);
 

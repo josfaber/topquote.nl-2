@@ -3,11 +3,16 @@
 {% block title %}Home{% endblock %}
 {% block head %}
     {{ parent() }}
-    
+    <meta property="og:title" content="{{ site_title }}" />
+    <meta property="og:url" content="{{ tqd.site_url }}" />
+    <meta property="og:type" content="website" />
+    <meta name="description" content="{{ site_description }}">
+    <meta property="og:description" content="{{ site_description }}" />
 {% endblock %}
 
 {% block content %}
-<h1>topquote</h1>
+<h2 id="home_title_bg" class="fixed">topquote</h2>
+<a class="h1" href="{{ site_url }}"><h1 id="home_title">topquote</h1></a>
 
 <section id="quotes_list" class="quotes-list">
 

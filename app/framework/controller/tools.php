@@ -12,6 +12,16 @@ class Tools {
 		$this->rank_submitters($f3, $params);
 	}
 
+	function clear_cache(\Base $f3, $params) {
+		try {
+			$redis = new \Redis();
+			$redis->connect('cache', 6379);
+			$redis->flushDB();
+		} catch (\Exception $e) {
+			error_log($e->getMessage());
+		}
+	}
+
 	function rank_tags(\Base $f3, $params) {
 
 		$db = new \DB\SQL( 'mysql:host=' . DB_HOST . ';port=3306;dbname=' . DB_NAME, DB_USER, DB_PASSWORD );

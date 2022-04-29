@@ -31,6 +31,10 @@ const scaleDownQuote = (el, fontSizeRem = 3.6, minFontSizeRem = 1) => {
     if (elHeight > minFontSizeRem && elHeight > 0.8 * winHeight) scaleDownQuote(el, fontSizeRem - 0.1, minFontSizeRem);
 };
 
+const normalize = (value, minimum, maximum) => { return (value - minimum) / (maximum - minimum); }
+const interpolate = (normValue, minimum, maximum) => { return minimum + (maximum - minimum) * normValue; }    
+const map = (value, min1, max1, min2, max2) => { return interpolate( normalize(value, min1, max1), min2, max2); } 
+
 /**
  * On body ready
  */
@@ -99,13 +103,31 @@ document.body.onload = ( () => {
     }
     // hide title on home no scroll 
     if (document.body.classList.contains("home")) {
-        const title_el = document.getElementById('title');
+        
+        const title_bg_el = document.getElementById('home_title_bg');
+        const title_el = document.getElementById('home_title');
+        const root_font_size = parseFloat(window.getComputedStyle(document.documentElement).fontSize);
+        const title_el_margin = parseFloat(window.getComputedStyle(title_el).marginTop);
+        const max_title_size_rem = parseFloat(window.getComputedStyle(title_el).fontSize) / root_font_size;
+        const topbar_height = parseFloat(window.getComputedStyle(document.getElementById('topbar')).height);
+        const travel_distance = topbar_height + title_el_margin + 13;
+        console.log(travel_distance);
+        
+        let fontSize = max_title_size_rem;
         window.onscroll = ( () => {
             let scrollPos = window.pageYOffset;
-            if (scrollPos > 160 && !title_el.classList.contains('active')) {
-                title_el.classList.add('active');
-            } else if (scrollPos <= 160 && title_el.classList.contains('active')) {
-                title_el.classList.remove('active');
+            // console.log(scrollPos);
+            fontSize = map(Math.min(travel_distance, scrollPos), 0, travel_distance, max_title_size_rem, 1.125);
+            title_bg_el.style.fontSize = `${fontSize}rem`;
+            title_el.style.fontSize = `${fontSize}rem`;
+            if (scrollPos > 0.2 * travel_distance) {
+                if (scrollPos > travel_distance && !title_el.classList.contains('fixed')) {
+                    title_bg_el.classList.remove('fixed');
+                    title_el.classList.add('fixed');
+                } else if (scrollPos <= travel_distance && title_el.classList.contains('fixed')) {
+                    title_bg_el.classList.add('fixed');
+                    title_el.classList.remove('fixed');
+                }
             }
         } );
     }

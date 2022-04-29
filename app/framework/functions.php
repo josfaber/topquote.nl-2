@@ -40,6 +40,8 @@ function get_defaults_array() {
 			"qpp"			=> QUOTES_PER_PAGE,
 		],
 		"website_schema" => get_website_schema(),
+        "site_title" => SITE_TITLE,
+        "site_description" => SITE_DESCRIPTION,
 	];
 }
 

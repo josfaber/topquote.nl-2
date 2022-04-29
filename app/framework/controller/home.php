@@ -6,6 +6,7 @@ class Home {
 	function index(\Base $f3, $params) {
 		
 		global $dataproxy;
+		// !d($dataproxy::$ORDER_RANDOM);
 		$random_quote = $dataproxy->get_quotes(null, null, null, $dataproxy::$ORDER_RANDOM, null, 1)["results"][0];
 		
 		$said_last_week = $dataproxy->get_quotes(null, null, null, $dataproxy::$ORDER_RANDOM, null, 1, 1, "
