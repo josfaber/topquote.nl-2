@@ -29,6 +29,7 @@
             height: $topbar-height;
             // background: green;
             z-index: 20;
+            cursor: pointer;
         }
         
         .search {
@@ -93,6 +94,7 @@
                     transition: transform 400ms $ease-bounce, opacity 600ms $ease-smooth, visibility 600ms $ease-smooth;
                     opacity: 0;
                     visibility: hidden;
+                    width: 320px;
                     // max-width: 320px;
                     // width: 100vw;
                     pointer-events: none;
@@ -173,6 +175,7 @@
                 &.c-3 { background-color: $alt-color-3; }
                 &.c-4 { background-color: $alt-color-4; }
                 &.c-5 { background-color: $alt-color-5; }
+                &.c-6 { background-color: $alt-color-6; }
 
                 &.active {
                     border: 2px solid $white;

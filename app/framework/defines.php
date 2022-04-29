@@ -17,3 +17,11 @@ define("RECAPTCHA_SECRET_KEY",	getenv("RECAPTCHA_SECRET_KEY"));
 
 define("SITE_TITLE",			'topquote');
 define("SITE_DESCRIPTION",		'Hilarische, ontroerende en betekenisvolle quotes, citaten en uitspraken van je collega s, kinderen, vrienden en (on)bekenden.');
+
+define("SMTP_HOST",				getenv("SMTP_HOST"));
+define("SMTP_USER",				getenv("SMTP_USER"));
+define("SMTP_PASS",				getenv("SMTP_PASS"));
+define("SMTP_SECURE",			getenv("SMTP_SECURE"));
+define("SMTP_PORT",				getenv("SMTP_PORT"));
+
+define("FROM_EMAIL",			getenv("FROM_EMAIL"));

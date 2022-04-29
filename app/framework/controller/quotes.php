@@ -89,4 +89,24 @@ class Quotes {
 		], [], [site_url($assets_manifest["quotes.js"])]);
 	}
 
+
+	/** 
+	 * Search quotes
+	 */
+	function search(\Base $f3, $params) {
+		global $assets_manifest;
+		global $dataproxy;
+
+		// get quotes
+		$quotes = $dataproxy->search_quotes($params["terms"]);
+		// !d($params);
+
+		render_template('quotes.html', [
+			"is_search" => true,
+			"list_title" => "Alle uitspraken met <span class=\"em\">{$params["terms"]}</span>",
+			"list_url" => site_url('quotes/search/' . $params["terms"]),
+			"quotes" => $quotes ? $quotes["results"] : [],
+		], [], [site_url($assets_manifest["quotes.js"])]);
+	}
+
 }

@@ -32,7 +32,7 @@ services:
       dockerfile: dockerfiles/php/Dockerfile
     volumes:
       - './app:/var/www'
-    container_name: prototype_php
+    container_name: topquote-php
     restart: on-failure
     env_file:
       - .env
@@ -43,7 +43,7 @@ services:
     build:
       context: .
       dockerfile: dockerfiles/nginx/Dockerfile
-    container_name: prototype_nginx
+    container_name: topquote-nginx
     restart: on-failure
     volumes:
       - './app:/var/www'
@@ -56,7 +56,7 @@ services:
 
   phpmyadmin:
     image: phpmyadmin/phpmyadmin
-    container_name: prototype_phpmyadmin
+    container_name: topquote-phpmyadmin
     environment:
       - PMA_ARBITRARY=1
       - PMA_HOST=${DB_HOST}

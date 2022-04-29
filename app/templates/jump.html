@@ -1,0 +1,22 @@
+{% extends "base.html" %}
+
+{% block title %}Opgeslagen{% endblock %}
+{% block head %}
+{{ parent() }}
+
+{% endblock %}
+{% block content %}
+
+<div class="readable">
+    {{ message }}
+    <br>
+    <a href="{{ jump_url }}">{{ jump_url_text }}</a>
+</div>
+
+<script>
+    setTimeout(function () {
+        window.location.href = "{{ jump_url }}";
+    }, 2000);
+</script>
+
+{% endblock %}

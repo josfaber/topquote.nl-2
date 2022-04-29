@@ -2,6 +2,8 @@
 
 namespace TopQuote;
 
+use PHPMailer\PHPMailer\PHPMailer;
+use PHPMailer\PHPMailer\Exception;
 class DataProxy
 {
 
@@ -44,11 +46,25 @@ class DataProxy
 		}
 	}
 
-	public function get_quote($id)
+	private function del_cache($key)
+	{
+		try {
+			$this->redis->del($key);
+		} catch (\Exception $e) {
+			error_log($e->getMessage());
+		}
+	}
+
+	public function removeQuoteFromCache($quote) {
+		$this->del_cache('quote_' . $quote->id);
+		$this->del_cache('quote_' . md5($quote->slug));
+	}
+
+	public function get_quote($id, $bypass_cache = false)
 	{
 		$cache_key = 'quote_' . $id;
 		$cache_time = 60 * 60;
-		if ($quote = $this->from_cache($cache_key)) { return json_decode($quote, true); }
+		if (!$bypass_cache && $quote = $this->from_cache($cache_key)) { return json_decode($quote, true); }
 
 		$results = $this->db->exec("
 			SELECT * 
@@ -65,6 +81,22 @@ class DataProxy
 		$this->to_cache($cache_key, json_encode($quote), $cache_time);
 
 		return $quote;
+	}
+
+	public function get_quote_owner($quote_id, $modkey) {
+		$results = $this->db->exec("
+			SELECT * 
+			FROM quote_owner 
+			WHERE quote_id = ? 
+			AND modkey = ? 
+			LIMIT 1
+		", [$quote_id, $modkey]);
+
+		if (!$results || $this->db->count() == 0) {
+			return false;
+		}
+
+		return $results;
 	}
 
 	public function get_quote_by_slug($slug)
@@ -153,6 +185,53 @@ class DataProxy
 		// !d($key_post, $sql);
 
 		$results = $this->db->exec($sql, $bounds);
+
+		if (!$results || $this->db->count() == 0) {
+			return false;
+		}
+
+		$results = array_map(array($this, 'hydrate_quote'), $results);
+		$this->to_cache($cache_key, json_encode($results), $cache_time);
+
+		return [
+			"results" => $results
+		];
+	}
+
+	// public function search_quotes($terms = "", $quotes_per_page = QUOTES_PER_PAGE, $page = 1)
+	public function search_quotes($terms = "")
+	{
+		// $key_post = ($terms ?? "") . '-' . ($quotes_per_page ?? "") . '-' . ($page ?? "");
+		$key_post = ($terms ?? "");
+		// !d($key_post, md5($key_post));
+		$cache_key = 'search_' . md5($key_post);
+		$cache_time = 60 * 10;
+
+		if ($results = $this->from_cache($cache_key)) { 
+			// !d("redis");
+			return [ "results" => json_decode($results, true) ];
+		}
+
+		// $offset_base = ($page - 1) * $quotes_per_page;
+
+		// $LIMIT = "LIMIT {$offset_base}, {$quotes_per_page}";
+		$LIMIT = " LIMIT 400 ";
+
+		$termsAsTags = tagify($terms);
+
+		$sql = "
+			SELECT *, MATCH (quote_lc,sayer_lc,submitter_lc,tags_lc) AGAINST (:terms IN NATURAL LANGUAGE MODE) AS score 
+			FROM quotes 
+			WHERE 1 = 2 
+			OR MATCH (quote_lc,sayer_lc,submitter_lc,tags_lc) AGAINST (:terms IN NATURAL LANGUAGE MODE) 
+			OR MATCH (quote_lc,sayer_lc,submitter_lc,tags_lc) AGAINST (:tags IN NATURAL LANGUAGE MODE) 
+			ORDER BY score DESC
+			{$LIMIT}  
+		";
+		
+		$results = $this->db->exec($sql, [":terms" => $terms, ":tags" => $termsAsTags]);
+
+		// !d($sql, $terms, $results, $this->db->count());
 
 		if (!$results || $this->db->count() == 0) {
 			return false;
@@ -287,5 +366,19 @@ class DataProxy
 		$this->to_cache($cache_key, json_encode($results), $cache_time);
 
 		return $results; 
+	}
+
+	public function get_mailer() {
+		$mailer = new PHPMailer();
+		$mailer->isSMTP();
+		$mailer->Host = SMTP_HOST;
+		$mailer->SMTPAuth = true;
+		$mailer->Username = SMTP_USER;
+		$mailer->Password = SMTP_PASS;
+		$mailer->SMTPSecure = SMTP_SECURE;
+		$mailer->SMTPKeepAlive = true;
+		$mailer->Port = SMTP_PORT;
+		$mailer->setFrom(FROM_EMAIL, 'topquote');
+		return $mailer;
 	}
 }

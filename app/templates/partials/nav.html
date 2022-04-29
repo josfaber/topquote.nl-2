@@ -1,6 +1,6 @@
 <div id="topbar" class="topbar">
     <div class="menu-items">
-        <div class="search"><span class="icon-search"></span></div>
+        <div id="btnSearch" class="search"><span class="icon-search"></span></div>
         <div id="title" class="title"><a href="{{ tqd.site_url }}">topquote.nl</a></div>
         <div class="menu">
             <input type="checkbox" class="menu-cb" id="menucb">
@@ -12,7 +12,7 @@
                         <li><a href="{{ tqd.site_url }}/add"><span class="icon-plus"></span>Toevoegen</a></li>
                         <li><a href="http://eepurl.com/hm_WEr" target="_blank" rel="noopener"><span class="icon-mail"></span>Mailinglijst</a></li>
                         <li class="clrs">
-                            {% for i in 0..5 %}
+                            {% for i in 0..6 %}
                             <div class="clr c-{{ i }}{% if i == 0 %} active{% endif %}" data-c="{{ i }}"></div>
                             {% endfor %}
                         </li>

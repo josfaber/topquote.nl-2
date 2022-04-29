@@ -97,6 +97,46 @@ document.body.onload = ( () => {
         });
     }
 
+    // handle delete on editForm
+    const btnDelete = document.getElementById('btnDelete');
+    if (btnDelete) {
+        btnDelete.addEventListener('click', (e) => {
+            e.preventDefault();
+            if (confirm("Weet je zeker dat je de quote wilt verwijderen?")) {
+                document.getElementById('f_is_delete').value = 1;
+                document.getElementById('editForm').submit();
+            }
+        });
+    }
+
+    // search 
+    const btn_search = document.getElementById('btnSearch');
+    btn_search.addEventListener('click', (e) => {
+        e.preventDefault();
+        const terms_container = document.getElementById('terms-container');
+        const terms_input = document.getElementById('terms');
+        const keyHandler = (e) => {
+            console.log(e.keyCode);
+            if (e.keyCode === 13) { // enter
+                const terms = document.getElementById('terms');
+                !terms || (window.location.href = tqd.site_url + '/quotes/search/' + encodeURIComponent(terms.value));
+            } else if (e.keyCode === 27) { // esc
+                terms_input.value = '';
+                terms_input.removeEventListener('keyup', keyHandler);
+                terms_container.classList.remove('active');
+            }
+        }
+        if (!terms_container.classList.contains('active')) {
+            terms_container.classList.add('active');
+            terms_input.addEventListener('keyup', keyHandler);
+            terms_input.focus();
+        } else {
+            terms_container.classList.remove('active');
+            terms_input.removeEventListener('keyup', keyHandler);
+            terms_input.value = '';
+        }
+    });
+
     // single quote
     if (document.body.classList.contains("single-quote")) {
         scaleDownQuote(document.querySelector('blockquote .quote'));

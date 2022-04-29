@@ -35,6 +35,7 @@ return array(
     'Prefab' => $vendorDir . '/bcosca/fatfree-core/base.php',
     'Preview' => $vendorDir . '/bcosca/fatfree-core/base.php',
     'Registry' => $vendorDir . '/bcosca/fatfree-core/base.php',
+    'ReturnTypeWillChange' => $vendorDir . '/symfony/polyfill-php81/Resources/stubs/ReturnTypeWillChange.php',
     'SMTP' => $vendorDir . '/bcosca/fatfree-core/smtp.php',
     'Session' => $vendorDir . '/bcosca/fatfree-core/session.php',
     'Template' => $vendorDir . '/bcosca/fatfree-core/template.php',

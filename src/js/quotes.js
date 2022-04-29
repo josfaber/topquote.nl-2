@@ -45,7 +45,7 @@ const loadMore = () => {
  */
 document.body.onload = ( () => {
 
-    setTimeout(() => {
+    window.tqd.is_search || setTimeout(() => {
         window.addEventListener( 'scroll', () => {
             if ( canLoadMore && window.scrollY + window.innerHeight >= document.body.offsetHeight - 400 ) {
                 canLoadMore = false;

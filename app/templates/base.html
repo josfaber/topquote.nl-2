@@ -25,10 +25,13 @@
             {% endblock %}
         </main>
         {% block scripts %}
-            <script>window.tqd = { rsk: '{{ RECAPTCHA_SITE_KEY }}', {% for key, value in tqd %} {{ key }}: '{{ value }}', {% endfor %}{% for key, value in tqd_num %} {{ key }}: {{ value }}, {% endfor %} };</script>
+            <script>window.tqd = { is_search: {% if is_search %}true{% else %}false{% endif %} , rsk: '{{ RECAPTCHA_SITE_KEY }}', {% for key, value in tqd %} {{ key }}: '{{ value }}', {% endfor %}{% for key, value in tqd_num %} {{ key }}: {{ value }}, {% endfor %} };</script>
             {% for js_file in js_files %}
                 <script src="{{ js_file}}"></script>
             {% endfor %}
         {% endblock %}
+        <div id="terms-container" class="terms-container">
+            <input type="text" id="terms">
+        </div>
     </body>
 </html>

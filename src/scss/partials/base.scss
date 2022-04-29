@@ -11,6 +11,7 @@
     --alt-color-3: #{$alt-color-3};
     --alt-color-4: #{$alt-color-4};
     --alt-color-5: #{$alt-color-5};
+    --alt-color-6: #{$alt-color-6};
 
     --color-transition-time: 700ms;
 }
@@ -245,5 +246,53 @@ fieldset {
         line-height: 1.2;
         margin: 0.3rem 0;
         @include light45;
+    }
+}
+
+a.delete {
+    position: relative;
+    width: 60px;
+    height: 50px;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    background-color: #c00;
+    color: $white;
+    margin-top: 60px;
+
+    &:hover {
+        text-decoration: none;
+    }
+
+    &::after {
+        position: absolute;
+        bottom: 0;
+        left: 0;
+        height: 4px;
+        width: 100%;
+        content: '';
+        // background-color: rgba(black, 0.4);
+        // transform: translateY(100%);
+        background-color: #c00;
+        filter: brightness(0.7);
+    }
+}
+
+.terms-container {
+    position: fixed;
+    top: 14px;
+    left: 50%;
+    width: 65%;
+    z-index: 70;
+    transform: translate(-50%, -200%);
+    transition: transform 300ms $ease-smooth;
+    
+    &.active {
+        transform: translate(-50%, 0);
+        transition: transform 400ms $ease-bounce;
+    }
+
+    input {
+        width: 100%;
     }
 }

@@ -1,6 +1,6 @@
 {% extends "base.html" %}
 
-{% block title %}Voeg nieuwe quote toe{% endblock %}
+{% block title %}{% if not edit %}Voeg nieuwe quote toe{% endif %}{% if edit %}Quote bewerken{% endif %}{% endblock %}
 {% block head %}
 {{ parent() }}
 <meta property="og:title" content="{{ site_title }}" />
@@ -12,9 +12,17 @@
 {% block content %}
 
 <div class="readable">
-    <form id="addForm" method="post" class="add-form">
+    <form id="{% if not edit %}addForm{% endif %}{% if edit %}editForm{% endif %}" method="post" class="add-form" {% if edit %}action="{{ edit_url }}"{% endif %}>
+        {% if edit %}
+        <input type="hidden" id="f_is_delete" name="is_delete" value="0">
+        <input type="hidden" name="quote_id" value="{{ quote_id }}">
+        <input type="hidden" name="modkey" value="{{ modkey }}">
+        {% endif %}
         <fieldset>
-            <legend>Sla een nieuwe quote op</legend>
+            <legend>
+                {% if not edit %}Sla een nieuwe quote op{% endif %}
+                {% if edit %}Quote bewerken{% endif %}
+            </legend>
             <div class="label-group">
                 <label for="quote">Quote</label>
                 <p class="info">Wat werd er gezegd?</p>
@@ -44,20 +52,31 @@
             </div>  
             <div class="v"><input type="text" name="tags" id="f_tags" value="{{ tags }}"></div>
         </fieldset>
+        {% if not edit %}
         <fieldset><label for="email">E-mailadres</label>
             <div class="v"><input required type="email" name="email" id="f_email" value="{{ email }}"></div>
             <p class="info">Je krijgt een mail met link om de quote te kunnen verwijderen. En misschien ooit een nieuwtje. We geven &rsquo;m nooit aan derden. Beloofd!</p>
         </fieldset>
-        <fieldset class="submit"><button>Opslaan</button>
+        {% endif %}
+        <fieldset class="submit">
+            <button>Opslaan</button>
             <!---->
         </fieldset>
         <input type="hidden" name="rtoken" id="rtoken">
         <!---->
+        {% if not edit %}
         <p class="disclaimer">Dit formulier wordt beschermd door reCAPTCHA en Google’s <a target="_blank"
                 rel="noopener norererer" href="https://policies.google.com/privacy">Privacybeleid</a> en <a target="_blank"
                 rel="noopener norererer" href="https://policies.google.com/terms">Servicevoorwaarden</a> zijn van
             toepassing.</p>
+        {% endif %}
         <!---->
+        {% if edit %}
+        <fieldset>
+        <a href="/" id="btnDelete" class="delete"><span class="icon-bin"></span></a>
+        </fieldset>
+        {% endif %}
+
     </form>
 </div>
 
