@@ -12,10 +12,12 @@ RUN docker-php-ext-install pdo_mysql
 
 RUN apk add $PHPIZE_DEPS
 RUN pecl install apcu
+RUN pecl install redis
 # RUN pecl install xdebug-2.9.0
 RUN docker-php-ext-configure zip
 RUN docker-php-ext-install zip opcache
 RUN docker-php-ext-enable apcu 
+RUN docker-php-ext-enable redis
 # RUN docker-php-ext-enable xdebug
 
 RUN apk del --purge autoconf g++ make

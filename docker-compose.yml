@@ -14,6 +14,18 @@ services:
     volumes:
       - ./dockerfiles/db/topquote-nl-with-data.sql:/docker-entrypoint-initdb.d/db.sql
 
+  cache:
+    image: redis:7.0-rc
+    container_name: topquote-cache
+    restart: always
+    ports:
+      - 6379
+    command: redis-server --save 20 1 --loglevel warning
+    volumes:
+      - cache:/data
+    depends_on:
+      - db
+
   php:
     build:
       context: .
@@ -24,6 +36,8 @@ services:
     restart: on-failure
     env_file:
       - .env
+    depends_on:
+      - db
 
   nginx:
     build:
@@ -54,3 +68,6 @@ services:
     links:
       - db
 
+volumes:
+  cache:
+    driver: local
