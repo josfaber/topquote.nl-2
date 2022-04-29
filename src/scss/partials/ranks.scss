@@ -1,0 +1,25 @@
+.ranking {
+    text-align: center;
+}
+
+.rank-cloud {
+    display: flex;
+    flex-wrap: wrap;
+    justify-content: center;
+    align-items: center;
+    margin: 0 0.25em;
+    list-style: none;
+    margin-top: 0.5rem;
+
+    li {
+        margin: 0.5rem 1rem;
+        display: flex;
+        align-items: center;
+
+        [class^="icon-"], [class*=" icon-"] {
+            color: $grey;
+            font-size: 0.9rem;
+            margin-right: 8px;
+        }
+    }
+}

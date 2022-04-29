@@ -2,9 +2,64 @@
 
 {% block title %}Voeg nieuwe quote toe{% endblock %}
 {% block head %}
-    {{ parent() }}
-    
+{{ parent() }}
+
 {% endblock %}
 {% block content %}
-toevoegen
+
+<div class="readable">
+    <form id="addForm" method="post" class="add-form">
+        <fieldset>
+            <legend>Sla een nieuwe quote op</legend>
+            <div class="label-group">
+                <label for="quote">Quote</label>
+                <p class="info">Wat werd er gezegd?</p>
+            </div>
+            <div class="v"><textarea required name="quote" rows="3" id="f_quote">{{ quote }}</textarea></div>
+        </fieldset>
+        <div class="cols">
+            <fieldset>
+                <div class="label-group">
+                    <label for="by">Van</label>
+                    <p class="info">Wie zij het?</p>
+                </div>  
+                <div class="v"><input required type="text" name="by" id="f_by" value="{{ by }}"></div>
+            </fieldset>
+            <fieldset>
+                <div class="label-group">
+                    <label for="from">Door</label>
+                    <p class="info">Wie zij het?</p>
+                </div>  
+                <div class="v"><input required type="text" name="from" id="f_from" value="{{ from }}"></div>
+            </fieldset>
+        </div>
+        <fieldset>
+            <div class="label-group">
+                <label for="tags">Labels</label>
+                <p class="info">Bijv.: inspiratie, jinek, ah</p>
+            </div>  
+            <div class="v"><input type="text" name="tags" id="f_tags" value="{{ tags }}"></div>
+        </fieldset>
+        <fieldset><label for="email">E-mailadres</label>
+            <div class="v"><input required type="email" name="email" id="f_email" value="{{ email }}"></div>
+            <p class="info">Je krijgt een mail met link om de quote te kunnen verwijderen. En misschien ooit een nieuwtje. We geven &rsquo;m nooit aan derden. Beloofd!</p>
+        </fieldset>
+        <fieldset class="submit"><button>Opslaan</button>
+            <!---->
+        </fieldset>
+        <input type="hidden" name="rtoken" id="rtoken">
+        <!---->
+        <p class="disclaimer">Dit formulier wordt beschermd door reCAPTCHA en Google’s <a target="_blank"
+                rel="noopener norererer" href="https://policies.google.com/privacy">Privacybeleid</a> en <a target="_blank"
+                rel="noopener norererer" href="https://policies.google.com/terms">Servicevoorwaarden</a> zijn van
+            toepassing.</p>
+        <!---->
+    </form>
+</div>
+
+{% endblock %}
+
+{% block scripts %}
+<script src="https://www.google.com/recaptcha/api.js?render={{ RECAPTCHA_SITE_KEY }}"></script>
+{{ parent() }}
 {% endblock %}

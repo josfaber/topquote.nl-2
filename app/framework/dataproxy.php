@@ -142,4 +142,65 @@ class DataProxy {
 		return site_url("/quotes/from/{$quote['submitter_slug']}");
 	}
 
+	public function get_top_tags() {
+		$results = $this->db->exec("
+			SELECT tag, amount 
+			FROM `tag_rank` 
+			ORDER BY amount DESC
+			LIMIT 12;
+		");
+		
+		if (!$results || $this->db->count() == 0) {
+			return false;
+		}
+
+		return $results;
+	}
+
+	public function get_top_sayers() {
+		$WHERE = rand(0, 3) < 3 ? "WHERE 1" : "WHERE LOWER(sayer) <> 'jos'";
+		$results = $this->db->exec("
+			SELECT sayer, amount 
+			FROM `sayer_rank` 
+			{$WHERE}
+			ORDER BY amount DESC 
+			LIMIT 10;
+		");
+		
+		if (!$results || $this->db->count() == 0) {
+			return false;
+		}
+
+		return array_map(function($result) {
+			return array(
+				"sayer" => $result["sayer"],
+				"sayer_slug" => slugify($result["sayer"]),
+				"amount" => $result["amount"],
+			);
+		}, $results);
+	}
+
+	public function get_top_submitters() {
+		$WHERE = rand(0, 3) < 3 ? "WHERE 1" : "WHERE LOWER(submitter) <> 'jos'";
+		$results = $this->db->exec("
+			SELECT submitter, amount 
+			FROM `submitter_rank` 
+			{$WHERE}
+			ORDER BY amount DESC
+			LIMIT 10;
+		");
+		
+		if (!$results || $this->db->count() == 0) {
+			return false;
+		}
+
+		return array_map(function($result) {
+			return array(
+				"submitter" => $result["submitter"],
+				"submitter_slug" => slugify($result["submitter"]),
+				"amount" => $result["amount"],
+			);
+		}, $results);
+	}
+
 }

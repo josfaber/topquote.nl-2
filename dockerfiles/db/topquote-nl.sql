@@ -3,7 +3,7 @@
 -- https://www.phpmyadmin.net/
 --
 -- Host: db:3306
--- Gegenereerd op: 26 apr 2022 om 08:56
+-- Gegenereerd op: 29 apr 2022 om 08:11
 -- Serverversie: 10.7.1-MariaDB-1:10.7.1+maria~focal
 -- PHP-versie: 8.0.15
 
@@ -46,6 +46,52 @@ CREATE TABLE `quotes` (
   `likes` int(11) NOT NULL DEFAULT 0
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4;
 
+-- --------------------------------------------------------
+
+--
+-- Tabelstructuur voor tabel `quote_owner`
+--
+
+CREATE TABLE `quote_owner` (
+  `quote_id` int(11) NOT NULL,
+  `email` varchar(255) NOT NULL,
+  `ip` varchar(32) NOT NULL,
+  `modkey` varchar(128) NOT NULL
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4;
+
+-- --------------------------------------------------------
+
+--
+-- Tabelstructuur voor tabel `sayer_rank`
+--
+
+CREATE TABLE `sayer_rank` (
+  `sayer` varchar(128) NOT NULL,
+  `amount` int(11) NOT NULL
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4;
+
+-- --------------------------------------------------------
+
+--
+-- Tabelstructuur voor tabel `submitter_rank`
+--
+
+CREATE TABLE `submitter_rank` (
+  `submitter` varchar(128) NOT NULL,
+  `amount` int(11) NOT NULL
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4;
+
+-- --------------------------------------------------------
+
+--
+-- Tabelstructuur voor tabel `tag_rank`
+--
+
+CREATE TABLE `tag_rank` (
+  `tag` varchar(128) NOT NULL,
+  `amount` int(11) NOT NULL
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4;
+
 --
 -- Indexen voor geëxporteerde tabellen
 --
@@ -55,6 +101,24 @@ CREATE TABLE `quotes` (
 --
 ALTER TABLE `quotes`
   ADD PRIMARY KEY (`id`);
+
+--
+-- Indexen voor tabel `sayer_rank`
+--
+ALTER TABLE `sayer_rank`
+  ADD PRIMARY KEY (`sayer`);
+
+--
+-- Indexen voor tabel `submitter_rank`
+--
+ALTER TABLE `submitter_rank`
+  ADD PRIMARY KEY (`submitter`);
+
+--
+-- Indexen voor tabel `tag_rank`
+--
+ALTER TABLE `tag_rank`
+  ADD PRIMARY KEY (`tag`);
 
 --
 -- AUTO_INCREMENT voor geëxporteerde tabellen

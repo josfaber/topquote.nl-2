@@ -562,7 +562,7 @@ template {
   padding: 0; }
 
 :root {
-  --primary-color: #E5007C;
+  --primary-color: #545353;
   --alt-color-0: #E5007C;
   --alt-color-1: #00c9d8;
   --alt-color-2: #07d490;
@@ -591,6 +591,7 @@ body {
 
 h1.full, h2.full, h3.full {
   width: 100%;
+  box-sizing: border-box;
   text-align: center;
   padding: 0 0.5rem;
   margin-bottom: 0.5rem; }
@@ -636,9 +637,10 @@ main {
   padding-top: 20px; }
 
 .marg-bot {
-  margin-bottom: 3em; }
+  margin-bottom: 4rem; }
 
-a.btn {
+a.btn,
+button {
   position: relative;
   display: inline-block;
   padding: 0.5rem 1rem;
@@ -648,19 +650,99 @@ a.btn {
   color: #000000;
   transition: color var(--color-transition-time) cubic-bezier(0.23, 1, 0.32, 1);
   text-decoration: none;
-  font-size: 1rem;
+  font-size: 0.9rem;
   text-transform: uppercase;
   font-weight: 600;
-  border-bottom: 4px solid var(--primary-color); }
-  a.btn::after {
+  border: none; }
+  a.btn::after,
+  button::after {
     position: absolute;
     bottom: 0;
     left: 0;
     height: 4px;
     width: 100%;
     content: '';
-    background-color: rgba(0, 0, 0, 0.4);
-    transform: translateY(100%); }
+    background-color: var(--primary-color);
+    filter: brightness(0.7); }
+
+#mc_embed_signup_scroll {
+  display: flex;
+  flex-wrap: wrap;
+  justify-content: center;
+  align-items: center; }
+  #mc_embed_signup_scroll .mc-field-group,
+  #mc_embed_signup_scroll #mce-responses {
+    display: flex;
+    flex-direction: column;
+    margin: 0 0.25em; }
+  #mc_embed_signup_scroll #mce-EMAIL {
+    width: 10rem; }
+  #mc_embed_signup_scroll #mce-FNAME {
+    width: 4rem; }
+  #mc_embed_signup_scroll #mce-responses {
+    font-size: 0.7rem;
+    line-height: 0.9rem;
+    color: orange; }
+  #mc_embed_signup_scroll #mce-error-response {
+    color: orange; }
+  #mc_embed_signup_scroll #mce-success-response {
+    color: green; }
+  #mc_embed_signup_scroll label {
+    font-size: 0.6rem;
+    text-transform: uppercase; }
+  #mc_embed_signup_scroll button {
+    margin: 32px 0 0; }
+
+input[type="text"],
+input[type="email"],
+textarea {
+  font-size: 1rem;
+  padding: 0.3em;
+  font-weight: 400;
+  border-radius: 0;
+  border: none; }
+  input[type="text"]:focus,
+  input[type="email"]:focus,
+  textarea:focus {
+    font-weight: 600; }
+
+fieldset {
+  border: 0;
+  padding: 0.35em 0.5em 0.625em;
+  box-sizing: border-box; }
+
+.add-form .label-group {
+  display: flex;
+  justify-content: space-between; }
+
+.add-form input,
+.add-form textarea {
+  width: 100%;
+  box-sizing: border-box; }
+
+.add-form legend {
+  color: #ffffff;
+  font-size: 1.1rem;
+  font-weight: 600; }
+
+.add-form label {
+  font-weight: 400; }
+
+.add-form p.info {
+  font-size: 0.7rem;
+  line-height: 1.2;
+  margin: 0.3rem 0; }
+
+.add-form button {
+  width: 100%;
+  box-sizing: border-box;
+  margin: 0; }
+
+.add-form .disclaimer {
+  font-size: 0.8rem;
+  line-height: 1.2;
+  margin: 0.3rem 0;
+  font-weight: 400; }
 
 .topbar {
   position: fixed;
@@ -802,6 +884,7 @@ blockquote {
     font-size: 1.625rem;
     font-weight: 700;
     line-height: 2rem;
+    line-height: 1.081;
     quotes: "“" "”" "‘" "’";
     color: #ffffff; }
     blockquote .quote::before {
@@ -845,4 +928,43 @@ blockquote {
 
 .quotes-list blockquote {
   margin-bottom: 2em; }
+
+.ranking {
+  text-align: center; }
+
+.rank-cloud {
+  display: flex;
+  flex-wrap: wrap;
+  justify-content: center;
+  align-items: center;
+  margin: 0 0.25em;
+  list-style: none;
+  margin-top: 0.5rem; }
+  .rank-cloud li {
+    margin: 0.5rem 1rem;
+    display: flex;
+    align-items: center; }
+    .rank-cloud li [class^="icon-"], .rank-cloud li [class*=" icon-"] {
+      color: #85858b;
+      font-size: 0.9rem;
+      margin-right: 8px; }
+
+body.home h1 {
+  position: relative;
+  width: 100%;
+  box-sizing: border-box;
+  margin: 3rem 0 6rem;
+  text-align: center;
+  color: var(--primary-color);
+  font-size: 4rem; }
+  body.home h1::after {
+    content: ".nl";
+    font-size: 1rem;
+    font-weight: 600; }
+
+body.home nav .title {
+  opacity: 0;
+  transition: opacity var(--color-transition-time) cubic-bezier(0.23, 1, 0.32, 1); }
+  body.home nav .title.active {
+    opacity: 1; }
 

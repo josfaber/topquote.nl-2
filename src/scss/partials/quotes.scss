@@ -27,6 +27,7 @@ blockquote {
         font-size: 26px/$font-base * 1rem;
         @include bold75;
         line-height: 32px/$font-base * 1rem;
+        line-height: 1.081;
         quotes: "“" "”" "‘" "’";
         color: $white;
         

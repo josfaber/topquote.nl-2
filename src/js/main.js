@@ -12,14 +12,24 @@ const updateColor = (c) => {
 }
 
 // update color 
-const tqcnum = window.localStorage.getItem('topquote-color-num');
-if (tqcnum) {
-    
-    let color_transition_time = getComputedStyle(document.documentElement).getPropertyValue('--color-transition-time');
-    document.documentElement.style.setProperty('--color-transition-time', '0ms');
-    setTimeout( () => updateColor(tqcnum), 20);
-    setTimeout( () => document.documentElement.style.setProperty('--color-transition-time', `${color_transition_time}`), 40);
+let tqcnum = window.localStorage.getItem('topquote-color-num');
+const transitionTimeoutTime = tqcnum ? 100 : 5;
+if (!tqcnum) {
+    tqcnum = 0;
+    window.localStorage.setItem('topquote-color-num', tqcnum);
 }
+let color_transition_time = getComputedStyle(document.documentElement).getPropertyValue('--color-transition-time');
+document.documentElement.style.setProperty('--color-transition-time', '0ms');
+setTimeout( () => updateColor(tqcnum), 20);
+setTimeout( () => document.documentElement.style.setProperty('--color-transition-time', `${color_transition_time}`), transitionTimeoutTime);
+
+const scaleDownQuote = (el, fontSizeRem = 3.6, minFontSizeRem = 1) => {
+    if (!el) return;
+    el.style.fontSize = `${fontSizeRem}rem`;
+    const elHeight = el.offsetHeight;
+    const winHeight = window.innerHeight;
+    if (elHeight > minFontSizeRem && elHeight > 0.8 * winHeight) scaleDownQuote(el, fontSizeRem - 0.1, minFontSizeRem);
+};
 
 /**
  * On body ready
@@ -67,6 +77,37 @@ document.body.onload = ( () => {
             let sayer_height = sayer_el.offsetHeight;
             meta_el.style.top = `${4 + sayer_height}px`;
         });
+    }
+
+    // handle add form 
+    const addForm = document.getElementById('addForm');
+    if (addForm) {
+        addForm.addEventListener('submit', (e) => {
+            e.preventDefault();
+            grecaptcha.ready(function() {
+              grecaptcha.execute(window.tqd.rsk, {action: 'submit'}).then((token) => {
+                  document.getElementById('rtoken').value = token;
+                  e.target.submit();
+              });
+            });
+        });
+    }
+
+    // single quote
+    if (document.body.classList.contains("single-quote")) {
+        scaleDownQuote(document.querySelector('blockquote .quote'));
+    }
+    // hide title on home no scroll 
+    if (document.body.classList.contains("home")) {
+        const title_el = document.getElementById('title');
+        window.onscroll = ( () => {
+            let scrollPos = window.pageYOffset;
+            if (scrollPos > 160 && !title_el.classList.contains('active')) {
+                title_el.classList.add('active');
+            } else if (scrollPos <= 160 && title_el.classList.contains('active')) {
+                title_el.classList.remove('active');
+            }
+        } );
     }
 
 } )();

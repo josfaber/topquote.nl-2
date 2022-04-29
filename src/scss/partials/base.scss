@@ -3,7 +3,8 @@
 } 
 
 :root {
-    --primary-color: #{$primary};
+    // --primary-color: #{$primary};
+    --primary-color: #545353;
     --alt-color-0: #{$primary};
     --alt-color-1: #{$alt-color-1};
     --alt-color-2: #{$alt-color-2};
@@ -47,6 +48,7 @@ body {
 h1, h2, h3 {
     &.full {
         width: 100%;
+        box-sizing: border-box;
         text-align: center;
         padding: 0 0.5rem;
         margin-bottom: 0.5rem;
@@ -104,9 +106,10 @@ main {
 }
 
 .pad-top-20 { padding-top: 20px; }
-.marg-bot { margin-bottom: 3em; }
+.marg-bot { margin-bottom: 4rem; }
 
-a.btn {
+a.btn,
+button {
     position: relative;
     display: inline-block;
     padding: 0.5rem 1rem;
@@ -117,10 +120,11 @@ a.btn {
     // color: var(--primary-color);
     transition: color var(--color-transition-time) $ease-smooth;
     text-decoration: none;
-    font-size: 1rem;
+    font-size: 0.9rem;
     text-transform: uppercase;
     @include medium65;
-    border-bottom: 4px solid var(--primary-color);
+    border: none;
+    // border-bottom: 4px solid var(--primary-color);
 
     &::after {
         position: absolute;
@@ -129,7 +133,117 @@ a.btn {
         height: 4px;
         width: 100%;
         content: '';
-        background-color: rgba(black, 0.4);
-        transform: translateY(100%);
+        // background-color: rgba(black, 0.4);
+        // transform: translateY(100%);
+        background-color: var(--primary-color);
+        filter: brightness(0.7);
+    }
+}
+
+#mc_embed_signup_scroll {
+    // background-color: red;
+    display: flex;
+    flex-wrap: wrap;
+    justify-content: center;
+    align-items: center;
+
+    .mc-field-group,
+    #mce-responses {
+        display: flex;
+        flex-direction: column;
+        margin: 0 0.25em;
+    }
+
+    #mce-EMAIL {
+        width: 4rem * 2.5;
+    }
+
+    #mce-FNAME {
+        width: 4rem;
+    }
+
+    #mce-responses {
+        font-size: 0.7rem;
+        line-height: 0.9rem;
+        color: orange;
+    }
+
+    #mce-error-response {
+        color: orange;
+    }
+
+    #mce-success-response {
+        color: green;
+    }
+
+    label {
+        font-size: 0.6rem;
+        text-transform: uppercase;
+    }
+
+    button {
+        margin: 32px 0 0;
+    }
+}
+
+input[type="text"],
+input[type="email"],
+textarea {
+    font-size: 1rem;
+    padding: 0.3em;
+    @include light45;
+    border-radius: 0;
+    border: none;
+
+    &:focus {
+        @include medium65;
+    }
+}
+
+fieldset {
+    border: 0;
+    padding: 0.35em 0.5em 0.625em;
+    box-sizing: border-box;
+}
+
+.add-form {
+    .label-group {
+        display: flex;
+        justify-content: space-between;
+    }
+
+    input,
+    textarea {
+        width: 100%;
+        box-sizing: border-box;
+    }
+
+    legend {
+        color: $white;
+        font-size: 1.1rem;
+        @include medium65;
+    }
+
+    label {
+        @include light45;
+    }
+
+    p.info {
+        font-size: 0.7rem;
+        line-height: 1.2;
+        margin: 0.3rem 0;
+    }
+
+    button {
+        width: 100%;
+        box-sizing: border-box;
+        margin: 0;
+    }
+
+    .disclaimer {
+        font-size: 0.8rem;
+        line-height: 1.2;
+        margin: 0.3rem 0;
+        @include light45;
     }
 }

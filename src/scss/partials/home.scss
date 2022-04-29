@@ -1,0 +1,48 @@
+body.home h1 {
+    position: relative;
+    width: 100%;
+    box-sizing: border-box;
+    margin: 3rem 0 6rem;
+    text-align: center;
+    color: var(--primary-color);
+    font-size: 4rem;
+
+    // &::before {
+    //     font-family: 'icomoon' !important;
+    //     speak: never;
+    //     font-style: normal;
+    //     font-weight: normal;
+    //     font-variant: normal;
+    //     text-transform: none;
+    //     line-height: 1;
+    //     -webkit-font-smoothing: antialiased;
+    //     -moz-osx-font-smoothing: grayscale;
+    //     content: "\e901";
+    //     font-size: 1.2rem;
+    //     @include medium65;
+    //     color: $dark-grey;
+    //     position: absolute;
+    //     bottom: 1rem;
+    //     left: 50%;
+    //     transform: translateX(-7.2rem);
+    // }
+    
+    &::after {
+        content:".nl";
+        font-size: 1rem;
+        @include medium65;
+        // @include roman55;
+        // @include light45;
+        // color: $grey;
+    }
+
+}
+
+body.home nav .title {
+    opacity: 0;
+    transition: opacity var(--color-transition-time) $ease-smooth;
+
+    &.active {
+        opacity: 1;
+    }
+}

@@ -8,6 +8,7 @@ $f3->route('GET /quote/@slug', 				'Controller\Quote->detail');
 $f3->route('GET /add', 						'Controller\Quote->add');
 $f3->route('POST /add', 					'Controller\Quote->store');
 
-$f3->route('GET /import',  					'Controller\Dev->import');
+$f3->route('GET /import',  					'Controller\Tools->import');
+$f3->route('GET /t-rank',					'Controller\Tools->rank');
 
 $f3->route('POST /api/quotes [ajax]',		'Controller\Api->quotes');

@@ -13,7 +13,7 @@
             <title>{% block title %}{% endblock %} - TopQuote</title>
         {% endblock %}
     </head>
-    <body>
+    <body class="{% if is_home %}home{% endif %}{% if is_single_quote %} single-quote {% endif %}">
         <nav>
             {% block nav %}
             {{ include('partials/nav.html') }}
@@ -24,9 +24,11 @@
                 content
             {% endblock %}
         </main>
-        <script>window.tqd = { {% for key, value in tqd %} {{ key }}: '{{ value }}', {% endfor %}{% for key, value in tqd_num %} {{ key }}: {{ value }}, {% endfor %} };</script>
-        {% for js_file in js_files %}
-            <script src="{{ js_file}}"></script>
-        {% endfor %}
+        {% block scripts %}
+            <script>window.tqd = { rsk: '{{ RECAPTCHA_SITE_KEY }}', {% for key, value in tqd %} {{ key }}: '{{ value }}', {% endfor %}{% for key, value in tqd_num %} {{ key }}: {{ value }}, {% endfor %} };</script>
+            {% for js_file in js_files %}
+                <script src="{{ js_file}}"></script>
+            {% endfor %}
+        {% endblock %}
     </body>
 </html>
