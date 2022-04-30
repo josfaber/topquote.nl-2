@@ -33,4 +33,6 @@ COPY ./app/ /var/www
 
 RUN PATH=$PATH:/var/www/bin:bin
 
+RUN composer install
+
 CMD ["php-fpm", "-F"]
