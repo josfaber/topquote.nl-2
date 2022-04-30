@@ -34,6 +34,8 @@ services:
       - './app:/var/www'
     container_name: topquote-php
     restart: on-failure
+    ports:
+      - "${FPM_PORT}:9000"
     env_file:
       - .env
     depends_on:
