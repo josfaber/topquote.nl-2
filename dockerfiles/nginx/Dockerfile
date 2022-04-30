@@ -1,4 +1,4 @@
-FROM nginx:1.18-alpine
+FROM nginx:1.21.6-alpine
 
 ENV USER=www-data
 ENV UID=12345
