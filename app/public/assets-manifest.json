@@ -1,6 +1,10 @@
 {
-  "main.css": "css/main-2701771539a2d5795db9.css",
-  "main.js": "js/main-2701771539a2d5795db9.js",
-  "quotes.js": "js/quotes-2701771539a2d5795db9.js",
-  "version": "0.1.0"
+  "css/main-afb74c9cb5eeb26d9ac5.css.map": "css/main-afb74c9cb5eeb26d9ac5.css.map",
+  "js/main-afb74c9cb5eeb26d9ac5.js.LICENSE.txt": "js/main-afb74c9cb5eeb26d9ac5.js.LICENSE.txt",
+  "js/main-afb74c9cb5eeb26d9ac5.js.map": "js/main-afb74c9cb5eeb26d9ac5.js.map",
+  "js/quotes-afb74c9cb5eeb26d9ac5.js.map": "js/quotes-afb74c9cb5eeb26d9ac5.js.map",
+  "main.css": "css/main-afb74c9cb5eeb26d9ac5.css",
+  "main.js": "js/main-afb74c9cb5eeb26d9ac5.js",
+  "quotes.js": "js/quotes-afb74c9cb5eeb26d9ac5.js",
+  "version": "0.1.0_2022430_226"
 }

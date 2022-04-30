@@ -3,7 +3,7 @@
 -- https://www.phpmyadmin.net/
 --
 -- Host: db:3306
--- Gegenereerd op: 30 apr 2022 om 19:37
+-- Gegenereerd op: 30 apr 2022 om 20:12
 -- Serverversie: 10.7.1-MariaDB-1:10.7.1+maria~focal
 -- PHP-versie: 8.0.15
 
@@ -51,28 +51,28 @@ CREATE TABLE `quotes` (
 --
 
 INSERT INTO `quotes` (`id`, `import_id`, `created`, `slug`, `quote`, `quote_lc`, `sayer`, `sayer_lc`, `sayer_slug`, `submitter`, `submitter_lc`, `submitter_slug`, `tags`, `tags_lc`, `hits`, `likes`) VALUES
-(1, '8Kxx6mS06JFrzlAqyzxca1', '2022-04-22 14:51:29', 'als-koekjes-warm-zijn-dan-is-het-goed', 'Als koekjes warm zijn dan is het goed', 'als koekjes warm zijn dan is het goed', 'Erik', 'erik', 'erik', 'Jos', 'jos', 'jos', 'TSG', 'tsg', 0, 0),
-(2, 'yz7zUWGEzqxqfqIOp94Sij', '2022-04-21 14:57:28', 'zij-valt-op-rugzakjes', 'Zij valt op rugzakjes', 'zij valt op rugzakjes', 'Vince', 'vince', 'vince', 'Marco', 'marco', 'marco', 'touchcreative', 'touchcreative', 0, 0),
-(3, 'PRNv2cCA4ZGqkuEGrTH5yp', '2022-04-20 15:57:48', 'weet-je-waarom-je-zo-lekker-bij-mexico-past-je-bent-zo-incapablo', 'Weet je waarom je zo lekker bij Mexico past? Je bent zo Incapablo', 'weet je waarom je zo lekker bij mexico past? je bent zo incapablo', 'Olli', 'olli', 'olli', 'Caitlin', 'caitlin', 'caitlin', 'RTV', 'rtv', 0, 0),
-(4, '8Kxx6mS06JFrzlAqysqC9p', '2022-04-19 14:41:50', 'naast-mij-is-iedereen-een-zesje', 'Naast mij is iedereen een zesje….', 'naast mij is iedereen een zesje….', 'Ollie', 'ollie', 'ollie', 'Majke', 'majke', 'majke', 'RTV', 'rtv', 0, 0),
-(5, 'ih52pm0gIn4BoAfOBi2Ast', '2022-04-15 22:46:15', 'waar-rook-is-is-geen-bhv', 'Waar rook is is geen BHV', 'waar rook is is geen bhv', 'Peggy', 'peggy', 'peggy', 'Jos', 'jos', 'jos', 'HJKM', 'hjkm', 0, 0),
-(6, 'ih52pm0gIn4BoAfOBhmEcB', '2022-04-15 11:39:02', 'ik-stop-regelmatig-met-roken', 'Ik stop regelmatig met roken', 'ik stop regelmatig met roken', 'Denzel', 'denzel', 'denzel', 'Jos', 'jos', 'jos', 'TSG', 'tsg', 0, 0),
+(1, '8Kxx6mS06JFrzlAqyzxca1', '2022-04-22 14:51:29', 'als-koekjes-warm-zijn-dan-is-het-goed', 'Als koekjes warm zijn dan is het goed', 'als koekjes warm zijn dan is het goed', 'Erik', 'erik', 'erik', 'Jos', 'jos', 'jos', 'TSG', 'tsg', 0, 1),
+(2, 'yz7zUWGEzqxqfqIOp94Sij', '2022-04-21 14:57:28', 'zij-valt-op-rugzakjes', 'Zij valt op rugzakjes', 'zij valt op rugzakjes', 'Vince', 'vince', 'vince', 'Marco', 'marco', 'marco', 'touchcreative', 'touchcreative', 0, 1),
+(3, 'PRNv2cCA4ZGqkuEGrTH5yp', '2022-04-20 15:57:48', 'weet-je-waarom-je-zo-lekker-bij-mexico-past-je-bent-zo-incapablo', 'Weet je waarom je zo lekker bij Mexico past? Je bent zo Incapablo', 'weet je waarom je zo lekker bij mexico past? je bent zo incapablo', 'Olli', 'olli', 'olli', 'Caitlin', 'caitlin', 'caitlin', 'RTV', 'rtv', 0, 1),
+(4, '8Kxx6mS06JFrzlAqysqC9p', '2022-04-19 14:41:50', 'naast-mij-is-iedereen-een-zesje', 'Naast mij is iedereen een zesje….', 'naast mij is iedereen een zesje….', 'Ollie', 'ollie', 'ollie', 'Majke', 'majke', 'majke', 'RTV', 'rtv', 0, 1),
+(5, 'ih52pm0gIn4BoAfOBi2Ast', '2022-04-15 22:46:15', 'waar-rook-is-is-geen-bhv', 'Waar rook is is geen BHV', 'waar rook is is geen bhv', 'Peggy', 'peggy', 'peggy', 'Jos', 'jos', 'jos', 'HJKM', 'hjkm', 0, 1),
+(6, 'ih52pm0gIn4BoAfOBhmEcB', '2022-04-15 11:39:02', 'ik-stop-regelmatig-met-roken', 'Ik stop regelmatig met roken', 'ik stop regelmatig met roken', 'Denzel', 'denzel', 'denzel', 'Jos', 'jos', 'jos', 'TSG', 'tsg', 0, 1),
 (7, 'Zl7oiYZtJvun1ovouQpsV0', '2022-04-12 22:52:30', 'een-banaan-is-sowieso-een-soort-pap', 'Een banaan is sowieso een soort pap', 'een banaan is sowieso een soort pap', 'Mads', 'mads', 'mads', 'Jos', 'jos', 'jos', 'HJKM', 'hjkm', 0, 1),
-(8, '28eHJ1ri3ZBLCHFfT10cjZ', '2022-04-10 21:07:01', 'een-paard-is-een-spiegel', 'Een paard is een spiegel', 'een paard is een spiegel', 'Rob', 'rob', 'rob', 'Jos', 'jos', 'jos', 'BoerZoektVrouw', 'boerzoektvrouw', 0, 0),
-(9, 'hhcguwOmEmDjSBOsKaC8QC', '2022-04-09 14:47:17', 'ja-maar-mijn-hoofd-is-gewoon-te-groot', 'Ja, maar mijn hoofd is gewoon te groot', 'ja, maar mijn hoofd is gewoon te groot', 'Fabio', 'fabio', 'fabio', 'Jos', 'jos', 'jos', 'HJKM', 'hjkm', 0, 0),
+(8, '28eHJ1ri3ZBLCHFfT10cjZ', '2022-04-10 21:07:01', 'een-paard-is-een-spiegel', 'Een paard is een spiegel', 'een paard is een spiegel', 'Rob', 'rob', 'rob', 'Jos', 'jos', 'jos', 'BoerZoektVrouw', 'boerzoektvrouw', 0, 1),
+(9, 'hhcguwOmEmDjSBOsKaC8QC', '2022-04-09 14:47:17', 'ja-maar-mijn-hoofd-is-gewoon-te-groot', 'Ja, maar mijn hoofd is gewoon te groot', 'ja, maar mijn hoofd is gewoon te groot', 'Fabio', 'fabio', 'fabio', 'Jos', 'jos', 'jos', 'HJKM', 'hjkm', 0, 1),
 (10, '28eHJ1ri3ZBLCHFfSzdlmr', '2022-04-09 12:58:48', 'hoop-is-niet-gratis-daar-moet-je-wat-voor-doen', 'Hoop is niet gratis, daar moet je wat voor doen', 'hoop is niet gratis, daar moet je wat voor doen', 'Ruben Jacobs', 'ruben jacobs', 'ruben-jacobs', 'Jos', 'jos', 'jos', 'DeEeuwVanFelix,spijkersmetkoppen,npo2', 'deeeuwvanfelix,spijkersmetkoppen,npo2', 0, 0),
 (11, 'drafts.g7bUigD8tZ403gm2cSjdhU', '2021-10-11 17:30:07', 'the-only-thing-we-have-to-fear-is-fear-itself', 'The only thing we have to fear is fear itself', 'the only thing we have to fear is fear itself', '§§§', '§§§', '', 'Jos', 'jos', 'jos', 'inspiratie', 'inspiratie', 0, 0),
-(12, '5f22527b-ffd4-49d1-b905-eeaf22cddcea', '2013-04-26 06:42:57', 'jaloerse-boze-valse-nichten-dat-zijn-de-gevaarlijkste', 'Jaloerse boze valse nichten, dat zijn de gevaarlijkste', 'jaloerse boze valse nichten, dat zijn de gevaarlijkste', 'Jos', 'jos', 'jos', 'Tom', 'tom', 'tom', '', '', 0, 187),
-(13, 'hhcguwOmEmDjSBOsKUJlOS', '2022-04-07 12:40:59', 'de-bijbel-is-gewoon-de-game-of-thrones-van-vroeger', 'De bijbel is gewoon de Game of Thrones van vroeger', 'de bijbel is gewoon de game of thrones van vroeger', 'Job', 'job', 'job', 'Emily', 'emily', 'emily', 'tc', 'tc', 0, 0),
-(14, 'EFDJD63e23pu0JSSmr3nAJ', '2022-04-03 14:18:48', 'ik-pomp-ass-beter-dan-mart', 'ik pomp ass beter dan mart', 'ik pomp ass beter dan mart', 'Gijs', 'gijs', 'gijs', 'Gijs', 'gijs', 'gijs', 'Gijs,mart,ass', 'gijs,mart,ass', 0, 0),
+(12, '5f22527b-ffd4-49d1-b905-eeaf22cddcea', '2013-04-26 06:42:57', 'jaloerse-boze-valse-nichten-dat-zijn-de-gevaarlijkste', 'Jaloerse boze valse nichten, dat zijn de gevaarlijkste', 'jaloerse boze valse nichten, dat zijn de gevaarlijkste', 'Jos', 'jos', 'jos', 'Tom', 'tom', 'tom', '', '', 0, 188),
+(13, 'hhcguwOmEmDjSBOsKUJlOS', '2022-04-07 12:40:59', 'de-bijbel-is-gewoon-de-game-of-thrones-van-vroeger', 'De bijbel is gewoon de Game of Thrones van vroeger', 'de bijbel is gewoon de game of thrones van vroeger', 'Job', 'job', 'job', 'Emily', 'emily', 'emily', 'tc', 'tc', 0, 1),
+(14, 'EFDJD63e23pu0JSSmr3nAJ', '2022-04-03 14:18:48', 'ik-pomp-ass-beter-dan-mart', 'ik pomp ass beter dan mart', 'ik pomp ass beter dan mart', 'Gijs', 'gijs', 'gijs', 'Gijs', 'gijs', 'gijs', 'Gijs,mart,ass', 'gijs,mart,ass', 0, 1),
 (15, 'kCiHY4HvnnB5z0arbbZHmT', '2022-02-22 10:26:26', 'belgen-gebruiken-nog-meer-woorden-dan-vrouwen', 'Belgen gebruiken nog meer woorden dan vrouwen...', 'belgen gebruiken nog meer woorden dan vrouwen...', 'Gijs', 'gijs', 'gijs', 'Majke', 'majke', 'majke', 'RTV', 'rtv', 0, 1),
-(16, '6oaO3rd3opy5Zbc2mBY2rR', '2022-04-03 10:44:07', 'het-hele-concept-vogel-kan-me-sowieso-gestolen-worden', 'Het hele concept vogel kan me sowieso gestolen worden', 'het hele concept vogel kan me sowieso gestolen worden', 'Hester', 'hester', 'hester', 'Jos', 'jos', 'jos', 'HJKM', 'hjkm', 0, 0),
+(16, '6oaO3rd3opy5Zbc2mBY2rR', '2022-04-03 10:44:07', 'het-hele-concept-vogel-kan-me-sowieso-gestolen-worden', 'Het hele concept vogel kan me sowieso gestolen worden', 'het hele concept vogel kan me sowieso gestolen worden', 'Hester', 'hester', 'hester', 'Jos', 'jos', 'jos', 'HJKM', 'hjkm', 0, 1),
 (17, 'EFDJD63e23pu0JSSmq3qnl', '2022-04-02 21:27:37', 'liever-dood-dan-tweede', 'Liever dood dan tweede', 'liever dood dan tweede', 'Britt Dekker', 'britt dekker', 'britt-dekker', 'Jos', 'jos', 'jos', 'CodeVanCoppens', 'codevancoppens', 0, 0),
-(18, '9ccO0XyCau6xQYUx31jNNh', '2022-03-23 13:43:09', 'blijkbaar-was-mijn-zaad-te-traag', 'Blijkbaar was mijn zaad te traag...', 'blijkbaar was mijn zaad te traag...', 'Matt', 'matt', 'matt', 'Majke', 'majke', 'majke', 'RTV', 'rtv', 0, 0),
+(18, '9ccO0XyCau6xQYUx31jNNh', '2022-03-23 13:43:09', 'blijkbaar-was-mijn-zaad-te-traag', 'Blijkbaar was mijn zaad te traag...', 'blijkbaar was mijn zaad te traag...', 'Matt', 'matt', 'matt', 'Majke', 'majke', 'majke', 'RTV', 'rtv', 0, 1),
 (19, 'bymVsCSk54Jo5prKDj0KT5', '2022-02-03 13:51:42', 'ik-dacht-vroeger-dat-4-mei-een-feestdag-was-omdat-ik-altijd-verstond-vier-mij', 'Ik dacht vroeger dat 4 mei een feestdag was omdat ik altijd verstond ‘vier mij’', 'ik dacht vroeger dat 4 mei een feestdag was omdat ik altijd verstond ‘vier mij’', 'Peter Pannekoek', 'peter pannekoek', 'peter-pannekoek', 'Jos', 'jos', 'jos', '4mei,dodenherdenking,Twitter', '4mei,dodenherdenking,twitter', 0, 0),
-(20, '23m5ICTMfOsPsPQiFY7xRl', '2022-03-03 15:23:38', 'im-so-wanna-be-pregnant', 'I\'m so wanna be pregnant...', 'i\'m so wanna be pregnant...', 'Marc', 'marc', 'marc', 'Majke', 'majke', 'majke', 'RTV', 'rtv', 0, 0),
+(20, '23m5ICTMfOsPsPQiFY7xRl', '2022-03-03 15:23:38', 'im-so-wanna-be-pregnant', 'I\'m so wanna be pregnant...', 'i\'m so wanna be pregnant...', 'Marc', 'marc', 'marc', 'Majke', 'majke', 'majke', 'RTV', 'rtv', 0, 1),
 (21, 'BpCYvsEqmpOLTqGTbh3OGZ', '2022-03-02 17:05:17', 'i-saw-her-naked-and-omg-that-body', 'I saw her naked…. And OMG that body', 'i saw her naked…. and omg that body', 'Lieve', 'lieve', 'lieve', 'Majke', 'majke', 'majke', 'RTV', 'rtv', 0, 0),
-(22, 'FvuRaPEyqkilElRpDOy88h', '2022-02-24 19:13:36', 'ik-hoop-niet-dat-ted-al-aan-de-miauw-miauw-zit', 'Ik hoop niet dat Ted al aan de miauw miauw zit', 'ik hoop niet dat ted al aan de miauw miauw zit', 'Majke', 'majke', 'majke', 'Majke', 'majke', 'majke', 'RTV', 'rtv', 0, 0),
+(22, 'FvuRaPEyqkilElRpDOy88h', '2022-02-24 19:13:36', 'ik-hoop-niet-dat-ted-al-aan-de-miauw-miauw-zit', 'Ik hoop niet dat Ted al aan de miauw miauw zit', 'ik hoop niet dat ted al aan de miauw miauw zit', 'Majke', 'majke', 'majke', 'Majke', 'majke', 'majke', 'RTV', 'rtv', 0, 1),
 (23, 'eK6rpxrjmnzwewqciTMe30', '2022-02-24 19:12:59', 'als-ted-een-kat-is-check-poesjes-doen-we-niet-aan', 'Als Ted een kat is, check. Poesjes doen we niet aan...', 'als ted een kat is, check. poesjes doen we niet aan...', 'Majke', 'majke', 'majke', 'Majke', 'majke', 'majke', 'RTV', 'rtv', 0, 0),
 (24, 'eK6rpxrjmnzwewqciPTgMH', '2022-02-23 14:37:58', 'hoeren-covid-echt-als-het-iets-is-is-het-toch-hoerencovid', 'Hoeren Covid... echt! Als het iets is is het toch HoerenCovid!', 'hoeren covid... echt! als het iets is is het toch hoerencovid!', 'Amber', 'amber', 'amber', 'Majke', 'majke', 'majke', 'RTV', 'rtv', 0, 0),
 (25, 'FvuRaPEyqkilElRpDFsoyN', '2022-02-23 13:06:31', 'ik-denk-dat-ze-hem-dr-helemaal-afrijd', '…ik denk dat ze hem dr helemaal afrijd…', '…ik denk dat ze hem dr helemaal afrijd…', 'Olivier', 'olivier', 'olivier', 'Majke', 'majke', 'majke', 'RTV', 'rtv', 0, 0),
@@ -2159,7 +2159,11 @@ INSERT INTO `quotes` (`id`, `import_id`, `created`, `slug`, `quote`, `quote_lc`,
 (2093, 'c07f927f-788a-4bce-90f1-8b5acd5534a4', '2012-04-20 10:12:58', 'moet-je-kijken-hoe-lekker-ze-dr-brievenbus-open-doet-joh', 'Moet je kijken hoe lekker ze d\'r brievenbus open doet joh', 'moet je kijken hoe lekker ze d\'r brievenbus open doet joh', 'Keyhe', 'keyhe', 'keyhe', 'Jos', 'jos', 'jos', 'woedend', 'woedend', 0, 139),
 (2094, 'a732e164-7abb-4e29-a0cc-e6342811b240', '2012-12-21 12:12:41', 'ik-zeg-dat-het-hartjes-zijn-dan-past-het-goed-bij-mn-ballen', 'Ik zeg dat het hartjes zijn, dan past het goed bij m\'n ballen', 'ik zeg dat het hartjes zijn, dan past het goed bij m\'n ballen', 'Miranda', 'miranda', 'miranda', 'Jos', 'jos', 'jos', 'woedend', 'woedend', 0, 133),
 (2095, 'fj37Ctdm57NC21PC7uT45c', '2020-10-29 10:04:09', 'cruijff-is-een-druif', 'Cruijff is een druif', 'cruijff is een druif', 'Louis van Gaal', 'louis van gaal', 'louis-van-gaal', 'Jos', 'jos', 'jos', 'humor,voetbal,sport', 'humor,voetbal,sport', 0, 4),
-(2096, 'drafts.tL9sHojEZjyJOg53VNsy87', '2020-10-28 08:47:33', 'twee-keer-kijken-naar-schreeuwende-aardappelboer-met-paardrijdende-dj-en-ik-kan-er-weer-tegenaan', 'Twee keer kijken naar schreeuwende aardappelboer met paardrijdende dj en ik kan er weer tegenaan.', 'twee keer kijken naar schreeuwende aardappelboer met paardrijdende dj en ik kan er weer tegenaan.', 'Nico Dijkshoorn', 'nico dijkshoorn', 'nico-dijkshoorn', 'Jos', 'jos', 'jos', 'GetUpAndDanceBrother,twitter', 'getupanddancebrother,twitter', 0, 0);
+(2096, 'drafts.tL9sHojEZjyJOg53VNsy87', '2020-10-28 08:47:33', 'twee-keer-kijken-naar-schreeuwende-aardappelboer-met-paardrijdende-dj-en-ik-kan-er-weer-tegenaan', 'Twee keer kijken naar schreeuwende aardappelboer met paardrijdende dj en ik kan er weer tegenaan.', 'twee keer kijken naar schreeuwende aardappelboer met paardrijdende dj en ik kan er weer tegenaan.', 'Nico Dijkshoorn', 'nico dijkshoorn', 'nico-dijkshoorn', 'Jos', 'jos', 'jos', 'GetUpAndDanceBrother,twitter', 'getupanddancebrother,twitter', 0, 0),
+(2102, 'OUUYF34k0hvZSw1ZhNgNRh', '2022-04-30 12:01:45', 'wordfeud-is-gewoon-spelling-voor-je-hobby-wie-heeft-dat-bedacht', 'Wordfeud is gewoon spelling voor je hobby. Wie heeft dat bedacht?', 'wordfeud is gewoon spelling voor je hobby. wie heeft dat bedacht?', 'Hester', 'hester', 'hester', 'Jos', 'jos', 'jos', 'HJKM,wordfeud', 'hjkm,wordfeud', 0, 0),
+(2103, 'OUUYF34k0hvZSw1ZhNUq4D', '2022-04-29 20:53:14', 'het-is-toch-al-zo-anders-dan-maar-nog-anderser', 'Het is toch al zo anders, dan maar nog anderser', 'het is toch al zo anders, dan maar nog anderser', 'Aram', 'aram', 'aram', 'Jos', 'jos', 'jos', 'HJKM', 'hjkm', 0, 0),
+(2104, 'GIlZSKYX27DJ1Md3GxmJBz', '2022-04-29 17:12:26', 'alle-tenen-braken-in-mijn-schulp', 'Alle tenen braken in mijn schulp', 'alle tenen braken in mijn schulp', 'Aram', 'aram', 'aram', 'Jos', 'jos', 'jos', 'HJKM', 'hjkm', 0, 0),
+(2105, 'b7R4JUf7P4vNiP1HE4REGn', '2022-04-27 11:21:31', 'ik-hoef-geen-goeie-karma-ik-hoef-geld', 'Ik hoef geen goeie karma, ik hoef geld', 'ik hoef geen goeie karma, ik hoef geld', 'Kaj', 'kaj', 'kaj', 'Jos', 'jos', 'jos', 'HJKM,koningsdag', 'hjkm,koningsdag', 0, 0);
 
 -- --------------------------------------------------------
 
@@ -2454,7 +2458,11 @@ INSERT INTO `quote_owner` (`quote_id`, `email`, `ip`, `modkey`) VALUES
 (2046, 'josfaber@me.com', '89.46.223.215', 'aa2fcffd-4bac-4435-9492-4c2c26a29307'),
 (2047, 'josfaber@me.com', '89.46.223.215', '89eeb1b3-7276-4680-a884-c82c6bba43c1'),
 (2048, 'josfaber@me.com', '89.46.223.215', 'a953333b-ca6a-49b1-b414-02c19ef0776f'),
-(2049, 'josfaber@me.com', '80.60.243.113', 'e590b3ad-4e59-479d-a434-d0f4cc2af4ff');
+(2049, 'josfaber@me.com', '80.60.243.113', 'e590b3ad-4e59-479d-a434-d0f4cc2af4ff'),
+(2102, 'josfaber@me.com', '104.28.30.75', 'bf704a6b-6f87-4cfd-a108-748c79daf42f'),
+(2103, 'josfaber@me.com', '192.168.2.254', '995f3eac-c88d-47bc-9c7b-48df7f71a98a'),
+(2104, 'josfaber@me.com', '192.168.2.254', '4af0ea36-4f97-461f-bc4c-c5a8614a4879'),
+(2105, 'josfaber@me.com', '104.28.30.75', 'cd3cd7f8-6d52-42f7-9dfb-f0923cc43394');
 
 -- --------------------------------------------------------
 
@@ -2497,7 +2505,7 @@ INSERT INTO `sayer_rank` (`sayer`, `amount`) VALUES
 ('Anthony Bourdain', 1),
 ('Antoinette', 2),
 ('Appo', 1),
-('Aram', 2),
+('Aram', 4),
 ('Argeweb', 1),
 ('Aristoteles', 1),
 ('Arjen Lubach', 2),
@@ -2647,7 +2655,7 @@ INSERT INTO `sayer_rank` (`sayer`, `amount`) VALUES
 ('Henry', 9),
 ('Henry van Loon', 1),
 ('Herman Brusselmans', 1),
-('Hester', 66),
+('Hester', 67),
 ('Hilly', 17),
 ('HP', 1),
 ('Hubert Reeves', 1),
@@ -2704,7 +2712,7 @@ INSERT INTO `sayer_rank` (`sayer`, `amount`) VALUES
 ('Josette', 2),
 ('Joshua Gross', 1),
 ('Justin Erik Halldor Smith', 1),
-('Kaj', 50),
+('Kaj', 51),
 ('Kaneki', 1),
 ('kantoorplant', 1),
 ('Kathleen Casey Theisen', 1),
@@ -3026,7 +3034,7 @@ INSERT INTO `submitter_rank` (`submitter`, `amount`) VALUES
 ('Jorg', 1),
 ('Jorn', 31),
 ('Jorn de Vreede', 1),
-('Jos', 1104),
+('Jos', 1108),
 ('Joz', 1),
 ('Jozef', 4),
 ('Judith van der Horst', 1),
@@ -3264,7 +3272,7 @@ INSERT INTO `tag_rank` (`tag`, `amount`) VALUES
 ('hetcollectiefgeheugen', 1),
 ('historie', 1),
 ('hitler', 1),
-('hjkm', 196),
+('hjkm', 200),
 ('hlf8', 1),
 ('horyzon', 1),
 ('hosting', 1),
@@ -3318,6 +3326,7 @@ INSERT INTO `tag_rank` (`tag`, `amount`) VALUES
 ('koffietijd', 1),
 ('konijnkozijn', 1),
 ('koning', 1),
+('koningsdag', 1),
 ('kont', 1),
 ('kopspijkers', 1),
 ('kroeg', 1),
@@ -3525,6 +3534,7 @@ INSERT INTO `tag_rank` (`tag`, `amount`) VALUES
 ('woedend!', 10),
 ('woedendq', 3),
 ('wopke', 1),
+('wordfeud', 1),
 ('wouter', 1),
 ('yesmen', 1),
 ('your', 1),
@@ -3551,7 +3561,22 @@ CREATE TABLE `vote_log` (
 --
 
 INSERT INTO `vote_log` (`id`, `quote_id`, `identifier`) VALUES
-(1, 7, '172.22.0.1');
+(1, 7, '172.22.0.1'),
+(2, 14, '172.23.0.1'),
+(3, 9, '172.23.0.1'),
+(4, 1, '172.23.0.1'),
+(5, 4, '172.23.0.1'),
+(6, 6, '172.23.0.1'),
+(7, 8, '172.23.0.1'),
+(8, 5, '172.23.0.1'),
+(9, 13, '172.23.0.1'),
+(10, 3, '172.23.0.1'),
+(11, 2, '172.23.0.1'),
+(12, 16, '172.23.0.1'),
+(13, 20, '172.23.0.1'),
+(14, 18, '172.23.0.1'),
+(15, 22, '172.23.0.1'),
+(16, 12, '172.23.0.1');
 
 --
 -- Indexen voor geëxporteerde tabellen
@@ -3606,13 +3631,13 @@ ALTER TABLE `vote_log`
 -- AUTO_INCREMENT voor een tabel `quotes`
 --
 ALTER TABLE `quotes`
-  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=2102;
+  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=2106;
 
 --
 -- AUTO_INCREMENT voor een tabel `vote_log`
 --
 ALTER TABLE `vote_log`
-  MODIFY `id` bigint(20) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=2;
+  MODIFY `id` bigint(20) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=17;
 COMMIT;
 
 /*!40101 SET CHARACTER_SET_CLIENT=@OLD_CHARACTER_SET_CLIENT */;
