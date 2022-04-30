@@ -1,8 +1,5 @@
 FROM php:8.1.5-fpm-alpine3.15
 
-RUN addgroup --gid 1000 mygroup
-RUN adduser --system --no-create-home --disabled-password --uid 1000 --ingroup mygroup myuser
-
 ENV PHP_OPCACHE_VALIDATE_TIMESTAMPS="0" \
     PHP_OPCACHE_MAX_ACCELERATED_FILES="20000" \
     PHP_OPCACHE_MEMORY_CONSUMPTION="256" \
@@ -26,8 +23,6 @@ RUN docker-php-ext-enable redis
 RUN apk del --purge autoconf g++ make
 
 WORKDIR /var/www
-RUN chown -R myuser:mygroup /var/www
-USER myuser
 
 COPY ./dockerfiles/php/php.ini /usr/local/etc/php/php.ini
 # COPY ./dockerfiles/php/xdebug-dev.ini /usr/local/etc/php/conf.d/docker-php-ext-xdebug.ini
