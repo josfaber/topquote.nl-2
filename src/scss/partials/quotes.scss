@@ -56,6 +56,15 @@ blockquote {
                         
         [class^="icon-"], [class*=" icon-"] {
             margin-right: 0.5em;
+
+            &:hover {
+                text-decoration: none;
+            }
+        }
+
+        a.quote-btn-like,
+        a.quote-btn-share {
+            cursor: pointer;
         }
 
         a.tag:not(:last-child) {

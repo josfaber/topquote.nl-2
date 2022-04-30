@@ -41,6 +41,7 @@
   },
   "dependencies": {
     "axios": "^0.26.1",
+    "copy-to-clipboard": "^3.3.1",
     "js-cookie": "^3.0.1"
   }
 }

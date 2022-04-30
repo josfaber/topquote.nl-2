@@ -2,6 +2,15 @@ import '../scss/styles.scss';
 
 import Cookies from 'js-cookie'
 
+import copy from 'copy-to-clipboard';
+
+let main_el, 
+    menucb, 
+    addForm, 
+    feedbackForm, 
+    btn_delete, 
+    btn_search;
+
 const updateColor = (c) => {
     // set doc's primary color
     let altClr = getComputedStyle(document.documentElement).getPropertyValue(`--alt-color-${c}`);
@@ -33,29 +42,85 @@ const scaleDownQuote = (el, fontSizeRem = 3.6, minFontSizeRem = 1) => {
     if (elHeight > minFontSizeRem && elHeight > 0.8 * winHeight) scaleDownQuote(el, fontSizeRem - 0.1, minFontSizeRem);
 };
 
+const copyUrl = () => {
+    copy(document.getElementById('share-url').innerText);
+    bodyClickHandler();
+};
+
+const tweetUrl = () => {
+    window.open(`https://twitter.com/intent/tweet?text=${encodeURIComponent(document.getElementById('share-url').innerText)}`, '_blank');
+    bodyClickHandler();
+};
+
+const mailUrl = () => {
+    window.location.href = `mailto:?subject=${encodeURIComponent('Check deze quote')}&body=${encodeURIComponent(document.getElementById('share-url').innerText)}`;
+    bodyClickHandler();
+};
+
 const normalize = (value, minimum, maximum) => { return (value - minimum) / (maximum - minimum); }
 const interpolate = (normValue, minimum, maximum) => { return minimum + (maximum - minimum) * normValue; }    
 const map = (value, min1, max1, min2, max2) => { return interpolate( normalize(value, min1, max1), min2, max2); } 
+
+const shareQuote = (url) => {
+    !main_el || main_el.classList.add('blur');
+
+    const share_url_el = document.getElementById('share-url');
+    share_url_el.innerText = url;
+
+    const share_container = document.getElementById('share-container');
+    !share_container || share_container.classList.add('active');
+
+    const btn_copy = document.getElementById('btnCopy');
+    !btn_copy || btn_copy.addEventListener('click', copyUrl);
+    const btn_tweet = document.getElementById('btnTweet');
+    !btn_tweet || btn_tweet.addEventListener('click', tweetUrl);
+    const btn_mail = document.getElementById('btnMail');
+    !btn_mail || btn_mail.addEventListener('click', mailUrl);
+
+    // console.log(main_el, share_container.classList, share_url_el);
+    !main_el || setTimeout(() => main_el.addEventListener('click', bodyClickHandler), 100);
+}
+    
+const bodyClickHandler = (e) => {
+    !main_el || main_el.removeEventListener('click', bodyClickHandler);
+    !main_el || main_el.classList.remove('blur');
+
+    menucb.checked = false;
+
+    const btn_copy = document.getElementById('btnCopy');
+    !btn_copy || btn_copy.removeEventListener('click', copyUrl);
+    const btn_tweet = document.getElementById('btnTweet');
+    !btn_tweet || btn_tweet.removeEventListener('click', tweetUrl);
+    const btn_mail = document.getElementById('btnMail');
+    !btn_mail || btn_mail.removeEventListener('click', mailUrl);
+
+    const share_container = document.getElementById('share-container');
+    !share_container || share_container.classList.remove('active');
+}
 
 /**
  * On body ready
  */
 document.body.onload = ( () => {
     
-    const menucb = document.getElementById('menucb');
-    const main_el = document.getElementsByTagName('main')[0];
-    
-    const bodyClickHandler = (e) => {
-        !main_el || main_el.removeEventListener('click', bodyClickHandler);
-        !main_el || main_el.classList.remove('blur');
-        menucb.checked = false;
-    }
+    main_el = document.getElementsByTagName('main')[0];
+    menucb = document.getElementById('menucb');
+
+    // share 
+    const share_buttons = document.querySelectorAll('.quote-btn-share');
+    share_buttons.forEach( (el) => {
+        el.addEventListener('click', (e) => {
+            e.preventDefault();
+            shareQuote(e.target.href);
+        });
+    });
 
     // onchange menucb
     menucb.onchange = ( () => setTimeout(() => {
         if (menucb.checked) {
             !main_el || main_el.classList.add('blur');
-            !main_el || main_el.addEventListener('click', bodyClickHandler);
+            !main_el || setTimeout(() => main_el.addEventListener('click', bodyClickHandler), 100);
+
         } else {
             !main_el || main_el.classList.remove('blur');
             !main_el || main_el.removeEventListener('click', bodyClickHandler);
@@ -86,7 +151,7 @@ document.body.onload = ( () => {
     }
 
     // handle feedback form 
-    const feedbackForm = document.getElementById('feedbackForm');
+    feedbackForm = document.getElementById('feedbackForm');
     if (feedbackForm) {
         const f_email = document.getElementById('f_email');
         !f_email || (f_email.value = Cookies.get('topquote-email') || "");
@@ -107,7 +172,7 @@ document.body.onload = ( () => {
     }
 
     // handle add form 
-    const addForm = document.getElementById('addForm');
+    addForm = document.getElementById('addForm');
     if (addForm) {
         const f_email = document.getElementById('f_email');
         !f_email || (f_email.value = Cookies.get('topquote-email') || "");
@@ -127,9 +192,9 @@ document.body.onload = ( () => {
     }
 
     // handle delete on editForm
-    const btnDelete = document.getElementById('btnDelete');
-    if (btnDelete) {
-        btnDelete.addEventListener('click', (e) => {
+    btn_delete = document.getElementById('btnDelete');
+    if (btn_delete) {
+        btn_delete.addEventListener('click', (e) => {
             e.preventDefault();
             if (confirm("Weet je zeker dat je de quote wilt verwijderen?")) {
                 document.getElementById('f_is_delete').value = 1;
@@ -139,7 +204,7 @@ document.body.onload = ( () => {
     }
 
     // search 
-    const btn_search = document.getElementById('btnSearch');
+    btn_search = document.getElementById('btnSearch');
     btn_search.addEventListener('click', (e) => {
         e.preventDefault();
         const terms_container = document.getElementById('terms-container');
@@ -180,7 +245,7 @@ document.body.onload = ( () => {
         const max_title_size_rem = parseFloat(window.getComputedStyle(title_el).fontSize) / root_font_size;
         const topbar_height = parseFloat(window.getComputedStyle(document.getElementById('topbar')).height);
         const travel_distance = topbar_height + title_el_margin + 13;
-        console.log(travel_distance);
+        // console.log(travel_distance);
         
         let fontSize = max_title_size_rem;
         window.onscroll = ( () => {
