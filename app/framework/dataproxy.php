@@ -4,6 +4,7 @@ namespace TopQuote;
 
 use PHPMailer\PHPMailer\PHPMailer;
 use PHPMailer\PHPMailer\Exception;
+
 class DataProxy
 {
 
@@ -27,6 +28,10 @@ class DataProxy
 
 	private function from_cache($key)
 	{
+		if (defined('ENVIRONMENT') && ENVIRONMENT == "development") {
+			return false;
+		}
+
 		try {
 			// $this->redis->del($key);
 			$this->redis->get($key);
@@ -39,6 +44,10 @@ class DataProxy
 
 	private function to_cache($key, $value, $ttl = 60 * 5)
 	{
+		if (defined('ENVIRONMENT') && ENVIRONMENT == "development") {
+			return false;
+		}
+
 		try {
 			$this->redis->setex($key, $ttl, $value);
 		} catch (\Exception $e) {
@@ -55,16 +64,47 @@ class DataProxy
 		}
 	}
 
-	public function removeQuoteFromCache($quote) {
+	public function removeQuoteFromCache($quote)
+	{
 		$this->del_cache('quote_' . $quote->id);
 		$this->del_cache('quote_' . md5($quote->slug));
+	}
+
+	public function vote($quote_id)
+	{
+		$identifier = $_SERVER['REMOTE_ADDR'];
+
+		$db_vote = new \DB\SQL\Mapper($this->db, 'vote_log');
+		$db_vote->reset();
+		$db_vote->load(array('quote_id=? AND identifier=?', $quote_id, $identifier));
+		if (!$db_vote->dry()) {
+			// already voted
+			return array("message" => "already voted");
+		}
+		
+		$db_quote = new \DB\SQL\Mapper($this->db, 'quotes');
+		$db_quote->load(array('id=?', $quote_id));
+		if(!$db_quote->dry()) {
+			$db_quote->likes = $db_quote->likes + 1;
+			$db_quote->save();
+
+			$db_vote->quote_id = $quote_id;
+			$db_vote->identifier = $identifier;
+			$db_vote->save();
+
+			return array("message" => "voted", "quote_id" => (int)$quote_id, "likes" => $db_quote->likes);
+		}
+
+		return array("message" => "quote not found");
 	}
 
 	public function get_quote($id, $bypass_cache = false)
 	{
 		$cache_key = 'quote_' . $id;
 		$cache_time = 60 * 60;
-		if (!$bypass_cache && $quote = $this->from_cache($cache_key)) { return json_decode($quote, true); }
+		if (!$bypass_cache && $quote = $this->from_cache($cache_key)) {
+			return json_decode($quote, true);
+		}
 
 		$results = $this->db->exec("
 			SELECT * 
@@ -83,7 +123,8 @@ class DataProxy
 		return $quote;
 	}
 
-	public function get_quote_owner($quote_id, $modkey) {
+	public function get_quote_owner($quote_id, $modkey)
+	{
 		$results = $this->db->exec("
 			SELECT * 
 			FROM quote_owner 
@@ -103,7 +144,9 @@ class DataProxy
 	{
 		$cache_key = 'quote_' . md5($slug);
 		$cache_time = 60 * 60;
-		if ($quote = $this->from_cache($cache_key)) { return json_decode($quote, true); }
+		if ($quote = $this->from_cache($cache_key)) {
+			return json_decode($quote, true);
+		}
 
 		$results = $this->db->exec("
 			SELECT *  
@@ -130,9 +173,9 @@ class DataProxy
 		$cache_key = 'quotes_' . md5($key_post);
 		$cache_time = $orderby == self::$ORDER_RANDOM ? 30 : 60 * 5;
 
-		if ($results = $this->from_cache($cache_key)) { 
+		if ($results = $this->from_cache($cache_key)) {
 			// !d("redis");
-			return [ "results" => json_decode($results, true) ];
+			return ["results" => json_decode($results, true)];
 		}
 
 		$offset_base = ($page - 1) * $quotes_per_page;
@@ -207,9 +250,9 @@ class DataProxy
 		$cache_key = 'search_' . md5($key_post);
 		$cache_time = 60 * 10;
 
-		if ($results = $this->from_cache($cache_key)) { 
+		if ($results = $this->from_cache($cache_key)) {
 			// !d("redis");
-			return [ "results" => json_decode($results, true) ];
+			return ["results" => json_decode($results, true)];
 		}
 
 		// $offset_base = ($page - 1) * $quotes_per_page;
@@ -228,7 +271,7 @@ class DataProxy
 			ORDER BY score DESC
 			{$LIMIT}  
 		";
-		
+
 		$results = $this->db->exec($sql, [":terms" => $terms, ":tags" => $termsAsTags]);
 
 		// !d($sql, $terms, $results, $this->db->count());
@@ -250,9 +293,9 @@ class DataProxy
 		$cache_key = 'related_to_' . $quote_id;
 		$cache_time = 60 * 30;
 
-		if ($results = $this->from_cache($cache_key)) { 
+		if ($results = $this->from_cache($cache_key)) {
 			// !d("redis");
-			return [ "results" => json_decode($results, true) ];
+			return ["results" => json_decode($results, true)];
 		}
 
 		$LIMIT = " LIMIT 20 ";
@@ -260,7 +303,7 @@ class DataProxy
 		$sql = "SELECT quote_lc, tags_lc, sayer_lc FROM quotes WHERE id = :id LIMIT 1";
 		$terms = $this->db->exec($sql, [":id" => $quote_id]);
 		// !d($sql, $quote_id, $terms[0]["quote_lc"], $terms[0]["tags_lc"], $this->db->count());
-		
+
 		$sql = "
 			SELECT *, 
 				MATCH (quote_lc) AGAINST (:quote_lc IN NATURAL LANGUAGE MODE) AS quote_score, 
@@ -334,7 +377,9 @@ class DataProxy
 	{
 		$cache_key = 'top_tags';
 		$cache_time = 60 * 60 * 4;
-		if ($top_tags = $this->from_cache($cache_key)) { return json_decode($top_tags, true); }
+		if ($top_tags = $this->from_cache($cache_key)) {
+			return json_decode($top_tags, true);
+		}
 
 		$results = $this->db->exec("
 			SELECT tag, amount 
@@ -356,7 +401,9 @@ class DataProxy
 	{
 		$cache_key = 'top_sayers';
 		$cache_time = 60 * 60 * 4;
-		if ($top_sayers = $this->from_cache($cache_key)) { return json_decode($top_sayers, true); }
+		if ($top_sayers = $this->from_cache($cache_key)) {
+			return json_decode($top_sayers, true);
+		}
 
 		$WHERE = rand(0, 3) < 3 ? "WHERE 1" : "WHERE LOWER(sayer) <> 'jos'";
 		$results = $this->db->exec("
@@ -388,7 +435,9 @@ class DataProxy
 	{
 		$cache_key = 'top_submitters';
 		$cache_time = 60 * 60 * 4;
-		if ($top_submitters = $this->from_cache($cache_key)) { return json_decode($top_submitters, true); }
+		if ($top_submitters = $this->from_cache($cache_key)) {
+			return json_decode($top_submitters, true);
+		}
 
 		$WHERE = rand(0, 3) < 3 ? "WHERE 1" : "WHERE LOWER(submitter) <> 'jos'";
 		$results = $this->db->exec("
@@ -413,10 +462,11 @@ class DataProxy
 
 		$this->to_cache($cache_key, json_encode($results), $cache_time);
 
-		return $results; 
+		return $results;
 	}
 
-	public function get_mailer() {
+	public function get_mailer()
+	{
 		$mailer = new PHPMailer();
 		$mailer->isSMTP();
 		$mailer->Host = SMTP_HOST;

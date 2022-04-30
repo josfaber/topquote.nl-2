@@ -20,6 +20,7 @@ $f3->route('GET /t-rank',					'Controller\Tools->rank');
 $f3->route('GET /t-clear',					'Controller\Tools->clear_cache');
 
 $f3->route('POST /api/quotes [ajax]',		'Controller\Api->quotes');
+$f3->route('POST /api/vote [ajax]',			'Controller\Api->vote');
 
 // $f3->set('ONERROR', function($f3) {
 // 	// !d(\Template::instance());

@@ -1,6 +1,7 @@
 <?php
 
 define("SITE_URL", 				rtrim(getenv('SITE_URL'), '/'));
+define("ENVIRONMENT",			getenv('ENVIRONMENT'));
 
 define("USE_TWIG_CACHE", 		getenv('USE_TWIG_CACHE') == "true");
 

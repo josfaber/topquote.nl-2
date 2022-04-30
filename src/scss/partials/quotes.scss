@@ -70,6 +70,86 @@ blockquote {
         a.tag:not(:last-child) {
             margin-right: 8px;
         }
+
+        .like-container {
+            position: relative;
+
+            .anim {
+                position: absolute;
+                top: 0;
+                left: 0;
+                visibility: hidden;
+                pointer-events: none;
+
+                .heart {
+                    position: absolute;
+
+                    @keyframes heart-anim-1 {
+                        0% {
+                            transform: translate(0, 0);
+                            opacity: 1;
+                        }
+                        50% {
+                            transform: translate(-10px, -16px) rotate(9deg) scale(0.8);
+                            opacity: 1;
+                        }
+                        100% {
+                            transform: translate(7px, -32px) rotate(-4deg) scale(0.4);
+                            opacity: 0;
+                        }
+                    }
+
+                    @keyframes heart-anim-2 {
+                        0% {
+                            transform: translate(0, 0);
+                            opacity: 1;
+                        }
+                        50% {
+                            transform: translate(10px, -14px) rotate(-9deg) scale(0.8);
+                            opacity: 1;
+                        }
+                        100% {
+                            transform: translate(-7px, -28px) rotate(4deg) scale(0.4);
+                            opacity: 0;
+                        }
+                    }
+
+                    @keyframes heart-anim-3 {
+                        0% {
+                            transform: translate(0, 0);
+                            opacity: 1;
+                        }
+                        50% {
+                            transform: translate(-4px, -14px) rotate(12deg) scale(1.1);
+                            opacity: 0.7;
+                        }
+                        100% {
+                            transform: translate(3px, -28px) rotate(-8deg) scale(0.5);
+                            opacity: 0;
+                        }
+                    }
+
+                    .icon {
+                        position: absolute;
+                        top: 7px;
+                        left: 0;
+                        // transform: translate(-50%, -50%);
+                        color: red;
+
+                    }
+                }
+                
+                &.active {
+                    visibility: visible;
+
+                    .heart {
+                        &:nth-child(1) .icon { animation: heart-anim-1 1200ms linear forwards; }
+                        &:nth-child(2) .icon { animation: heart-anim-2 1300ms linear forwards; }
+                        &:nth-child(3) .icon { animation: heart-anim-3 1400ms linear forwards; }
+                    }
+                }
+            }
+        }
     }
 
     @media screen and (min-width: 1024px) {

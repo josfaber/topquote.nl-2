@@ -3,7 +3,7 @@
 -- https://www.phpmyadmin.net/
 --
 -- Host: db:3306
--- Gegenereerd op: 29 apr 2022 om 21:25
+-- Gegenereerd op: 30 apr 2022 om 19:37
 -- Serverversie: 10.7.1-MariaDB-1:10.7.1+maria~focal
 -- PHP-versie: 8.0.15
 
@@ -57,7 +57,7 @@ INSERT INTO `quotes` (`id`, `import_id`, `created`, `slug`, `quote`, `quote_lc`,
 (4, '8Kxx6mS06JFrzlAqysqC9p', '2022-04-19 14:41:50', 'naast-mij-is-iedereen-een-zesje', 'Naast mij is iedereen een zesje….', 'naast mij is iedereen een zesje….', 'Ollie', 'ollie', 'ollie', 'Majke', 'majke', 'majke', 'RTV', 'rtv', 0, 0),
 (5, 'ih52pm0gIn4BoAfOBi2Ast', '2022-04-15 22:46:15', 'waar-rook-is-is-geen-bhv', 'Waar rook is is geen BHV', 'waar rook is is geen bhv', 'Peggy', 'peggy', 'peggy', 'Jos', 'jos', 'jos', 'HJKM', 'hjkm', 0, 0),
 (6, 'ih52pm0gIn4BoAfOBhmEcB', '2022-04-15 11:39:02', 'ik-stop-regelmatig-met-roken', 'Ik stop regelmatig met roken', 'ik stop regelmatig met roken', 'Denzel', 'denzel', 'denzel', 'Jos', 'jos', 'jos', 'TSG', 'tsg', 0, 0),
-(7, 'Zl7oiYZtJvun1ovouQpsV0', '2022-04-12 22:52:30', 'een-banaan-is-sowieso-een-soort-pap', 'Een banaan is sowieso een soort pap', 'een banaan is sowieso een soort pap', 'Mads', 'mads', 'mads', 'Jos', 'jos', 'jos', 'HJKM', 'hjkm', 0, 0),
+(7, 'Zl7oiYZtJvun1ovouQpsV0', '2022-04-12 22:52:30', 'een-banaan-is-sowieso-een-soort-pap', 'Een banaan is sowieso een soort pap', 'een banaan is sowieso een soort pap', 'Mads', 'mads', 'mads', 'Jos', 'jos', 'jos', 'HJKM', 'hjkm', 0, 1),
 (8, '28eHJ1ri3ZBLCHFfT10cjZ', '2022-04-10 21:07:01', 'een-paard-is-een-spiegel', 'Een paard is een spiegel', 'een paard is een spiegel', 'Rob', 'rob', 'rob', 'Jos', 'jos', 'jos', 'BoerZoektVrouw', 'boerzoektvrouw', 0, 0),
 (9, 'hhcguwOmEmDjSBOsKaC8QC', '2022-04-09 14:47:17', 'ja-maar-mijn-hoofd-is-gewoon-te-groot', 'Ja, maar mijn hoofd is gewoon te groot', 'ja, maar mijn hoofd is gewoon te groot', 'Fabio', 'fabio', 'fabio', 'Jos', 'jos', 'jos', 'HJKM', 'hjkm', 0, 0),
 (10, '28eHJ1ri3ZBLCHFfSzdlmr', '2022-04-09 12:58:48', 'hoop-is-niet-gratis-daar-moet-je-wat-voor-doen', 'Hoop is niet gratis, daar moet je wat voor doen', 'hoop is niet gratis, daar moet je wat voor doen', 'Ruben Jacobs', 'ruben jacobs', 'ruben-jacobs', 'Jos', 'jos', 'jos', 'DeEeuwVanFelix,spijkersmetkoppen,npo2', 'deeeuwvanfelix,spijkersmetkoppen,npo2', 0, 0),
@@ -3534,6 +3534,25 @@ INSERT INTO `tag_rank` (`tag`, `amount`) VALUES
 ('zonetgehoord', 1),
 ('zwanger', 1);
 
+-- --------------------------------------------------------
+
+--
+-- Tabelstructuur voor tabel `vote_log`
+--
+
+CREATE TABLE `vote_log` (
+  `id` bigint(20) NOT NULL,
+  `quote_id` int(11) NOT NULL,
+  `identifier` varchar(255) NOT NULL
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4;
+
+--
+-- Gegevens worden geëxporteerd voor tabel `vote_log`
+--
+
+INSERT INTO `vote_log` (`id`, `quote_id`, `identifier`) VALUES
+(1, 7, '172.22.0.1');
+
 --
 -- Indexen voor geëxporteerde tabellen
 --
@@ -3544,6 +3563,9 @@ INSERT INTO `tag_rank` (`tag`, `amount`) VALUES
 ALTER TABLE `quotes`
   ADD PRIMARY KEY (`id`);
 ALTER TABLE `quotes` ADD FULLTEXT KEY `§` (`quote_lc`,`sayer_lc`,`submitter_lc`,`tags_lc`);
+ALTER TABLE `quotes` ADD FULLTEXT KEY `sayer_lc` (`sayer_lc`);
+ALTER TABLE `quotes` ADD FULLTEXT KEY `tags_lc` (`tags_lc`);
+ALTER TABLE `quotes` ADD FULLTEXT KEY `quote_lc` (`quote_lc`);
 
 --
 -- Indexen voor tabel `quote_owner`
@@ -3570,6 +3592,13 @@ ALTER TABLE `tag_rank`
   ADD PRIMARY KEY (`tag`);
 
 --
+-- Indexen voor tabel `vote_log`
+--
+ALTER TABLE `vote_log`
+  ADD PRIMARY KEY (`id`),
+  ADD KEY `identifier` (`identifier`);
+
+--
 -- AUTO_INCREMENT voor geëxporteerde tabellen
 --
 
@@ -3577,7 +3606,13 @@ ALTER TABLE `tag_rank`
 -- AUTO_INCREMENT voor een tabel `quotes`
 --
 ALTER TABLE `quotes`
-  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=2101;
+  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=2102;
+
+--
+-- AUTO_INCREMENT voor een tabel `vote_log`
+--
+ALTER TABLE `vote_log`
+  MODIFY `id` bigint(20) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=2;
 COMMIT;
 
 /*!40101 SET CHARACTER_SET_CLIENT=@OLD_CHARACTER_SET_CLIENT */;

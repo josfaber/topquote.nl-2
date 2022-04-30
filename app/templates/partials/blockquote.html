@@ -10,7 +10,14 @@
     <div class="meta">
         <div><span class="icon-clock"></span> {{ quote.ago }}</div>
         <div><span class="icon-pencil"></span> <a href="{{ quote.submitter_link }}">{{ quote.submitter }}</a></div>
-        <div><a class="icon-heart1 quote-btn-like" data-id="{{ quote.id }}"></a> {{ quote.likes }}</div>
+        <div class="like-container">
+            <a class="icon-heart1 quote-btn-like" data-id="{{ quote.id }}"></a> <span id="q{{ quote.id }}-likes">{{ quote.likes }}</span>
+            <div id="q{{ quote.id }}-anim" class="anim">
+                <span class="heart"><span class="icon icon-heart1"></span></span>
+                <span class="heart"><span class="icon icon-heart1"></span></span>
+                <span class="heart"><span class="icon icon-heart1"></span></span>
+            </div>
+        </div>
         <div><a href="{{ quote.link }}" class="icon-share quote-btn-share"></a></div>
         <div><span class="icon-price-tags"></span>{{ quote.tags_links|raw }}</div>
     </div>

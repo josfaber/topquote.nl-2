@@ -3,6 +3,16 @@
 namespace Controller;
 
 class Api {
+	function vote(\Base $f3, $params) {
+		
+		$id = $f3->get('POST.id'); 
+		if (!$id) ajax_output([ "success" => false ]);
+		
+		global $dataproxy;
+		$result = $dataproxy->vote($id);
+
+		ajax_output(array_merge([ "success" => true ], $result));
+	}
 
 	function quotes(\Base $f3, $params) {
 

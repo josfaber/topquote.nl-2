@@ -1,3 +1,5 @@
+const axios = require( 'axios' ).default;
+
 import '../scss/styles.scss';
 
 import Cookies from 'js-cookie';
@@ -57,6 +59,54 @@ const mailUrl = () => {
     window.location.href = `mailto:?subject=${ encodeURIComponent( 'Check deze quote' ) }&body=${ encodeURIComponent( document.getElementById( 'share-url' ).innerText ) }`;
     bodyClickHandler();
 };
+
+const likeQuote = ( id ) => {
+    id = parseInt(id);
+    // get cookie 
+    const likes_array = (Cookies.get( `tql` ) || "")
+        .split( ',' )
+        .filter( ( x ) => x !== "" )
+        .map( ( x ) => parseInt( x ) );
+    console.log(likes_array, id, likes_array.includes( id ));
+
+    // const quote_like_cookie = Cookies.get( `tql${id}` );
+    // if (!quote_like_cookie) {
+    if (!likes_array.includes( id )) {
+        const anim = document.getElementById( `q${id}-anim` );
+        !anim || anim.classList.add( 'active' );
+
+        let data = new URLSearchParams();
+        data.append( 'id', id );
+
+        axios( {
+            method: 'post',
+            url: window.tqd.api_url + '/vote',
+            headers: { 'X-Requested-With': 'XMLHttpRequest' },
+            data,
+        } )
+            .then( function ( response ) {
+                // console.log( response.data );
+                const message = response.data.message || false; 
+                console.log('message', message);
+                if (message && message === 'voted') {
+                    const quote_id = response.data.quote_id || false;
+                    const likes = response.data.likes || false;
+                    console.log(quote_id, likes);
+                    if (quote_id && likes !== false) {
+                        const likes_el = document.getElementById( `q${quote_id}-likes` );
+                        console.log(`q${quote_id}-likes`, likes_el);
+                        if (likes_el) likes_el.innerText = likes;
+                    }
+                }
+                likes_array.push( id );
+                Cookies.set( `tql`, likes_array.join(','), { expires: 365 * 10 } );
+            } )
+            .catch( function ( error ) {
+                // handle error
+                console.log( error );
+            } );
+    }
+}
 
 const shareQuote = ( url ) => {
     !main_el || main_el.classList.add( 'blur' );
@@ -123,6 +173,15 @@ document.body.onload = ( () => {
         } );
     } );
 
+    // like 
+    const like_buttons = document.querySelectorAll( '.quote-btn-like' );
+    like_buttons.forEach( ( el ) => {
+        el.addEventListener( 'click', ( e ) => {
+            e.preventDefault();
+            likeQuote( e.target.dataset.id );
+        } );
+    } );
+
     // onchange menucb
     menucb.onchange = ( () => setTimeout( () => {
         if ( menucb.checked )
@@ -166,17 +225,17 @@ document.body.onload = ( () => {
     if ( feedbackForm )
     {
         const f_email = document.getElementById( 'f_email' );
-        !f_email || ( f_email.value = Cookies.get( 'topquote-email' ) || "" );
+        !f_email || ( f_email.value = Cookies.get( 'tqeml' ) || "" );
         const f_from = document.getElementById( 'f_from' );
-        !f_from || ( f_from.value = Cookies.get( 'topquote-from' ) || "" );
+        !f_from || ( f_from.value = Cookies.get( 'tqfrm' ) || "" );
 
         feedbackForm.addEventListener( 'submit', ( e ) => {
             e.preventDefault();
             grecaptcha.ready( function () {
                 grecaptcha.execute( window.tqd.rsk, { action: 'submit' } ).then( ( token ) => {
                     document.getElementById( 'rtoken' ).value = token;
-                    if ( f_email ) Cookies.set( 'topquote-email', f_email.value, { expires: 365 } );
-                    if ( f_from ) Cookies.set( 'topquote-from', f_from.value, { expires: 365 } );
+                    if ( f_email ) Cookies.set( 'tqeml', f_email.value, { expires: 365 } );
+                    if ( f_from ) Cookies.set( 'tqfrm', f_from.value, { expires: 365 } );
                     showLoader();
                     e.target.submit();
                 } );
@@ -189,16 +248,16 @@ document.body.onload = ( () => {
     if ( addForm )
     {
         const f_email = document.getElementById( 'f_email' );
-        !f_email || ( f_email.value = Cookies.get( 'topquote-email' ) || "" );
+        !f_email || ( f_email.value = Cookies.get( 'tqeml' ) || "" );
         const f_from = document.getElementById( 'f_from' );
-        !f_from || ( f_from.value = Cookies.get( 'topquote-from' ) || "" );
+        !f_from || ( f_from.value = Cookies.get( 'tqfrm' ) || "" );
         addForm.addEventListener( 'submit', ( e ) => {
             e.preventDefault();
             grecaptcha.ready( function () {
                 grecaptcha.execute( window.tqd.rsk, { action: 'submit' } ).then( ( token ) => {
                     document.getElementById( 'rtoken' ).value = token;
-                    if ( f_email ) Cookies.set( 'topquote-email', f_email.value, { expires: 365 } );
-                    if ( f_from ) Cookies.set( 'topquote-from', f_from.value, { expires: 365 } );
+                    if ( f_email ) Cookies.set( 'tqeml', f_email.value, { expires: 365 } );
+                    if ( f_from ) Cookies.set( 'tqfrm', f_from.value, { expires: 365 } );
                     showLoader();
                     e.target.submit();
                 } );
