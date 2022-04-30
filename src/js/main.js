@@ -1,266 +1,292 @@
 import '../scss/styles.scss';
 
-import Cookies from 'js-cookie'
+import Cookies from 'js-cookie';
 
 import copy from 'copy-to-clipboard';
 
-let main_el, 
-    menucb, 
-    addForm, 
-    feedbackForm, 
-    btn_delete, 
+let main_el,
+    menucb,
+    addForm,
+    feedbackForm,
+    btn_delete,
     btn_search;
 
-const updateColor = (c) => {
+const updateColor = ( c ) => {
     // set doc's primary color
-    let altClr = getComputedStyle(document.documentElement).getPropertyValue(`--alt-color-${c}`);
-    document.documentElement.style.setProperty('--primary-color', altClr);
+    let altClr = getComputedStyle( document.documentElement ).getPropertyValue( `--alt-color-${ c }` );
+    document.documentElement.style.setProperty( '--primary-color', altClr );
     // update active 
-    const el_active = document.querySelector('.clr.active')
-    !el_active || el_active.classList.remove('active');
-    const el_new = document.querySelector(`.clr[data-c="${c}"]`);
-    !el_new || el_new.classList.add('active');
-}
+    const el_active = document.querySelector( '.clr.active' );
+    !el_active || el_active.classList.remove( 'active' );
+    const el_new = document.querySelector( `.clr[data-c="${ c }"]` );
+    !el_new || el_new.classList.add( 'active' );
+};
 
 // update color 
-let tqcnum = window.localStorage.getItem('topquote-color-num');
+let tqcnum = window.localStorage.getItem( 'topquote-color-num' );
 const transitionTimeoutTime = tqcnum ? 100 : 5;
-if (!tqcnum) {
+if ( !tqcnum )
+{
     tqcnum = 0;
-    window.localStorage.setItem('topquote-color-num', tqcnum);
+    window.localStorage.setItem( 'topquote-color-num', tqcnum );
 }
-let color_transition_time = getComputedStyle(document.documentElement).getPropertyValue('--color-transition-time');
-document.documentElement.style.setProperty('--color-transition-time', '0ms');
-setTimeout( () => updateColor(tqcnum), 20);
-setTimeout( () => document.documentElement.style.setProperty('--color-transition-time', `${color_transition_time}`), transitionTimeoutTime);
+let color_transition_time = getComputedStyle( document.documentElement ).getPropertyValue( '--color-transition-time' );
+document.documentElement.style.setProperty( '--color-transition-time', '0ms' );
+setTimeout( () => updateColor( tqcnum ), 20 );
+setTimeout( () => document.documentElement.style.setProperty( '--color-transition-time', `${ color_transition_time }` ), transitionTimeoutTime );
 
-const scaleDownQuote = (el, fontSizeRem = 3.6, minFontSizeRem = 1) => {
-    if (!el) return;
-    el.style.fontSize = `${fontSizeRem}rem`;
+const scaleDownQuote = ( el, fontSizeRem = 3.6, minFontSizeRem = 1 ) => {
+    if ( !el ) return;
+    el.style.fontSize = `${ fontSizeRem }rem`;
     const elHeight = el.offsetHeight;
     const winHeight = window.innerHeight;
-    if (elHeight > minFontSizeRem && elHeight > 0.8 * winHeight) scaleDownQuote(el, fontSizeRem - 0.1, minFontSizeRem);
+    if ( elHeight > minFontSizeRem && elHeight > 0.8 * winHeight ) scaleDownQuote( el, fontSizeRem - 0.1, minFontSizeRem );
 };
 
 const copyUrl = () => {
-    copy(document.getElementById('share-url').innerText);
+    copy( document.getElementById( 'share-url' ).innerText );
     bodyClickHandler();
 };
 
 const tweetUrl = () => {
-    window.open(`https://twitter.com/intent/tweet?text=${encodeURIComponent(document.getElementById('share-url').innerText)}`, '_blank');
+    window.open( `https://twitter.com/intent/tweet?text=${ encodeURIComponent( document.getElementById( 'share-url' ).innerText ) }`, '_blank' );
     bodyClickHandler();
 };
 
 const mailUrl = () => {
-    window.location.href = `mailto:?subject=${encodeURIComponent('Check deze quote')}&body=${encodeURIComponent(document.getElementById('share-url').innerText)}`;
+    window.location.href = `mailto:?subject=${ encodeURIComponent( 'Check deze quote' ) }&body=${ encodeURIComponent( document.getElementById( 'share-url' ).innerText ) }`;
     bodyClickHandler();
 };
 
-const normalize = (value, minimum, maximum) => { return (value - minimum) / (maximum - minimum); }
-const interpolate = (normValue, minimum, maximum) => { return minimum + (maximum - minimum) * normValue; }    
-const map = (value, min1, max1, min2, max2) => { return interpolate( normalize(value, min1, max1), min2, max2); } 
+const shareQuote = ( url ) => {
+    !main_el || main_el.classList.add( 'blur' );
 
-const shareQuote = (url) => {
-    !main_el || main_el.classList.add('blur');
-
-    const share_url_el = document.getElementById('share-url');
+    const share_url_el = document.getElementById( 'share-url' );
     share_url_el.innerText = url;
 
-    const share_container = document.getElementById('share-container');
-    !share_container || share_container.classList.add('active');
+    const share_container = document.getElementById( 'share-container' );
+    !share_container || share_container.classList.add( 'active' );
 
-    const btn_copy = document.getElementById('btnCopy');
-    !btn_copy || btn_copy.addEventListener('click', copyUrl);
-    const btn_tweet = document.getElementById('btnTweet');
-    !btn_tweet || btn_tweet.addEventListener('click', tweetUrl);
-    const btn_mail = document.getElementById('btnMail');
-    !btn_mail || btn_mail.addEventListener('click', mailUrl);
+    const btn_copy = document.getElementById( 'btnCopy' );
+    !btn_copy || btn_copy.addEventListener( 'click', copyUrl );
+    const btn_tweet = document.getElementById( 'btnTweet' );
+    !btn_tweet || btn_tweet.addEventListener( 'click', tweetUrl );
+    const btn_mail = document.getElementById( 'btnMail' );
+    !btn_mail || btn_mail.addEventListener( 'click', mailUrl );
 
     // console.log(main_el, share_container.classList, share_url_el);
-    !main_el || setTimeout(() => main_el.addEventListener('click', bodyClickHandler), 100);
-}
-    
-const bodyClickHandler = (e) => {
-    !main_el || main_el.removeEventListener('click', bodyClickHandler);
-    !main_el || main_el.classList.remove('blur');
+    !main_el || setTimeout( () => main_el.addEventListener( 'click', bodyClickHandler ), 100 );
+};
+
+const bodyClickHandler = ( e ) => {
+    !main_el || main_el.removeEventListener( 'click', bodyClickHandler );
+    !main_el || main_el.classList.remove( 'blur' );
 
     menucb.checked = false;
 
-    const btn_copy = document.getElementById('btnCopy');
-    !btn_copy || btn_copy.removeEventListener('click', copyUrl);
-    const btn_tweet = document.getElementById('btnTweet');
-    !btn_tweet || btn_tweet.removeEventListener('click', tweetUrl);
-    const btn_mail = document.getElementById('btnMail');
-    !btn_mail || btn_mail.removeEventListener('click', mailUrl);
+    const btn_copy = document.getElementById( 'btnCopy' );
+    !btn_copy || btn_copy.removeEventListener( 'click', copyUrl );
+    const btn_tweet = document.getElementById( 'btnTweet' );
+    !btn_tweet || btn_tweet.removeEventListener( 'click', tweetUrl );
+    const btn_mail = document.getElementById( 'btnMail' );
+    !btn_mail || btn_mail.removeEventListener( 'click', mailUrl );
 
-    const share_container = document.getElementById('share-container');
-    !share_container || share_container.classList.remove('active');
-}
+    const share_container = document.getElementById( 'share-container' );
+    !share_container || share_container.classList.remove( 'active' );
+};
+
+const showLoader = () => {
+    !main_el || main_el.classList.add( 'blur' );
+    const loader_el = document.getElementById('loader-container');
+    console.log( "#", loader_el );
+    !loader_el || loader_el.classList.add( 'active' );
+};
+
+const normalize = ( value, minimum, maximum ) => { return ( value - minimum ) / ( maximum - minimum ); };
+const interpolate = ( normValue, minimum, maximum ) => { return minimum + ( maximum - minimum ) * normValue; };
+const map = ( value, min1, max1, min2, max2 ) => { return interpolate( normalize( value, min1, max1 ), min2, max2 ); };
 
 /**
  * On body ready
  */
 document.body.onload = ( () => {
-    
-    main_el = document.getElementsByTagName('main')[0];
-    menucb = document.getElementById('menucb');
+
+    main_el = document.getElementsByTagName( 'main' )[ 0 ];
+    menucb = document.getElementById( 'menucb' );
 
     // share 
-    const share_buttons = document.querySelectorAll('.quote-btn-share');
-    share_buttons.forEach( (el) => {
-        el.addEventListener('click', (e) => {
+    const share_buttons = document.querySelectorAll( '.quote-btn-share' );
+    share_buttons.forEach( ( el ) => {
+        el.addEventListener( 'click', ( e ) => {
             e.preventDefault();
-            shareQuote(e.target.href);
-        });
-    });
+            shareQuote( e.target.href );
+        } );
+    } );
 
     // onchange menucb
-    menucb.onchange = ( () => setTimeout(() => {
-        if (menucb.checked) {
-            !main_el || main_el.classList.add('blur');
-            !main_el || setTimeout(() => main_el.addEventListener('click', bodyClickHandler), 100);
+    menucb.onchange = ( () => setTimeout( () => {
+        if ( menucb.checked )
+        {
+            !main_el || main_el.classList.add( 'blur' );
+            !main_el || setTimeout( () => main_el.addEventListener( 'click', bodyClickHandler ), 100 );
 
-        } else {
-            !main_el || main_el.classList.remove('blur');
-            !main_el || main_el.removeEventListener('click', bodyClickHandler);
+        } else
+        {
+            !main_el || main_el.classList.remove( 'blur' );
+            !main_el || main_el.removeEventListener( 'click', bodyClickHandler );
         }
-    }, 50) );
+    }, 50 ) );
 
     // onchange clr 
-    document.querySelectorAll('.clr').forEach( (el) => el.addEventListener("click", (e) => {
+    document.querySelectorAll( '.clr' ).forEach( ( el ) => el.addEventListener( "click", ( e ) => {
         e.preventDefault();
         let c = el.dataset.c;
-        !c || updateColor(c);
+        !c || updateColor( c );
         // update storage 
-        window.localStorage.setItem('topquote-color-num', c);
-    }));
+        window.localStorage.setItem( 'topquote-color-num', c );
+    } ) );
 
     // if in large mode, check for sayer height 
     // console.log(window.innerWidth);
-    if (window.innerWidth >= 1024) {
+    if ( window.innerWidth >= 1024 )
+    {
         // for every blockquote 
-        document.querySelectorAll('blockquote').forEach( (el) => {
-            let sayer_el = el.querySelector('.sayer');
-            let meta_el = el.querySelector('.meta');
-            if (!sayer_el || !meta_el) return;
+        document.querySelectorAll( 'blockquote' ).forEach( ( el ) => {
+            let sayer_el = el.querySelector( '.sayer' );
+            let meta_el = el.querySelector( '.meta' );
+            if ( !sayer_el || !meta_el ) return;
             let sayer_top = sayer_el.getBoundingClientRect().top;
             let sayer_height = sayer_el.offsetHeight;
-            meta_el.style.top = `${4 + sayer_height}px`;
-        });
+            meta_el.style.top = `${ 4 + sayer_height }px`;
+        } );
     }
 
     // handle feedback form 
-    feedbackForm = document.getElementById('feedbackForm');
-    if (feedbackForm) {
-        const f_email = document.getElementById('f_email');
-        !f_email || (f_email.value = Cookies.get('topquote-email') || "");
-        const f_from = document.getElementById('f_from');
-        !f_from || (f_from.value = Cookies.get('topquote-from') || "");
-        
-        feedbackForm.addEventListener('submit', (e) => {
+    feedbackForm = document.getElementById( 'feedbackForm' );
+    if ( feedbackForm )
+    {
+        const f_email = document.getElementById( 'f_email' );
+        !f_email || ( f_email.value = Cookies.get( 'topquote-email' ) || "" );
+        const f_from = document.getElementById( 'f_from' );
+        !f_from || ( f_from.value = Cookies.get( 'topquote-from' ) || "" );
+
+        feedbackForm.addEventListener( 'submit', ( e ) => {
             e.preventDefault();
-            grecaptcha.ready(function() {
-              grecaptcha.execute(window.tqd.rsk, {action: 'submit'}).then((token) => {
-                  document.getElementById('rtoken').value = token;
-                  if (f_email) Cookies.set('topquote-email', f_email.value, { expires: 365 });
-                  if (f_from) Cookies.set('topquote-from', f_from.value, { expires: 365 });
-                  e.target.submit();
-              });
-            });
-        });
+            grecaptcha.ready( function () {
+                grecaptcha.execute( window.tqd.rsk, { action: 'submit' } ).then( ( token ) => {
+                    document.getElementById( 'rtoken' ).value = token;
+                    if ( f_email ) Cookies.set( 'topquote-email', f_email.value, { expires: 365 } );
+                    if ( f_from ) Cookies.set( 'topquote-from', f_from.value, { expires: 365 } );
+                    showLoader();
+                    e.target.submit();
+                } );
+            } );
+        } );
     }
 
     // handle add form 
-    addForm = document.getElementById('addForm');
-    if (addForm) {
-        const f_email = document.getElementById('f_email');
-        !f_email || (f_email.value = Cookies.get('topquote-email') || "");
-        const f_from = document.getElementById('f_from');
-        !f_from || (f_from.value = Cookies.get('topquote-from') || "");
-        addForm.addEventListener('submit', (e) => {
+    addForm = document.getElementById( 'addForm' );
+    if ( addForm )
+    {
+        const f_email = document.getElementById( 'f_email' );
+        !f_email || ( f_email.value = Cookies.get( 'topquote-email' ) || "" );
+        const f_from = document.getElementById( 'f_from' );
+        !f_from || ( f_from.value = Cookies.get( 'topquote-from' ) || "" );
+        addForm.addEventListener( 'submit', ( e ) => {
             e.preventDefault();
-            grecaptcha.ready(function() {
-              grecaptcha.execute(window.tqd.rsk, {action: 'submit'}).then((token) => {
-                  document.getElementById('rtoken').value = token;
-                  if (f_email) Cookies.set('topquote-email', f_email.value, { expires: 365 });
-                  if (f_from) Cookies.set('topquote-from', f_from.value, { expires: 365 });
-                  e.target.submit();
-              });
-            });
-        });
+            grecaptcha.ready( function () {
+                grecaptcha.execute( window.tqd.rsk, { action: 'submit' } ).then( ( token ) => {
+                    document.getElementById( 'rtoken' ).value = token;
+                    if ( f_email ) Cookies.set( 'topquote-email', f_email.value, { expires: 365 } );
+                    if ( f_from ) Cookies.set( 'topquote-from', f_from.value, { expires: 365 } );
+                    showLoader();
+                    e.target.submit();
+                } );
+            } );
+        } );
     }
 
     // handle delete on editForm
-    btn_delete = document.getElementById('btnDelete');
-    if (btn_delete) {
-        btn_delete.addEventListener('click', (e) => {
+    btn_delete = document.getElementById( 'btnDelete' );
+    if ( btn_delete )
+    {
+        btn_delete.addEventListener( 'click', ( e ) => {
             e.preventDefault();
-            if (confirm("Weet je zeker dat je de quote wilt verwijderen?")) {
-                document.getElementById('f_is_delete').value = 1;
-                document.getElementById('editForm').submit();
+            if ( confirm( "Weet je zeker dat je de quote wilt verwijderen?" ) )
+            {
+                document.getElementById( 'f_is_delete' ).value = 1;
+                document.getElementById( 'editForm' ).submit();
             }
-        });
+        } );
     }
 
     // search 
-    btn_search = document.getElementById('btnSearch');
-    btn_search.addEventListener('click', (e) => {
+    btn_search = document.getElementById( 'btnSearch' );
+    btn_search.addEventListener( 'click', ( e ) => {
         e.preventDefault();
-        const terms_container = document.getElementById('terms-container');
-        const terms_input = document.getElementById('terms');
-        const keyHandler = (e) => {
-            console.log(e.keyCode);
-            if (e.keyCode === 13) { // enter
-                const terms = document.getElementById('terms');
-                !terms || (window.location.href = tqd.site_url + '/quotes/search/' + encodeURIComponent(terms.value));
-            } else if (e.keyCode === 27) { // esc
+        const terms_container = document.getElementById( 'terms-container' );
+        const terms_input = document.getElementById( 'terms' );
+        const keyHandler = ( e ) => {
+            console.log( e.keyCode );
+            if ( e.keyCode === 13 )
+            { // enter
+                const terms = document.getElementById( 'terms' );
+                !terms || ( window.location.href = tqd.site_url + '/quotes/search/' + encodeURIComponent( terms.value ) );
+            } else if ( e.keyCode === 27 )
+            { // esc
                 terms_input.value = '';
-                terms_input.removeEventListener('keyup', keyHandler);
-                terms_container.classList.remove('active');
+                terms_input.removeEventListener( 'keyup', keyHandler );
+                terms_container.classList.remove( 'active' );
             }
-        }
-        if (!terms_container.classList.contains('active')) {
-            terms_container.classList.add('active');
-            terms_input.addEventListener('keyup', keyHandler);
+        };
+        if ( !terms_container.classList.contains( 'active' ) )
+        {
+            terms_container.classList.add( 'active' );
+            terms_input.addEventListener( 'keyup', keyHandler );
             terms_input.focus();
-        } else {
-            terms_container.classList.remove('active');
-            terms_input.removeEventListener('keyup', keyHandler);
+        } else
+        {
+            terms_container.classList.remove( 'active' );
+            terms_input.removeEventListener( 'keyup', keyHandler );
             terms_input.value = '';
         }
-    });
+    } );
 
     // single quote
-    if (document.body.classList.contains("single-quote")) {
-        scaleDownQuote(document.querySelector('blockquote .quote'));
+    if ( document.body.classList.contains( "single-quote" ) )
+    {
+        scaleDownQuote( document.querySelector( 'blockquote .quote' ) );
     }
     // hide title on home no scroll 
-    if (document.body.classList.contains("home")) {
-        
-        const title_bg_el = document.getElementById('home_title_bg');
-        const title_el = document.getElementById('home_title');
-        const root_font_size = parseFloat(window.getComputedStyle(document.documentElement).fontSize);
-        const title_el_margin = parseFloat(window.getComputedStyle(title_el).marginTop);
-        const max_title_size_rem = parseFloat(window.getComputedStyle(title_el).fontSize) / root_font_size;
-        const topbar_height = parseFloat(window.getComputedStyle(document.getElementById('topbar')).height);
+    if ( document.body.classList.contains( "home" ) )
+    {
+
+        const title_bg_el = document.getElementById( 'home_title_bg' );
+        const title_el = document.getElementById( 'home_title' );
+        const root_font_size = parseFloat( window.getComputedStyle( document.documentElement ).fontSize );
+        const title_el_margin = parseFloat( window.getComputedStyle( title_el ).marginTop );
+        const max_title_size_rem = parseFloat( window.getComputedStyle( title_el ).fontSize ) / root_font_size;
+        const topbar_height = parseFloat( window.getComputedStyle( document.getElementById( 'topbar' ) ).height );
         const travel_distance = topbar_height + title_el_margin + 13;
         // console.log(travel_distance);
-        
+
         let fontSize = max_title_size_rem;
         window.onscroll = ( () => {
             let scrollPos = window.pageYOffset;
             // console.log(scrollPos);
-            fontSize = map(Math.min(travel_distance, scrollPos), 0, travel_distance, max_title_size_rem, 1.125);
-            title_bg_el.style.fontSize = `${fontSize}rem`;
-            title_el.style.fontSize = `${fontSize}rem`;
-            if (scrollPos > 0.2 * travel_distance) {
-                if (scrollPos > travel_distance && !title_el.classList.contains('fixed')) {
-                    title_bg_el.classList.remove('fixed');
-                    title_el.classList.add('fixed');
-                } else if (scrollPos <= travel_distance && title_el.classList.contains('fixed')) {
-                    title_bg_el.classList.add('fixed');
-                    title_el.classList.remove('fixed');
+            fontSize = map( Math.min( travel_distance, scrollPos ), 0, travel_distance, max_title_size_rem, 1.125 );
+            title_bg_el.style.fontSize = `${ fontSize }rem`;
+            title_el.style.fontSize = `${ fontSize }rem`;
+            if ( scrollPos > 0.2 * travel_distance )
+            {
+                if ( scrollPos > travel_distance && !title_el.classList.contains( 'fixed' ) )
+                {
+                    title_bg_el.classList.remove( 'fixed' );
+                    title_el.classList.add( 'fixed' );
+                } else if ( scrollPos <= travel_distance && title_el.classList.contains( 'fixed' ) )
+                {
+                    title_bg_el.classList.add( 'fixed' );
+                    title_el.classList.remove( 'fixed' );
                 }
             }
         } );
