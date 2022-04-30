@@ -245,6 +245,54 @@ class DataProxy
 		];
 	}
 
+	public function get_related_quotes($quote_id)
+	{
+		$cache_key = 'related_to_' . $quote_id;
+		$cache_time = 60 * 30;
+
+		if ($results = $this->from_cache($cache_key)) { 
+			// !d("redis");
+			return [ "results" => json_decode($results, true) ];
+		}
+
+		$LIMIT = " LIMIT 20 ";
+
+		$sql = "SELECT quote_lc, tags_lc, sayer_lc FROM quotes WHERE id = :id LIMIT 1";
+		$terms = $this->db->exec($sql, [":id" => $quote_id]);
+		// !d($sql, $quote_id, $terms[0]["quote_lc"], $terms[0]["tags_lc"], $this->db->count());
+		
+		$sql = "
+			SELECT *, 
+				MATCH (quote_lc) AGAINST (:quote_lc IN NATURAL LANGUAGE MODE) AS quote_score, 
+				MATCH (tags_lc) AGAINST (:tags_lc IN NATURAL LANGUAGE MODE) AS tags_score, 
+				MATCH (sayer_lc) AGAINST (:sayer_lc IN NATURAL LANGUAGE MODE) AS sayer_score 
+			FROM quotes 
+			WHERE id <> :id AND (
+				MATCH (quote_lc) AGAINST (:quote_lc IN NATURAL LANGUAGE MODE) 
+				OR MATCH (tags_lc) AGAINST (:tags_lc IN NATURAL LANGUAGE MODE) 
+				OR MATCH (sayer_lc) AGAINST (:sayer_lc IN NATURAL LANGUAGE MODE)
+			) 
+			ORDER BY quote_score DESC, tags_score DESC, sayer_score DESC
+			{$LIMIT}  
+		";
+
+		// $results = $this->db->exec($sql, [":id" => $quote_id]);
+		$results = $this->db->exec($sql, [":id" => $quote_id, ":quote_lc" => $terms[0]["quote_lc"], ":tags_lc" => $terms[0]["tags_lc"], ":sayer_lc" => $terms[0]["sayer_lc"]]);
+
+		// !d($sql, $quote_id, $results, $this->db->count());
+
+		if (!$results || $this->db->count() == 0) {
+			return false;
+		}
+
+		$results = array_map(array($this, 'hydrate_quote'), $results);
+		$this->to_cache($cache_key, json_encode($results), $cache_time);
+
+		return [
+			"results" => $results
+		];
+	}
+
 	function hydrate_quote($quote)
 	{
 		$quote["tags"] = explode(",", $quote["tags"]);

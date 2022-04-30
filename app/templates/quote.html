@@ -29,17 +29,14 @@
 <div class="full-h">
     {{ include('partials/blockquote.html') }}
 </div>
-Related
-Lorum ipsum<br>
-Lorum ipsum<br>
-Lorum ipsum<br>
-Lorum ipsum<br>
-Lorum ipsum<br>
-Lorum ipsum<br>
-Lorum ipsum<br>
-Lorum ipsum<br>
-Lorum ipsum<br>
-Lorum ipsum<br>
-Lorum ipsum<br>
-Lorum ipsum<br>
+<h3 class="full">Gerelateerde uitspraken</h3>
+<section id="quotes_list" class="quotes-list">
+    {% set is_single_quote = false %}
+    {% for quote in related %}
+        {{ include('partials/blockquote.html') }}
+    {% endfor %}
+    {% if not related %}
+        <p>Geen gerelateerde uitspraken</p>
+    {% endif %}
+    </section>
 {% endblock %}

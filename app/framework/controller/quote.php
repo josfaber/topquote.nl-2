@@ -14,9 +14,15 @@ class Quote
 
 		global $dataproxy;
 		$quote = $dataproxy->get_quote_by_slug($params["slug"]);
-
+		
 		if ($quote == false) {
 			$f3->error(404);
+		}
+
+		$related = $dataproxy->get_related_quotes($quote["id"]);
+		// !d($related);
+		if (!$related) {
+			$related = array("results" => []);
 		}
 
 		// redirect to canonical URL
@@ -29,6 +35,7 @@ class Quote
 		render_template('quote.html', [
 			"is_single_quote" => true,
 			"quote" => $quote,
+			"related" => $related["results"],
 		]);
 	}
 
