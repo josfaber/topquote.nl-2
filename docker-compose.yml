@@ -32,6 +32,7 @@ services:
       dockerfile: dockerfiles/php/Dockerfile
     volumes:
       - './app:/var/www'
+      - './env:/var/.env'
     container_name: topquote-php
     restart: on-failure
     env_file:
