@@ -9,6 +9,7 @@ require BASE_DIR . '/vendor/autoload.php';
 // $dotenv->load(BASE_DIR . '/.env');
 
 // Load core
+require FW_DIR . '/dataproxy.php';
 require FW_DIR . '/defines.php';
 require FW_DIR . '/functions.php';
 
