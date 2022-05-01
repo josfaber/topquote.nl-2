@@ -92,6 +92,10 @@ class DataProxy
 			$db_vote->identifier = $identifier;
 			$db_vote->save();
 
+			// clear cache keys 
+			$this->del_cache('quote_' . md5($db_quote->slug));
+			$this->del_cache('quote_' . $quote_id);
+
 			return array("message" => "voted", "quote_id" => (int)$quote_id, "likes" => $db_quote->likes);
 		}
 
