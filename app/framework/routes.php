@@ -15,7 +15,7 @@ $f3->route('POST /feedback',				'Controller\Tools->save_feedback');
 $f3->route('GET /mod', 						'Controller\Quote->edit');
 $f3->route('POST /mod', 					'Controller\Quote->update');
 
-$f3->route('GET /import',  					'Controller\Tools->import');
+// $f3->route('GET /import',  					'Controller\Tools->import');
 $f3->route('GET /t-rank',					'Controller\Tools->rank');
 $f3->route('GET /t-clear',					'Controller\Tools->clear_cache');
 
