@@ -7,8 +7,11 @@
             <link rel="profile" href="http://gmpg.org/xfn/11" />
             <link rel="dns-prefetch" href="//use.typekit.net">
             <link rel="preconnect" href="https://use.typekit.net/" crossorigin>
+            <style>{{ inlinecss }}</style>
             {% for css_file in css_files %}
-                <link rel="stylesheet" href="{{ css_file }}">
+                {# <link rel="stylesheet" href="{{ css_file }}"> #}
+                <link rel="preload" href="{{ css_file }}" as="style" onload="this.onload=null;this.rel='stylesheet'">
+                <noscript><link rel="stylesheet" href="{{ css_file }}"></noscript>
             {% endfor %}
             <title>{% block title %}{% endblock %} - topquote</title>
             <!-- Global site tag (gtag.js) - Google Analytics -->

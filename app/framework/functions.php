@@ -26,8 +26,8 @@ function get_css_js_array($extra_css_files = [], $extra_js_files = []) {
 }
 
 function get_defaults_array() {
-	global $orderby, $order, $page, $f3;
-
+	global $assets_manifest, $orderby, $order, $page, $f3;
+    $inlinecss = file_get_contents(PUBLIC_DIR . "/" . $assets_manifest["inline.css"]);
 	return [
 		"tqd" => array_merge($f3->get("PARAMS"), [ // merge filter and slug with defaults
 			"site_url"		=> site_url(),	
@@ -42,6 +42,7 @@ function get_defaults_array() {
 		"website_schema" => get_website_schema(),
         "site_title" => SITE_TITLE,
         "site_description" => SITE_DESCRIPTION,
+        "inlinecss" => $inlinecss,
 	];
 }
 
