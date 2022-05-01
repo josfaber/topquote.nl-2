@@ -57,6 +57,10 @@ h1, h2, h3 {
     }
 }
 
+// h2 {
+//     font-size: 1.17rem;
+// }
+
 a {
     color: var(--primary-color);
     transition: color var(--color-transition-time) $ease-smooth;
@@ -309,10 +313,17 @@ a.delete {
     z-index: 70;
     transform: translate(-50%, -200%);
     transition: transform 300ms $ease-smooth;
+    display: flex;
+    align-items: center;
     
     &.active {
         transform: translate(-50%, 0);
         transition: transform 400ms $ease-bounce;
+    }
+
+    label {
+        font-size: 0.8rem;
+        margin-right: 10px;
     }
 
     input {

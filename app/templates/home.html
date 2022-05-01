@@ -16,16 +16,16 @@
 
 <section id="quotes_list" class="quotes-list">
 
-    <h3 class="full">Afgelopen maand gezegd</h3>
+    <h2 class="full">Afgelopen maand gezegd</h2>
     {% set quote = said_last_week %}
     {{ include('partials/blockquote.html') }}
 
-    <h3 class="full">Random uitspraak</h3>
+    <h2 class="full">Random uitspraak</h2>
     {% set quote = random_quote %}
     {{ include('partials/blockquote.html') }}
     
     <div class="readable ranking marg-bot">
-        <h3 class="full">Top tags</h3>
+        <h2 class="full">Top tags</h2>
         <p>De populairste tags van deze week:</p>
         <ul class="rank-cloud">
             {% for tag in top_tags %}
@@ -35,7 +35,7 @@
     </div>
     
     <div class="readable marg-bot">
-        <h3 class="full">Sla je eigen uitspraken op!</h3>
+        <h2 class="full">Sla je eigen uitspraken op!</h2>
         <p>Sla al die prachtige, ontwapenende en hilarische quotes van je collega&rsquo;s, kinderen, vriend-en-vijanden en (on)bekenden op. Je hoeft geen account te maken.</p>
         <div class="centered pad-top-20">
             <a href="{{ site_url }}/add" class="btn">Uitspraak toevoegen</a>
@@ -43,7 +43,7 @@
     </div>
     
     <div class="readable ranking marg-bot">
-        <h3 class="full">Top zeggers</h3>
+        <h2 class="full">Top zeggers</h2>
         <p>Ranking the stars! De meeste uitspraken zijn momenteel van ...</p>
         <ul class="rank-cloud">
             {% for sayer in top_sayers %}
@@ -53,7 +53,7 @@
     </div>
     
     <div class="readable marg-bot">
-        <h3 class="full">Op de hoogte blijven</h3>
+        <h2 class="full">Op de hoogte blijven</h2>
         <p>Schrijf je hier in om af en toe een update te krijgen. We geven je e-mailadres niet aan derden. Beloofd!</p>
         <div id="mc_embed_signup">
             {{ include('partials/mailform.html') }}
@@ -61,7 +61,7 @@
     </div>
     
     <div class="readable ranking marg-bot">
-        <h3 class="full">Top inzenders</h3>
+        <h2 class="full">Top inzenders</h2>
         <p>Op dit moment zijn de meeste uitspraken die werden ingezonden van:</p>
         <ul class="rank-cloud">
             {% for submitter in top_submitters %}
