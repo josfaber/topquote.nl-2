@@ -1,6 +1,10 @@
 {
-  "main.css": "css/main-b43695d6d064d0318605.css",
-  "main.js": "js/main-b43695d6d064d0318605.js",
-  "quotes.js": "js/quotes-b43695d6d064d0318605.js",
+  "font/icomoon.eot?iienk7": "font/icomoon.eot",
+  "font/icomoon.ttf?iienk7": "font/icomoon.ttf",
+  "font/icomoon.woff2?iienk7": "font/icomoon.woff2",
+  "font/icomoon.woff?iienk7": "font/icomoon.woff",
+  "main.css": "css/main-8f4871c7241d722c56e2.css",
+  "main.js": "js/main-8f4871c7241d722c56e2.js",
+  "quotes.js": "js/quotes-8f4871c7241d722c56e2.js",
   "version": "0.1.0"
 }
