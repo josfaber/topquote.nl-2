@@ -169,7 +169,7 @@ document.body.onload = ( () => {
     share_buttons.forEach( ( el ) => {
         el.addEventListener( 'click', ( e ) => {
             e.preventDefault();
-            shareQuote( e.target.href );
+            shareQuote( e.target.dataset.url );
         } );
     } );
 

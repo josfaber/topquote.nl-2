@@ -71,13 +71,14 @@ blockquote {
             margin-right: 8px;
         }
 
+        .quote-btn-like,
+        .quote-btn-share {
+            color: var(--primary-color);
+            cursor: pointer;
+        }
+
         .like-container {
             position: relative;
-
-            .quote-btn-like {
-                color: var(--primary-color);
-                cursor: pointer;
-            }
 
             .anim {
                 position: absolute;
