@@ -161,6 +161,11 @@ const map = ( value, min1, max1, min2, max2 ) => { return interpolate( normalize
  */
 document.body.onload = ( () => {
 
+    window.dataLayer = window.dataLayer || [];
+    function gtag(){dataLayer.push(arguments);}
+    gtag('js', new Date());
+    gtag('config', 'G-6YFKGSMEFN');
+
     main_el = document.getElementsByTagName( 'main' )[ 0 ];
     menucb = document.getElementById( 'menucb' );
 
