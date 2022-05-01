@@ -1,3 +1,37 @@
+
+
+a.btn,
+button {
+    position: relative;
+    display: inline-block;
+    padding: 0.5rem 1rem;
+    margin: 0.5rem;
+    border-radius: 0.05rem;
+    background-color: var(--primary-color);
+    color: $black;
+    // color: var(--primary-color);
+    transition: color var(--color-transition-time) $ease-smooth;
+    text-decoration: none;
+    font-size: 0.9rem;
+    text-transform: uppercase;
+    @include medium65;
+    border: none;
+    // border-bottom: 4px solid var(--primary-color);
+    
+    &::after {
+        position: absolute;
+        bottom: 0;
+        left: 0;
+        height: 4px;
+        width: 100%;
+        content: '';
+        // background-color: rgba(black, 0.4);
+        // transform: translateY(100%);
+        background-color: var(--primary-color);
+        filter: brightness(0.7);
+    }
+}
+
 #mc_embed_signup_scroll {
     // background-color: red;
     display: flex;
