@@ -1,15 +1,15 @@
 {
-  "css/main-673e7b1e1a766cc32a7e.css.map": "css/main-673e7b1e1a766cc32a7e.css.map",
+  "css/main-9cc1696a6707cc6c7f81.css.map": "css/main-9cc1696a6707cc6c7f81.css.map",
   "font/icomoon.eot?iienk7": "font/558624a993355c74a407.eot?iienk7",
   "font/icomoon.svg?iienk7": "font/icomoon2004b732bf723429498d.svg?iienk7",
   "font/icomoon.ttf?iienk7": "font/8e75ed60e90ad591b11b.ttf?iienk7",
   "font/icomoon.woff2?iienk7": "font/bb03d24d68f5c73a05b1.woff2?iienk7",
   "font/icomoon.woff?iienk7": "font/ef2f396dafb3699bca9b.woff?iienk7",
-  "js/main-673e7b1e1a766cc32a7e.js.LICENSE.txt": "js/main-673e7b1e1a766cc32a7e.js.LICENSE.txt",
-  "js/main-673e7b1e1a766cc32a7e.js.map": "js/main-673e7b1e1a766cc32a7e.js.map",
-  "js/quotes-673e7b1e1a766cc32a7e.js.map": "js/quotes-673e7b1e1a766cc32a7e.js.map",
-  "main.css": "css/main-673e7b1e1a766cc32a7e.css",
-  "main.js": "js/main-673e7b1e1a766cc32a7e.js",
-  "quotes.js": "js/quotes-673e7b1e1a766cc32a7e.js",
-  "version": "0.1.0_202251_949"
+  "js/main-9cc1696a6707cc6c7f81.js.LICENSE.txt": "js/main-9cc1696a6707cc6c7f81.js.LICENSE.txt",
+  "js/main-9cc1696a6707cc6c7f81.js.map": "js/main-9cc1696a6707cc6c7f81.js.map",
+  "js/quotes-9cc1696a6707cc6c7f81.js.map": "js/quotes-9cc1696a6707cc6c7f81.js.map",
+  "main.css": "css/main-9cc1696a6707cc6c7f81.css",
+  "main.js": "js/main-9cc1696a6707cc6c7f81.js",
+  "quotes.js": "js/quotes-9cc1696a6707cc6c7f81.js",
+  "version": "0.1.0_202251_100"
 }

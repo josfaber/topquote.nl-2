@@ -74,6 +74,11 @@ blockquote {
         .like-container {
             position: relative;
 
+            .quote-btn-like {
+                color: var(--primary-color);
+                cursor: pointer;
+            }
+
             .anim {
                 position: absolute;
                 top: 0;
