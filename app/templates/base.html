@@ -11,6 +11,15 @@
                 <link rel="stylesheet" href="{{ css_file }}">
             {% endfor %}
             <title>{% block title %}{% endblock %} - topquote</title>
+            <!-- Global site tag (gtag.js) - Google Analytics -->
+            <script async src="https://www.googletagmanager.com/gtag/js?id=G-6YFKGSMEFN"></script>
+            <script>
+            window.dataLayer = window.dataLayer || [];
+            function gtag(){dataLayer.push(arguments);}
+            gtag('js', new Date());
+
+            gtag('config', 'G-6YFKGSMEFN');
+            </script>
         {% endblock %}
     </head>
     <body class="{% if is_home %}home{% endif %}{% if is_single_quote %} single-quote {% endif %}">

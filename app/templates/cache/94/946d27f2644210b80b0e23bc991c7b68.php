@@ -45,10 +45,10 @@ class __TwigTemplate_cfdfb8f33f994852a4090186a4697d26 extends Template
         ";
         // line 4
         $this->displayBlock('head', $context, $blocks);
-        // line 15
+        // line 24
         echo "    </head>
     <body class=\"";
-        // line 16
+        // line 25
         if (($context["is_home"] ?? null)) {
             echo "home";
         }
@@ -58,27 +58,27 @@ class __TwigTemplate_cfdfb8f33f994852a4090186a4697d26 extends Template
         echo "\">
         <nav>
             ";
-        // line 18
+        // line 27
         $this->displayBlock('nav', $context, $blocks);
-        // line 21
+        // line 30
         echo "        </nav>
         <main>
             ";
-        // line 23
+        // line 32
         $this->displayBlock('content', $context, $blocks);
-        // line 26
+        // line 35
         echo "        </main>
         ";
-        // line 27
+        // line 36
         $this->displayBlock('scripts', $context, $blocks);
-        // line 33
+        // line 42
         echo "        <div id=\"terms-container\" class=\"terms-container\">
             <input type=\"text\" id=\"terms\">
         </div>
         <div id=\"share-container\" class=\"share-container\">
             <div id=\"share-url\" class=\"share-url\">";
-        // line 37
-        echo twig_escape_filter($this->env, twig_get_attribute($this->env, $this->source, ($context["tqd"] ?? null), "site_url", [], "any", false, false, false, 37), "html", null, true);
+        // line 46
+        echo twig_escape_filter($this->env, twig_get_attribute($this->env, $this->source, ($context["tqd"] ?? null), "site_url", [], "any", false, false, false, 46), "html", null, true);
         echo "</div>
             <div class=\"share-buttons\">
                 <span id=\"btnCopy\" class=\"icon-copy\" data-action=\"copy\"></span>
@@ -121,6 +121,15 @@ class __TwigTemplate_cfdfb8f33f994852a4090186a4697d26 extends Template
         echo "            <title>";
         $this->displayBlock('title', $context, $blocks);
         echo " - topquote</title>
+            <!-- Global site tag (gtag.js) - Google Analytics -->
+            <script async src=\"https://www.googletagmanager.com/gtag/js?id=G-6YFKGSMEFN\"></script>
+            <script>
+            window.dataLayer = window.dataLayer || [];
+            function gtag(){dataLayer.push(arguments);}
+            gtag('js', new Date());
+
+            gtag('config', 'G-6YFKGSMEFN');
+            </script>
         ";
     }
 
@@ -129,31 +138,31 @@ class __TwigTemplate_cfdfb8f33f994852a4090186a4697d26 extends Template
         $macros = $this->macros;
     }
 
-    // line 18
+    // line 27
     public function block_nav($context, array $blocks = [])
     {
         $macros = $this->macros;
-        // line 19
+        // line 28
         echo "            ";
         echo twig_include($this->env, $context, "partials/nav.html");
         echo "
             ";
     }
 
-    // line 23
+    // line 32
     public function block_content($context, array $blocks = [])
     {
         $macros = $this->macros;
-        // line 24
+        // line 33
         echo "                content
             ";
     }
 
-    // line 27
+    // line 36
     public function block_scripts($context, array $blocks = [])
     {
         $macros = $this->macros;
-        // line 28
+        // line 37
         echo "            <script>window.tqd = { is_search: ";
         if (($context["is_search"] ?? null)) {
             echo "true";
@@ -189,11 +198,11 @@ class __TwigTemplate_cfdfb8f33f994852a4090186a4697d26 extends Template
         $context = array_intersect_key($context, $_parent) + $_parent;
         echo " };</script>
             ";
-        // line 29
+        // line 38
         $context['_parent'] = $context;
         $context['_seq'] = twig_ensure_traversable(($context["js_files"] ?? null));
         foreach ($context['_seq'] as $context["_key"] => $context["js_file"]) {
-            // line 30
+            // line 39
             echo "                <script src=\"";
             echo twig_escape_filter($this->env, $context["js_file"], "html", null, true);
             echo "\"></script>
@@ -202,7 +211,7 @@ class __TwigTemplate_cfdfb8f33f994852a4090186a4697d26 extends Template
         $_parent = $context['_parent'];
         unset($context['_seq'], $context['_iterated'], $context['_key'], $context['js_file'], $context['_parent'], $context['loop']);
         $context = array_intersect_key($context, $_parent) + $_parent;
-        // line 32
+        // line 41
         echo "        ";
     }
 
@@ -218,7 +227,7 @@ class __TwigTemplate_cfdfb8f33f994852a4090186a4697d26 extends Template
 
     public function getDebugInfo()
     {
-        return array (  206 => 32,  197 => 30,  193 => 29,  157 => 28,  153 => 27,  148 => 24,  144 => 23,  137 => 19,  133 => 18,  121 => 13,  112 => 11,  108 => 10,  101 => 5,  97 => 4,  81 => 37,  75 => 33,  73 => 27,  70 => 26,  68 => 23,  64 => 21,  62 => 18,  52 => 16,  49 => 15,  47 => 4,  42 => 1,);
+        return array (  215 => 41,  206 => 39,  202 => 38,  166 => 37,  162 => 36,  157 => 33,  153 => 32,  146 => 28,  142 => 27,  121 => 13,  112 => 11,  108 => 10,  101 => 5,  97 => 4,  81 => 46,  75 => 42,  73 => 36,  70 => 35,  68 => 32,  64 => 30,  62 => 27,  52 => 25,  49 => 24,  47 => 4,  42 => 1,);
     }
 
     public function getSourceContext()
