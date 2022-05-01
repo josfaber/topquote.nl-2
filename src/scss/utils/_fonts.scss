@@ -47,6 +47,7 @@
   -moz-osx-font-smoothing: grayscale;
 }
 
+
 .icon-ellipsis:before {
   content: "\e91b";
 }
@@ -67,6 +68,9 @@
 }
 .icon-chevron-thin-down:before {
   content: "\e918";
+}
+.icon-photo:before {
+  content: "\e91d";
 }
 .icon-close:before {
   content: "\e919";
