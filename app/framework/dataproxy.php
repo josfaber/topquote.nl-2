@@ -199,8 +199,10 @@ class DataProxy
 			$bounds = [":submitter" => $from];
 		}
 		if ($tag != null) {
-			$WHERE = "WHERE tags_lc LIKE :tag ";
-			$bounds = [":tag" => "%{$tag}%"];
+			// $WHERE = "WHERE tags_lc LIKE :tag ";
+			// $bounds = [":tag" => "%{$tag}%"];
+			$WHERE = "WHERE find_in_set(:tag, tags_lc)";
+			$bounds = [":tag" => $tag];
 		}
 
 		$LIMIT = "LIMIT {$offset_base}, {$quotes_per_page}";

@@ -22,7 +22,7 @@ class Quotes {
 		render_template('quotes.html', [
 			"list_title" => "Alle uitspraken",
 			"list_url" => site_url('quotes'),
-			"quotes" => $quotes["results"],
+			"quotes" => $quotes ? $quotes["results"] : [],
 		], [], [site_url($assets_manifest["quotes.js"])]);
 	}
 
@@ -39,11 +39,12 @@ class Quotes {
 
 		// get quotes
 		$quotes = $dataproxy->get_quotes($params["slug"], null, null, $orderby, $order, QUOTES_PER_PAGE);
+		$sayer = $quotes ? $quotes["results"][0]["sayer"] : $params["slug"];
 		
 		render_template('quotes.html', [
-			"list_title" => "Alle uitspraken van <span class=\"em\">{$quotes["results"][0]["sayer"]}</span>",
+			"list_title" => "Alle uitspraken van <span class=\"em\">{$sayer}</span>",
 			"list_url" => site_url('quotes/by/' . $params["slug"]),
-			"quotes" => $quotes["results"],
+			"quotes" => $quotes ? $quotes["results"] : [],
 		], [], [site_url($assets_manifest["quotes.js"])]);
 	}
 
@@ -60,11 +61,12 @@ class Quotes {
 
 		// get quotes
 		$quotes = $dataproxy->get_quotes(null, $params["slug"], null, $orderby, $order, QUOTES_PER_PAGE);
+		$submitter = $quotes ? $quotes["results"][0]["submitter"] : $params["slug"];
 
 		render_template('quotes.html', [
-			"list_title" => "Alle uitspraken opgeslagen door <span class=\"em\">{$quotes["results"][0]["submitter"]}</span>",
+			"list_title" => "Alle uitspraken opgeslagen door <span class=\"em\">{$submitter}</span>",
 			"list_url" => site_url('quotes/from/' . $params["slug"]),
-			"quotes" => $quotes["results"],
+			"quotes" => $quotes ? $quotes["results"] : [],
 		], [], [site_url($assets_manifest["quotes.js"])]);
 	}
 
@@ -85,7 +87,7 @@ class Quotes {
 		render_template('quotes.html', [
 			"list_title" => "Alle uitspraken met tag <span class=\"em\">{$params["slug"]}</span>",
 			"list_url" => site_url('quotes/tag/' . $params["slug"]),
-			"quotes" => $quotes["results"],
+			"quotes" => $quotes ? $quotes["results"] : [],
 		], [], [site_url($assets_manifest["quotes.js"])]);
 	}
 
