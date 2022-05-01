@@ -13,8 +13,6 @@
                 <noscript><link rel="stylesheet" href="{{ css_file }}"></noscript>
             {% endfor %}
             <title>{% block title %}{% endblock %} - topquote</title>
-            <!-- Global site tag (gtag.js) - Google Analytics -->
-            <script defer async src="https://www.googletagmanager.com/gtag/js?id=G-6YFKGSMEFN"></script>
             <link rel="shortcut icon" href="/favicon.ico">
         {% endblock %}
     </head>
@@ -31,6 +29,7 @@
         </main>
         {% block scripts %}
             <script>window.tqd = { is_search: {% if is_search %}true{% else %}false{% endif %} , rsk: '{{ RECAPTCHA_SITE_KEY }}', {% for key, value in tqd %} {{ key }}: '{{ value }}', {% endfor %}{% for key, value in tqd_num %} {{ key }}: {{ value }}, {% endfor %} };</script>
+            <script defer async src="https://www.googletagmanager.com/gtag/js?id=G-6YFKGSMEFN"></script>
             {% for js_file in js_files %}
                 <script defer src="{{ js_file}}"></script>
             {% endfor %}
