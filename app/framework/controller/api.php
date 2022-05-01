@@ -14,6 +14,18 @@ class Api {
 		ajax_output(array_merge([ "success" => true ], $result));
 	}
 
+	function quote(\Base $f3, $params) {
+		
+		$id = $params["id"]; 
+		if (!$id) ajax_output([ "success" => false ]);
+		
+		global $dataproxy;
+		$quote = $dataproxy->get_quote($id);
+		if (!$quote) ajax_output([ "success" => false ]);
+
+		ajax_output(array_merge([ "success" => true ], $quote));
+	}
+
 	function quotes(\Base $f3, $params) {
 
 		global $dataproxy;

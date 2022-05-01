@@ -6,6 +6,8 @@ $f3->route('GET /quotes/@filter/@slug', 	'Controller\Quotes->@filter');
 $f3->route('GET /quotes/search/@terms', 	'Controller\Quotes->search');
 $f3->route('GET /quote/@slug', 				'Controller\Quote->detail');
 
+// $f3->route('GET /img/@id', 					'Controller\Tools->img');
+
 $f3->route('GET /add', 						'Controller\Quote->add');
 $f3->route('POST /add', 					'Controller\Quote->store');
 
@@ -21,6 +23,7 @@ $f3->route('GET /t-clear',					'Controller\Tools->clear_cache');
 
 $f3->route('POST /api/quotes [ajax]',		'Controller\Api->quotes');
 $f3->route('POST /api/vote [ajax]',			'Controller\Api->vote');
+$f3->route('POST /api/quote/@id [ajax]',	'Controller\Api->quote');
 
 // $f3->set('ONERROR', function($f3) {
 // 	// !d(\Template::instance());

@@ -290,4 +290,52 @@ class Tools
 			"RECAPTCHA_SITE_KEY" => RECAPTCHA_SITE_KEY,
 		]);
 	}
+
+	// function img(\Base $f3, $params)
+	// {
+	// 	!d($params);
+
+	// 	global $dataproxy;
+	// 	$quote = $dataproxy->get_quote($params["id"]);
+
+	// 	if (!$quote) {
+	// 		exit(0);
+	// 	}
+
+	// 	// function tryText($size, $font, $quote, $w, $h) {
+	// 	// 	$box 	= imagettfbbox($size, 0, $font, $quote);
+	// 	// 	$box_h 	= imagettfbbox($size, 0, $font, "Wdp");
+	// 	// 	$tw 	= abs(max($box[2], $box[4]));
+	// 	// 	$th 	= abs(max($box[5], $box[7]));
+		
+	// 	// 	if ($tw < $w && $th < $h) {
+	// 	// 		return array(
+	// 	// 			"size" => $size,
+	// 	// 			"tw" => $tw,
+	// 	// 			"th" => $th + 36,
+	// 	// 		);
+	// 	// 	} else {
+	// 	// 		return tryText($size - 1, $font, $quote, $w, $h);
+	// 	// 	}
+	// 	// }
+
+	// 	$font =  BASE_DIR . '/assets/NHaasGroteskDSPro-55Rg.otf';
+	// 	!d($font, function_exists('imagettfbbox'));
+	// 	phpinfo();
+	// 	$width = 1600;
+	// 	$height = 900;
+
+	// 	// header("Content-Type: image/png");
+
+	// 	$im = imagecreate($width, $height);
+	// 	$bg = imagecolorallocate($im, 0, 0, 0);
+	// 	$fg = imagecolorallocate($im, 229, 0, 124);
+	// 	imagefilledrectangle($im, 0, 0, $width, $height, $bg);
+
+	// 	$t1 = tryText(100, $font, "Lorum ipsum allicandor lorum", $width, $height);
+
+	// 	// imagepng($im, $filepath, 85);
+	// 	imagepng($im);
+	// 	imagedestroy($im);
+	// }
 }

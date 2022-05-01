@@ -1,18 +1,12 @@
 {
-  "css/inline-1bca7d32844b357296b3.css.map": "css/inline-1bca7d32844b357296b3.css.map",
-  "css/main-1bca7d32844b357296b3.css.map": "css/main-1bca7d32844b357296b3.css.map",
-  "font/icomoon.eot?iienk7": "font/558624a993355c74a407.eot?iienk7",
-  "font/icomoon.svg?iienk7": "font/icomoon2004b732bf723429498d.svg?iienk7",
-  "font/icomoon.ttf?iienk7": "font/8e75ed60e90ad591b11b.ttf?iienk7",
-  "font/icomoon.woff2?iienk7": "font/bb03d24d68f5c73a05b1.woff2?iienk7",
-  "font/icomoon.woff?iienk7": "font/ef2f396dafb3699bca9b.woff?iienk7",
-  "inline.css": "css/inline-1bca7d32844b357296b3.css",
-  "inline.js": "js/inline-1bca7d32844b357296b3.js",
-  "js/main-1bca7d32844b357296b3.js.LICENSE.txt": "js/main-1bca7d32844b357296b3.js.LICENSE.txt",
-  "js/main-1bca7d32844b357296b3.js.map": "js/main-1bca7d32844b357296b3.js.map",
-  "js/quotes-1bca7d32844b357296b3.js.map": "js/quotes-1bca7d32844b357296b3.js.map",
-  "main.css": "css/main-1bca7d32844b357296b3.css",
-  "main.js": "js/main-1bca7d32844b357296b3.js",
-  "quotes.js": "js/quotes-1bca7d32844b357296b3.js",
-  "version": "0.1.0_202251_1118"
+  "font/icomoon.eot?iienk7": "font/icomoon.eot",
+  "font/icomoon.ttf?iienk7": "font/icomoon.ttf",
+  "font/icomoon.woff2?iienk7": "font/icomoon.woff2",
+  "font/icomoon.woff?iienk7": "font/icomoon.woff",
+  "inline.css": "css/inline-170fa14f6049f475ae83.css",
+  "inline.js": "js/inline-170fa14f6049f475ae83.js",
+  "main.css": "css/main-170fa14f6049f475ae83.css",
+  "main.js": "js/main-170fa14f6049f475ae83.js",
+  "quotes.js": "js/quotes-170fa14f6049f475ae83.js",
+  "version": "0.1.0"
 }

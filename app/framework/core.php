@@ -3,11 +3,6 @@
 // Composer
 require BASE_DIR . '/vendor/autoload.php';
 
-// DotEnv
-// use Symfony\Component\Dotenv\Dotenv;
-// $dotenv = new Dotenv();
-// $dotenv->load(BASE_DIR . '/.env');
-
 // Load core
 require FW_DIR . '/dataproxy.php';
 require FW_DIR . '/defines.php';

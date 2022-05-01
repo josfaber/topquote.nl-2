@@ -2,7 +2,7 @@
 
 namespace Controller;
 
-use \Ramsey\Uuid\Uuid;
+// use \Ramsey\Uuid\Uuid;
 class Quote
 {
 
@@ -160,7 +160,8 @@ class Quote
 			
 			$email = trim($_POST["email"]);
 			// @todo validate email 
-			$modkey = Uuid::uuid4();
+			// $modkey = Uuid::uuid4();
+			$modkey = uniqid("mod", true);
 			
 			$db_quote = new \DB\SQL\Mapper($db, 'quotes');
 			$db_quote->import_id = 0;
