@@ -54,7 +54,7 @@ module.exports = merge( common, {
                 path.resolve( __dirname, '../app/**/*.php' ),
                 path.resolve( __dirname, '../app/**/*.html' ),
             ],
-            proxy: 'http://localhost',
+            proxy: 'http://localhost:8085',
             open: false,
         }, {
             reload: false,

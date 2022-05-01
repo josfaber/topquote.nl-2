@@ -1,10 +1,6 @@
 {
-  "css/main-afb74c9cb5eeb26d9ac5.css.map": "css/main-afb74c9cb5eeb26d9ac5.css.map",
-  "js/main-afb74c9cb5eeb26d9ac5.js.LICENSE.txt": "js/main-afb74c9cb5eeb26d9ac5.js.LICENSE.txt",
-  "js/main-afb74c9cb5eeb26d9ac5.js.map": "js/main-afb74c9cb5eeb26d9ac5.js.map",
-  "js/quotes-afb74c9cb5eeb26d9ac5.js.map": "js/quotes-afb74c9cb5eeb26d9ac5.js.map",
-  "main.css": "css/main-afb74c9cb5eeb26d9ac5.css",
-  "main.js": "js/main-afb74c9cb5eeb26d9ac5.js",
-  "quotes.js": "js/quotes-afb74c9cb5eeb26d9ac5.js",
-  "version": "0.1.0_2022430_226"
+  "main.css": "css/main-b43695d6d064d0318605.css",
+  "main.js": "js/main-b43695d6d064d0318605.js",
+  "quotes.js": "js/quotes-b43695d6d064d0318605.js",
+  "version": "0.1.0"
 }

@@ -92,10 +92,12 @@
                     // transform: translateY(calc(-100% - #{$topbar-height} - 1px));
                     // width: 320px;
                     pointer-events: none;
-                    transition: transform 400ms $ease-bounce, opacity 600ms $ease-smooth, visibility 600ms $ease-smooth;
+                    transition: transform 400ms $ease-smooth, opacity 400ms $ease-smooth, visibility 0ms 400ms;
                     transform: translateY(-20%);
                     opacity: 0;
                     visibility: hidden;
+                    -webkit-backface-visibility: hidden;
+                    -webkit-transform-style: preserve-3d;
             
                     ul, 
                     li {
@@ -149,6 +151,7 @@
             // }
 
             .menu-panel {
+                transition: transform 400ms $ease-bounce, opacity 400ms $ease-smooth, visibility 0ms linear;
                 transform: translateY(0);
                 opacity: 1;
                 visibility: visible;
