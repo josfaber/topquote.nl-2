@@ -277,12 +277,14 @@ class DataProxy
 			OR sayer_lc LIKE :tags_like 
 			OR submitter_lc LIKE :tags_like 
 			OR find_in_set(:tags, tags_lc) 
+			OR quote_lc LIKE :terms_like 
 			ORDER BY score DESC
 			{$LIMIT}  
 		";
 
 		$results = $this->db->exec($sql, [
 			":terms" => $terms, 
+			":terms_like" => "%" . $terms . "%", 
 			":tags" => $termsAsTags,
 			":tags_like" => "%" . $termsAsTags . "%",
 		]);
