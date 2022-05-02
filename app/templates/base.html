@@ -27,13 +27,6 @@
                 content
             {% endblock %}
         </main>
-        {% block scripts %}
-            <script>window.tqd = { is_search: {% if is_search %}true{% else %}false{% endif %} , rsk: '{{ RECAPTCHA_SITE_KEY }}', {% for key, value in tqd %} {{ key }}: '{{ value }}', {% endfor %}{% for key, value in tqd_num %} {{ key }}: {{ value }}, {% endfor %} };</script>
-            <script defer src="https://www.googletagmanager.com/gtag/js?id=G-6YFKGSMEFN"></script>
-            {% for js_file in js_files %}
-                <script defer src="{{ js_file}}"></script>
-            {% endfor %}
-        {% endblock %}
         <div id="terms-container" class="terms-container">
             <label for="terms">Zoek</label>
             <input type="text" id="terms">
@@ -49,5 +42,12 @@
         <div id="loader-container" class="loader-container">
             <span class="icon-spinner"></span>
         </div>
+        {% block scripts %}
+            <script>window.tqd = { is_search: {% if is_search %}true{% else %}false{% endif %} , rsk: '{{ RECAPTCHA_SITE_KEY }}', {% for key, value in tqd %} {{ key }}: '{{ value }}', {% endfor %}{% for key, value in tqd_num %} {{ key }}: {{ value }}, {% endfor %} };</script>
+            <script defer src="https://www.googletagmanager.com/gtag/js?id=G-6YFKGSMEFN"></script>
+            {% for js_file in js_files %}
+                <script defer src="{{ js_file}}"></script>
+            {% endfor %}
+        {% endblock %}
     </body>
 </html>

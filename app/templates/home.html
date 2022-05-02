@@ -17,12 +17,18 @@
 <section id="quotes_list" class="quotes-list">
 
     <h2 class="full">Afgelopen maand gezegd</h2>
-    {% set quote = said_last_week %}
-    {{ include('partials/blockquote.html') }}
+    <div id="said-last-week" class="sliding-quotes" data-simple-slider>
+        {% for quote in said_last_week %}
+        {{ include('partials/blockquote.html') }}
+        {% endfor %}
+    </div>
 
-    <h2 class="full">Random uitspraak</h2>
-    {% set quote = random_quote %}
-    {{ include('partials/blockquote.html') }}
+    <h2 class="full">Random uitspraken</h2>
+    <div id="random-quotes" class="sliding-quotes" data-simple-slider>
+        {% for quote in random_quotes %}
+        {{ include('partials/blockquote.html') }}
+        {% endfor %}
+    </div>
     
     <div class="readable ranking marg-bot">
         <h2 class="full">Top tags</h2>
