@@ -2,6 +2,8 @@
 
 namespace Controller;
 
+use \MailchimpMarketing\ApiClient;
+
 class Tools
 {
 	function rank(\Base $f3, $params)
@@ -290,6 +292,32 @@ class Tools
 			"RECAPTCHA_SITE_KEY" => RECAPTCHA_SITE_KEY,
 		]);
 	}
+
+	// function test1(\Base $f3, $params) 
+	// {
+	// 	try {
+	// 		$client = new ApiClient();
+	// 		$client->setConfig([
+	// 			'apiKey' => MAILCHIMP_API_KEY,
+	// 			'server' => MAILCHIMP_SERVER_PREFIX,
+	// 		]);
+	
+	// 		$email = 'test2@topquote.nl';
+	
+	// 		$response = $client->lists->addListMember(MAILCHIMP_LIST_ID, [
+	// 			"email_address" => $email,
+	// 			"merge_fields" => [
+	// 			  "FNAME" => explode("@", $email)[0]
+	// 			],
+	// 			"status" => "subscribed",
+	// 		]);
+	
+	// 		!d($response);
+
+	// 	} catch (\Exception $e) {
+	// 		!d($e->getMessage());
+	// 	}
+	// }
 
 	// function img(\Base $f3, $params)
 	// {

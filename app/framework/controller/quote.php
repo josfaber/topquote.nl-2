@@ -3,6 +3,7 @@
 namespace Controller;
 
 // use \Ramsey\Uuid\Uuid;
+use \MailchimpMarketing\ApiClient;
 class Quote
 {
 
@@ -218,6 +219,25 @@ class Quote
 			$mail->Subject = "Je opgeslagen quote van {$sayer} (beheer link)";
 			$mail->msgHTML($html);
 			$mail->send();
+
+			// add to Mailchimp 
+			try {
+				$client = new ApiClient();
+				$client->setConfig([
+					'apiKey' => MAILCHIMP_API_KEY,
+					'server' => MAILCHIMP_SERVER_PREFIX,
+				]);
+		
+				$response = $client->lists->addListMember(MAILCHIMP_LIST_ID, [
+					"email_address" => $email,
+					"merge_fields" => [
+						"FNAME" => $submitter ?? explode("@", $email)[0]
+					],
+					"status" => "subscribed",
+				]);
+
+			} catch (\Exception $e) {
+			}			
 
 			render_template('jump.html', [
 				"message" => "Quote opgeslagen.",

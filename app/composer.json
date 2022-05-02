@@ -10,7 +10,8 @@
         "kint-php/kint": "^4.1",
         "twig/twig": "^3.0",
         "bcosca/fatfree-core": "^3.8",
-        "phpmailer/phpmailer": "^6.6"
+        "phpmailer/phpmailer": "^6.6",
+        "mailchimp/marketing": "^3.0"
     },
     "autoload": {
         "psr-4": {"TopQuote\\": "framework/"}
