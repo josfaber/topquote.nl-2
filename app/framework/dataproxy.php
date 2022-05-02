@@ -274,13 +274,20 @@ class DataProxy
 			WHERE 1 = 2 
 			OR MATCH (quote_lc,sayer_lc,submitter_lc,tags_lc) AGAINST (:terms IN NATURAL LANGUAGE MODE) 
 			OR MATCH (quote_lc,sayer_lc,submitter_lc,tags_lc) AGAINST (:tags IN NATURAL LANGUAGE MODE) 
+			OR sayer_lc LIKE :tags_like 
+			OR submitter_lc LIKE :tags_like 
+			OR find_in_set(:tags, tags_lc) 
 			ORDER BY score DESC
 			{$LIMIT}  
 		";
 
-		$results = $this->db->exec($sql, [":terms" => $terms, ":tags" => $termsAsTags]);
+		$results = $this->db->exec($sql, [
+			":terms" => $terms, 
+			":tags" => $termsAsTags,
+			":tags_like" => "%" . $termsAsTags . "%",
+		]);
 
-		// !d($sql, $terms, $results, $this->db->count());
+		// !d($sql, $terms, $results, "%" . $termsAsTags);
 
 		if (!$results || $this->db->count() == 0) {
 			return false;
@@ -326,7 +333,12 @@ class DataProxy
 		";
 
 		// $results = $this->db->exec($sql, [":id" => $quote_id]);
-		$results = $this->db->exec($sql, [":id" => $quote_id, ":quote_lc" => $terms[0]["quote_lc"], ":tags_lc" => $terms[0]["tags_lc"], ":sayer_lc" => $terms[0]["sayer_lc"]]);
+		$results = $this->db->exec($sql, [
+			":id" => $quote_id, 
+			":quote_lc" => $terms[0]["quote_lc"], 
+			":tags_lc" => $terms[0]["tags_lc"], 
+			":sayer_lc" => $terms[0]["sayer_lc"]
+		]);
 
 		// !d($sql, $quote_id, $results, $this->db->count());
 
