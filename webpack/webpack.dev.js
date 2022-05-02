@@ -45,7 +45,7 @@ module.exports = merge( common, {
     plugins: [
         new CleanWebpackPlugin({
             verbose: true,
-            cleanOnceBeforeBuildPatterns: ["**/*", "!*.php", "!favicon.ico"],
+            cleanOnceBeforeBuildPatterns: ["**/*", "!*.php", "!favicon.ico", "!visual.png"],
         }),
         new BrowserSyncPlugin( {
             files: [

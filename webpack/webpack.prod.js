@@ -61,7 +61,7 @@ module.exports = merge(common, {
     },
     plugins: [
         new CleanWebpackPlugin({
-            cleanOnceBeforeBuildPatterns: ["**/*", "!*.php", "!favicon.ico"],
+            cleanOnceBeforeBuildPatterns: ["**/*", "!*.php", "!favicon.ico", "!visual.png"],
         }),
         new MiniCssExtractPlugin({
             filename: "css/[name]-[hash].css",

@@ -3,6 +3,7 @@
 {% block title %}Quotes{% endblock %}
 {% block head %}
     {{ parent() }}
+    <meta property="og:image" content="{{ tqd.site_url }}/visual.png" />
     <meta property="og:title" content="{{ list_title|striptags }}" />
     <meta property="og:url" content="{{ list_url }}" />
     <meta property="og:type" content="website" />
