@@ -25,7 +25,7 @@ $f3->route('POST /api/quotes [ajax]',		'Controller\Api->quotes');
 $f3->route('POST /api/vote [ajax]',			'Controller\Api->vote');
 $f3->route('POST /api/quote/@id [ajax]',	'Controller\Api->quote');
 
-// $f3->route('GET /test1',					'Controller\Tools->test1');
+$f3->route('GET /sitemap.xml',				'Controller\Tools->sitemap');
 
 // $f3->set('ONERROR', function($f3) {
 // 	// !d(\Template::instance());

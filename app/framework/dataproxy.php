@@ -26,7 +26,7 @@ class DataProxy
 		$this->redis->connect('cache', 6379);
 	}
 
-	private function from_cache($key)
+	public function from_cache($key)
 	{
 		if (defined('ENVIRONMENT') && ENVIRONMENT == "development") {
 			return false;
@@ -42,7 +42,7 @@ class DataProxy
 		}
 	}
 
-	private function to_cache($key, $value, $ttl = 60 * 5)
+	public function to_cache($key, $value, $ttl = 60 * 5)
 	{
 		if (defined('ENVIRONMENT') && ENVIRONMENT == "development") {
 			return false;
@@ -55,7 +55,7 @@ class DataProxy
 		}
 	}
 
-	private function del_cache($key)
+	public function del_cache($key)
 	{
 		try {
 			$this->redis->del($key);
@@ -484,5 +484,102 @@ class DataProxy
 		$mailer->Port = SMTP_PORT;
 		$mailer->setFrom(FROM_EMAIL, 'topquote');
 		return $mailer;
+	}
+
+	public function get_all_sayers_slugs()
+	{
+		$cache_key = 'all_sayers_slugs';
+		$cache_time = 60 * 60;
+		if ($all_sayers = $this->from_cache($cache_key)) {
+			return json_decode($all_sayers, true);
+		}
+
+		$all_sayers = $this->db->exec("
+			SELECT DISTINCT(sayer_slug) 
+			FROM quotes 
+		");
+
+		if (!$all_sayers || $this->db->count() == 0) {
+			return false;
+		}
+
+		$this->to_cache($cache_key, json_encode($all_sayers), $cache_time);
+
+		return $all_sayers;
+	}
+
+	public function get_all_submitters_slugs()
+	{
+		$cache_key = 'all_submitters_slugs';
+		$cache_time = 60 * 60;
+		if ($all_submitters = $this->from_cache($cache_key)) {
+			return json_decode($all_submitters, true);
+		}
+
+		$all_submitters = $this->db->exec("
+			SELECT DISTINCT(submitter_slug) 
+			FROM quotes 
+		");
+
+		if (!$all_submitters || $this->db->count() == 0) {
+			return false;
+		}
+
+		$this->to_cache($cache_key, json_encode($all_submitters), $cache_time);
+
+		return $all_submitters;
+	}
+
+	public function get_all_quotes_slugs()
+	{
+		$cache_key = 'all_quotes_slugs';
+		$cache_time = 60 * 60;
+		if ($all_quotes = $this->from_cache($cache_key)) {
+			return json_decode($all_quotes, true);
+		}
+
+		$all_quotes = $this->db->exec("
+			SELECT slug  
+			FROM quotes 
+		");
+
+		if (!$all_quotes || $this->db->count() == 0) {
+			return false;
+		}
+
+		$this->to_cache($cache_key, json_encode($all_quotes), $cache_time);
+
+		return $all_quotes;
+	}
+
+	public function get_all_tags_slugs()
+	{
+		$cache_key = 'all_tags_slugs';
+		$cache_time = 60 * 60;
+		if ($all_tags = $this->from_cache($cache_key)) {
+			return json_decode($all_tags, true);
+		}
+
+		$all_tags = $this->db->exec("
+			SELECT DISTINCT(tags_lc)   
+			FROM quotes 
+		");
+
+		if (!$all_tags || $this->db->count() == 0) {
+			return false;
+		}
+
+		$all_single_tags = [];
+		foreach($all_tags as $mtags) {
+			$single_tags = explode(",", $mtags["tags_lc"]);
+			foreach($single_tags as $tag) {
+				$all_single_tags[] = $tag;
+			}
+		}
+		$all_single_tags = array_filter($all_single_tags);
+
+		$this->to_cache($cache_key, json_encode($all_single_tags), $cache_time);
+
+		return $all_single_tags;
 	}
 }

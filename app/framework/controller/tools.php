@@ -293,6 +293,63 @@ class Tools
 		]);
 	}
 
+	function sitemap(\Base $f3, $params)
+	{
+		global $dataproxy;
+
+		$cache_key = 'sitemap';
+		$cache_time = 60 * 60 * 4;
+		if ($sitemap = $dataproxy->from_cache($cache_key)) {
+			echo json_decode($sitemap, true);
+			exit;
+		}
+
+		$now = date("Y-m-d H:i:s");
+		$sitemap = '<?xml version="1.0" encoding="UTF-8"?><urlset xmlns="http://www.sitemaps.org/schemas/sitemap/0.9">' . PHP_EOL; 
+		
+		$sitemap .= '<url>' . PHP_EOL;
+		$sitemap .= '	<loc>https://topquote.nl</loc>' . PHP_EOL;
+		$sitemap .= '	<lastmod>' . $now . '</lastmod>' . PHP_EOL;
+		$sitemap .= '</url>' . PHP_EOL;
+
+		$all_quotes = $dataproxy->get_all_quotes_slugs();
+		foreach ($all_quotes as $quote) {
+			$sitemap .= '<url>' . PHP_EOL;
+			$sitemap .= '	<loc>https://topquote.nl/quote/' . $quote["slug"] . '</loc>' . PHP_EOL;
+			$sitemap .= '	<lastmod>' . $now . '</lastmod>' . PHP_EOL;
+			$sitemap .= '</url>' . PHP_EOL;
+		}
+
+		$all_single_tags = $dataproxy->get_all_tags_slugs();
+		foreach($all_single_tags as $tag) {
+			$sitemap .= '<url>' . PHP_EOL;
+			$sitemap .= '	<loc>https://topquote.nl/quotes/tag/' . $tag . '</loc>' . PHP_EOL;
+			$sitemap .= '	<lastmod>' . $now . '</lastmod>' . PHP_EOL;
+			$sitemap .= '</url>' . PHP_EOL;
+		}
+
+		$all_sayers = $dataproxy->get_all_sayers_slugs();
+		foreach($all_sayers as $quote) {
+			$sitemap .= '<url>' . PHP_EOL;
+			$sitemap .= '	<loc>https://topquote.nl/quotes/by/' . $quote["sayer_slug"] . '</loc>' . PHP_EOL;
+			$sitemap .= '	<lastmod>' . $now . '</lastmod>' . PHP_EOL;
+			$sitemap .= '</url>' . PHP_EOL;
+		}
+
+		$all_submitters = $dataproxy->get_all_submitters_slugs();
+		foreach($all_submitters as $quote) {
+			$sitemap .= '<url>' . PHP_EOL;
+			$sitemap .= '	<loc>https://topquote.nl/quotes/from/' . $quote["submitter_slug"] . '</loc>' . PHP_EOL;
+			$sitemap .= '	<lastmod>' . $now . '</lastmod>' . PHP_EOL;
+			$sitemap .= '</url>' . PHP_EOL;
+		}
+		
+		$sitemap .= '</urlset>';
+
+		$dataproxy->to_cache($cache_key, json_encode($sitemap), $cache_time);
+		echo $sitemap;
+	}
+	
 	// function test1(\Base $f3, $params) 
 	// {
 	// 	try {
