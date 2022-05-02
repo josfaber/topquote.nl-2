@@ -27,6 +27,13 @@ $f3->route('POST /api/quote/@id [ajax]',	'Controller\Api->quote');
 
 $f3->route('GET /sitemap.xml',				'Controller\Tools->sitemap');
 
+$f3->route('GET /by/@sayer', function($f3, $params) {
+	$f3->reroute(site_url("quotes/by/{$params["sayer"]}"));
+});
+$f3->route('GET /from/@submitter', function($f3, $params) {
+	$f3->reroute(site_url("quotes/from/{$params["submitter"]}"));
+});
+
 // $f3->set('ONERROR', function($f3) {
 // 	// !d(\Template::instance());
 // 	echo \Template::instance()->render('error.html');
