@@ -191,12 +191,12 @@ class DataProxy
 		$WHERE = "WHERE 1";
 		$bounds = [];
 		if ($by != null) {
-			$WHERE = "WHERE sayer_slug = :sayer ";
-			$bounds = [":sayer" => $by];
+			$WHERE = "WHERE sayer_slug = :sayer OR sayer_slug = :sayer_slug ";
+			$bounds = [":sayer" => $by, ":sayer_slug" => slugify($by)];
 		}
 		if ($from != null) {
-			$WHERE = "WHERE submitter_slug = :submitter ";
-			$bounds = [":submitter" => $from];
+			$WHERE = "WHERE submitter_slug = :submitter OR submitter_slug = :submitter_slug ";
+			$bounds = [":submitter" => $from, ":submitter_slug" => slugify($from)];
 		}
 		if ($tag != null) {
 			// $WHERE = "WHERE tags_lc LIKE :tag ";
