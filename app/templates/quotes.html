@@ -1,6 +1,6 @@
 {% extends "base.html" %}
 
-{% block title %}Quotes{% endblock %}
+{% block title %}{{ list_title|striptags }}{% endblock %}
 {% block head %}
     {{ parent() }}
     <meta property="og:image" content="{{ tqd.site_url }}/visual.png" />
