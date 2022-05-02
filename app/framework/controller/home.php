@@ -8,11 +8,11 @@ class Home {
 		global $assets_manifest, $dataproxy;
 		// !d($dataproxy::$ORDER_RANDOM);
 		$random_quotes = $dataproxy->get_quotes(null, null, null, $dataproxy::$ORDER_RANDOM, null, 9, 1, "
-			AND LENGTH(`quote`) > 10 AND LENGTH(`quote`) < 120
+			AND LENGTH(`quote`) > 16 AND LENGTH(`quote`) < 120
 	")["results"];
 		
 		$said_last_week = $dataproxy->get_quotes(null, null, null, $dataproxy::$ORDER_RANDOM, null, 9, 1, "
-			 AND (`created` > DATE_SUB(now(), INTERVAL 30 DAY)) AND LENGTH(`quote`) > 10 AND LENGTH(`quote`) < 120
+			 AND (`created` > DATE_SUB(now(), INTERVAL 30 DAY)) AND LENGTH(`quote`) > 16 AND LENGTH(`quote`) < 120
 		")["results"];
 
 		$top_tags = $dataproxy->get_top_tags();
