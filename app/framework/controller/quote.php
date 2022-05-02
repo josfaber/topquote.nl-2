@@ -20,15 +20,18 @@ class Quote
 			$f3->error(404);
 		}
 
+		// !d($params["slug"], $quote["slug"]);
+		// exit;
+
+		// redirect to canonical URL
+		if ($params["slug"] != $quote["slug"]) {
+			$f3->reroute(site_url("quote/{$quote["slug"]}"));
+		}
+
 		$related = $dataproxy->get_related_quotes($quote["id"]);
 		// !d($related);
 		if (!$related) {
 			$related = array("results" => []);
-		}
-
-		// redirect to canonical URL
-		if ($params["slug"] != $quote["slug"]) {
-			$f3->reroute("/quote/{$quote["slug"]}");
 		}
 
 		// !d( $results );
