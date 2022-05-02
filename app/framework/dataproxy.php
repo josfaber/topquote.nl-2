@@ -175,7 +175,7 @@ class DataProxy
 		$key_post = ($by ?? "") . '-' . ($from ?? "") . '-' . ($tag ?? "") . '-' . ($orderby ?? "") . '-' . ($order ?? "") . '-' . ($quotes_per_page ?? "") . '-' . ($page ?? "") . '-' . ($AND ?? "");
 		// !d($key_post, md5($key_post));
 		$cache_key = 'quotes_' . md5($key_post);
-		$cache_time = $orderby == self::$ORDER_RANDOM ? 30 : 60 * 5;
+		$cache_time = $orderby == self::$ORDER_RANDOM ? 60 * 5 : 60 * 30;
 
 		if ($results = $this->from_cache($cache_key)) {
 			// !d("redis");
@@ -254,7 +254,7 @@ class DataProxy
 		$key_post = ($terms ?? "");
 		// !d($key_post, md5($key_post));
 		$cache_key = 'search_' . md5($key_post);
-		$cache_time = 60 * 10;
+		$cache_time = 60 * 15;
 
 		if ($results = $this->from_cache($cache_key)) {
 			// !d("redis");
@@ -297,7 +297,7 @@ class DataProxy
 	public function get_related_quotes($quote_id)
 	{
 		$cache_key = 'related_to_' . $quote_id;
-		$cache_time = 60 * 30;
+		$cache_time = 60 * 60 * 24;
 
 		if ($results = $this->from_cache($cache_key)) {
 			// !d("redis");
@@ -382,7 +382,7 @@ class DataProxy
 	public function get_top_tags()
 	{
 		$cache_key = 'top_tags';
-		$cache_time = 60 * 60 * 4;
+		$cache_time = 60 * 60 * 12;
 		if ($top_tags = $this->from_cache($cache_key)) {
 			return json_decode($top_tags, true);
 		}
@@ -406,7 +406,7 @@ class DataProxy
 	public function get_top_sayers()
 	{
 		$cache_key = 'top_sayers';
-		$cache_time = 60 * 60 * 4;
+		$cache_time = 60 * 60 * 12;
 		if ($top_sayers = $this->from_cache($cache_key)) {
 			return json_decode($top_sayers, true);
 		}
@@ -440,7 +440,7 @@ class DataProxy
 	public function get_top_submitters()
 	{
 		$cache_key = 'top_submitters';
-		$cache_time = 60 * 60 * 4;
+		$cache_time = 60 * 60 * 12;
 		if ($top_submitters = $this->from_cache($cache_key)) {
 			return json_decode($top_submitters, true);
 		}
@@ -489,7 +489,7 @@ class DataProxy
 	public function get_all_sayers_slugs()
 	{
 		$cache_key = 'all_sayers_slugs';
-		$cache_time = 60 * 60;
+		$cache_time = 60 * 60 * 24;
 		if ($all_sayers = $this->from_cache($cache_key)) {
 			return json_decode($all_sayers, true);
 		}
@@ -511,7 +511,7 @@ class DataProxy
 	public function get_all_submitters_slugs()
 	{
 		$cache_key = 'all_submitters_slugs';
-		$cache_time = 60 * 60;
+		$cache_time = 60 * 60 * 24;
 		if ($all_submitters = $this->from_cache($cache_key)) {
 			return json_decode($all_submitters, true);
 		}
@@ -533,7 +533,7 @@ class DataProxy
 	public function get_all_quotes_slugs()
 	{
 		$cache_key = 'all_quotes_slugs';
-		$cache_time = 60 * 60;
+		$cache_time = 60 * 60 * 24;
 		if ($all_quotes = $this->from_cache($cache_key)) {
 			return json_decode($all_quotes, true);
 		}
@@ -555,7 +555,7 @@ class DataProxy
 	public function get_all_tags_slugs()
 	{
 		$cache_key = 'all_tags_slugs';
-		$cache_time = 60 * 60;
+		$cache_time = 60 * 60 * 24;
 		if ($all_tags = $this->from_cache($cache_key)) {
 			return json_decode($all_tags, true);
 		}

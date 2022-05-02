@@ -298,7 +298,7 @@ class Tools
 		global $dataproxy;
 
 		$cache_key = 'sitemap';
-		$cache_time = 60 * 60 * 4;
+		$cache_time = 60 * 60 * 24;
 		if ($sitemap = $dataproxy->from_cache($cache_key)) {
 			echo json_decode($sitemap, true);
 			exit;
