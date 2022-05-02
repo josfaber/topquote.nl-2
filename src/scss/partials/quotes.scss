@@ -5,7 +5,7 @@
     p {
         font-size-adjust: 24px/$font-base * 1rem;
         @include light45;
-        color: $white;
+        color: var(--primary-color-wh);
 
         span.em {
             @include medium65;
@@ -29,7 +29,7 @@ blockquote {
         line-height: 32px/$font-base * 1rem;
         line-height: 1.081;
         quotes: "“" "”" "‘" "’";
-        color: $white;
+        color: var(--primary-color-wh);
         
         &::before {
             content: open-quote;

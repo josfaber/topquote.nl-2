@@ -5,6 +5,8 @@
 :root {
     // --primary-color: #{$primary};
     --primary-color: #545353;
+    --primary-color-bg: #{$black};
+    --primary-color-wh: #{$white};
     --alt-color-0: #{$primary};
     --alt-color-1: #{$alt-color-1};
     --alt-color-2: #{$alt-color-2};
@@ -38,7 +40,7 @@ body {
     // height: 100%;
     padding: 0;
     margin: 0;
-    background-color: $black;
+    background-color: var(--primary-color-bg);
     // background-color: blue;
     // color: $white;
     color: $lighter-grey;

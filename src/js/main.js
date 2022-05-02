@@ -17,6 +17,8 @@ const updateColor = ( c ) => {
     // set doc's primary color
     let altClr = getComputedStyle( document.documentElement ).getPropertyValue( `--alt-color-${ c }` );
     document.documentElement.style.setProperty( '--primary-color', altClr );
+    document.documentElement.style.setProperty( '--primary-color-bg', c < 6 ? '#000' : '#f4f4f4' );
+    document.documentElement.style.setProperty( '--primary-color-wh', c < 6 ? '#fff' : '#333' );
     // update active 
     const el_active = document.querySelector( '.clr.active' );
     !el_active || el_active.classList.remove( 'active' );

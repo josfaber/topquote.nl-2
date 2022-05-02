@@ -8,11 +8,12 @@
         position: absolute;
         width: 100%;
         height: $topbar-height;
-        background-color: $black;
+        // background-color: $black;
+        background-color: var(--primary-color-bg);
         display: flex;
         justify-content: space-between;
         align-items: center;
-        box-shadow: 0 2px 20px black;
+        box-shadow: 0 2px 20px var(--primary-color-bg);
         max-width: $site-max-width;
         left: 50%;
         transform: translateX(-50%);
@@ -87,8 +88,10 @@
                     display: flex;
                     justify-content: space-between;
                     align-items: center;
-                    background-color: rgba(black, 0.7);
-                    box-shadow: 0 2px 20px black;
+                    // background-color: rgba(black, 0.7);
+                    // box-shadow: 0 2px 20px black;
+                    background-color: var(--primary-color-bg);
+                    box-shadow: 0 2px 20px var(--primary-color-bg);
                     // transform: translateY(calc(-100% - #{$topbar-height} - 1px));
                     // width: 320px;
                     pointer-events: none;
