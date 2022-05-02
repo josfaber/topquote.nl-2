@@ -304,7 +304,7 @@ class Tools
 			exit;
 		}
 
-		$now = date("Y-m-d H:i:s");
+		$now = date("Y-m-d");
 		$sitemap = '<?xml version="1.0" encoding="UTF-8"?>' . PHP_EOL .'<urlset xmlns="http://www.sitemaps.org/schemas/sitemap/0.9">' . PHP_EOL; 
 		
 		$sitemap .= '<url>' . PHP_EOL;
