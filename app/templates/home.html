@@ -79,6 +79,17 @@
             {% endfor %}
         </ul>
     </div>
+    
+    <div class="readable ranking marg-bot">
+        <a name="topinzenders"></a>
+        <h2 class="full">Zoekopdrachten</h2>
+        <p>Op zoek naar nog meer geweldige uitspraken?<br>Deze zoektermen komen nogal eens voorbij:</p>
+        <ul class="rank-cloud">
+            {% for term in ["jinek", "britt", "dekker", "frikandellenbos", "poep", "rusland", "amerika", "kleuter", "eten", "tv", "internet", "maandag", "aarde", "natuur", "geweld", "sex", "game", "bijbel", "voetbal", "geld", "porno"] %}
+            <li><span class="icon-search"></span><a href="{{ site_url }}/quotes/search/{{ term }}">{{ term }}</a></li>
+            {% endfor %}
+        </ul>
+    </div>
 
 
 {% endblock %}
