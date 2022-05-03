@@ -307,10 +307,14 @@ class Tools
 		$now = date("Y-m-d\TH:i:sP");
 		$sitemap = '<?xml version="1.0" encoding="UTF-8"?>' . PHP_EOL .'<urlset xmlns="http://www.sitemaps.org/schemas/sitemap/0.9">' . PHP_EOL; 
 		
-		$sitemap .= '<url>' . PHP_EOL;
-		$sitemap .= '	<loc>https://topquote.nl</loc>' . PHP_EOL;
-		$sitemap .= '	<lastmod>' . $now . '</lastmod>' . PHP_EOL;
-		$sitemap .= '</url>' . PHP_EOL;
+		$sitemap .= '<url>' . PHP_EOL . '	<loc>https://topquote.nl</loc>' . PHP_EOL . '	<lastmod>' . $now . '	</lastmod>' . PHP_EOL . '</url>' . PHP_EOL;
+		
+		foreach([ "frikandellenbos", "poep", "rusland", "amerika", "kleuter", "opvoeding", "eten", "radio", "tv", "internet", "maandag", "dinsdag", "woensdag", "vrijdag",
+			"aarde", "natuur", "geweld", "sex", "game", "bijbel", "geloof", "jinek", "britt", "dekker", "food", "voetbal", "jan smit", "nederland", "bekend", "geld", "porno",
+			"idee"
+		] as $term) {
+			$sitemap .= '<url>' . PHP_EOL . '	<loc>https://topquote.nl/search/' . $term . '</loc>' . PHP_EOL . '	<lastmod>' . $now . '	</lastmod>' . PHP_EOL . '</url>' . PHP_EOL;
+		}
 
 		$all_quotes = $dataproxy->get_all_quotes_slugs();
 		foreach ($all_quotes as $quote) {
