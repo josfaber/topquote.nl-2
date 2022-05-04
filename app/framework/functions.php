@@ -135,7 +135,7 @@ function get_website_schema() {
 	return <<<EOT
 {
 	"@type": "Website",
-	"url": "https://topquote.nl"
+	"url": "https://topquote.nl",
 	"name": "TopQuote",
 	"description": "Hilarische, ontroerende en betekenisvolle quotes, citaten en uitspraken van je collega's, kinderen, vrienden, bekenden en celebrities.",
 }	
