@@ -294,3 +294,14 @@ a.delete {
         display: block;
     }
 }
+
+.ad-link {
+    display: block;
+    width: 100%;
+    cursor: pointer;
+
+    img {
+        width: 100%;
+        height: auto;
+    }
+}
