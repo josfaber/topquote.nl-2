@@ -8,9 +8,7 @@ require FW_DIR . '/defines.php';
 require FW_DIR . '/functions.php';
 
 
-define('DELAY', 1.0);
-
-$start_url = "https://citaten.net";
+$start_url = "https://citaten.net/zoeken/citaten_willekeurig.html";
 
 function scrape($url) {
 	echo "Scraping {$url}" . PHP_EOL;
@@ -74,7 +72,6 @@ function scrape($url) {
 		}
 	}
 
-	// volgende url
 	tryNewUrl($dom);
 }
 
@@ -133,7 +130,7 @@ function importQuote($cid, $auteur, $quote, $tags) {
 	return true;
 }
 
-function tryNewUrl($dom, $delay = DELAY) {
+function tryNewUrl($dom) {
 
 	$urls = $dom->getElementsByTagName('a');
 	$links = [];
@@ -150,7 +147,7 @@ function tryNewUrl($dom, $delay = DELAY) {
 		foreach ($url->attributes as $attr)
 		{
 			if (strpos($attr->value, "/zoeken") ) {
-				sleep($delay);
+				usleep(500);
 				scrape($attr->value);
 				break 2;
 			}
