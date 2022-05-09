@@ -72,7 +72,8 @@ function scrape($url) {
 		}
 	}
 
-	tryNewUrl($dom);
+	// tryNewUrl($dom);
+	scrape($url);
 }
 
 function importQuote($cid, $auteur, $quote, $tags) {
