@@ -53,6 +53,11 @@ blockquote {
         & > div:not(:first-child) {
             margin-left: 0.5rem;
         }
+
+        div.tags {
+            display: flex;
+            flex-wrap: wrap;
+        }
                         
         [class^="icon-"], [class*=" icon-"] {
             margin-right: 0.5em;
