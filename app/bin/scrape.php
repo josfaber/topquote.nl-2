@@ -65,7 +65,7 @@ function scrape($url) {
 				if (isset($quote) && isset($auteur)) {
 					$result = importQuote($cid, $auteur, $quote, implode(",", $tags));
 					if ($result) {
-						echo $cid . " | " . $auteur . " | " . $quote . " | " . implode(",", $tags) . PHP_EOL;
+						echo $cid . " ";
 					}
 				}
 			}
