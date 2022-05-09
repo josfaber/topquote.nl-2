@@ -144,11 +144,17 @@ function tryNewUrl($dom) {
 	
 	foreach($links as $url) {
 		//echo "<br> {$url->getAttribute('href')} , {$url->getAttribute('title')}";
-		foreach ($url->attributes as $attr)
+		
+		$a_attr = [];
+		foreach ($url->attributes as $attr) {
+			$a_attr[] = $attr->value;
+		}
+		shuffle($a_attr);
+		foreach ($a_attr as $attr)
 		{
-			if (strpos($attr->value, "/zoeken") ) {
+			if (strpos($attr, "/zoeken") ) {
 				usleep(500);
-				scrape($attr->value);
+				scrape($attr);
 				break 2;
 			}
 		}
