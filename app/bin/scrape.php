@@ -65,8 +65,10 @@ function scrape($url) {
 					}
 				}
 				if (isset($quote) && isset($auteur)) {
-					echo $cid . " | " . $auteur . " | " . $quote . " | " . implode(",", $tags) . PHP_EOL;
-					importQuote($cid, $auteur, $quote, implode(",", $tags));
+					$result = importQuote($cid, $auteur, $quote, implode(",", $tags));
+					if ($result) {
+						echo $cid . " | " . $auteur . " | " . $quote . " | " . implode(",", $tags) . PHP_EOL;
+					}
 				}
 			}
 		}
@@ -91,7 +93,7 @@ function importQuote($cid, $auteur, $quote, $tags) {
 
 	if (!$db_quote->dry()) {
 		// exists
-		return;
+		return false;
 	}
 
 	$db->exec('INSERT INTO quotes (
@@ -127,6 +129,8 @@ function importQuote($cid, $auteur, $quote, $tags) {
 		$hits,
 		$likes
 	]);
+
+	return true;
 }
 
 function tryNewUrl($dom, $delay = DELAY) {
