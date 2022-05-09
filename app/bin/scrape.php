@@ -59,7 +59,10 @@ function scrape($url) {
 						}
 					}
 					if ($node->nodeName == 'q') {
-						$quote = strip_tags(trim($node->nodeValue));
+						$tmp = strip_tags(trim($node->nodeValue));
+						if (strlen($tmp) <= 240)	{
+							$quote = $tmp;
+						}
 					}
 				}
 				if (isset($quote) && isset($auteur)) {
