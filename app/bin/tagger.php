@@ -30,7 +30,7 @@ foreach($results as $row) {
 	$merged = array_merge($tags, $keywords);
 	$unique = array_unique($merged);
 	$cleaner = array_slice(array_filter(array_map(function($el) {
-		return preg_replace("/[^a-zA-Z0-9-]+/", "", trim($el, " \t\n\r\0\x0B.…"));
+		return preg_replace("/[^a-zA-Z0-9-]+/", "", trim($el, " \t\n\r\0\x0B.…-"));
 	}, $unique)), 0, 6);
 	// !s( $row["quote"], $row["tags"], implode(",", $cleaner) );
 	$tags = implode(",", $cleaner);
