@@ -14,6 +14,7 @@ $db = new \DB\SQL('mysql:host=' . DB_HOST . ';port=3306;dbname=' . DB_NAME, DB_U
 $results = $db->exec("
 	SELECT *  
 	FROM quotes 
+	ORDER BY RAND()
 ");
 
 if (!$results || $db->count() == 0) {
