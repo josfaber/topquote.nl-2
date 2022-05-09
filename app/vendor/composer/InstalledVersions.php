@@ -32,7 +32,7 @@ private static $installed = array (
     'aliases' => 
     array (
     ),
-    'reference' => '0d87fcef69acdbe66d597cab1dd33732dfefaae8',
+    'reference' => 'eef49a83dced7deff73acd3f3e92d4d064905c18',
     'name' => 'jos/app',
   ),
   'versions' => 
@@ -45,6 +45,15 @@ private static $installed = array (
       array (
       ),
       'reference' => 'cdd878db018280369b643fce62f70e55044f9ac4',
+    ),
+    'donatello-za/rake-php-plus' => 
+    array (
+      'pretty_version' => 'v1.0.18',
+      'version' => '1.0.18.0',
+      'aliases' => 
+      array (
+      ),
+      'reference' => 'e9e9c0862b3dc953d288e8f42c76e4ceaeca0619',
     ),
     'guzzlehttp/guzzle' => 
     array (
@@ -80,7 +89,7 @@ private static $installed = array (
       'aliases' => 
       array (
       ),
-      'reference' => '0d87fcef69acdbe66d597cab1dd33732dfefaae8',
+      'reference' => 'eef49a83dced7deff73acd3f3e92d4d064905c18',
     ),
     'kint-php/kint' => 
     array (
