@@ -73,6 +73,7 @@ function scrape($url) {
 	}
 
 	// tryNewUrl($dom);
+	usleep(700);
 	scrape($url);
 }
 
