@@ -8,7 +8,8 @@ class Tools
 {
 	function rank(\Base $f3, $params)
 	{
-
+		set_time_limit(180);
+		
 		$this->rank_tags($f3, $params);
 
 		$this->rank_sayers($f3, $params);
