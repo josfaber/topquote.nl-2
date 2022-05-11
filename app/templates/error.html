@@ -2,9 +2,53 @@
 
 {% block title %}Fout{% endblock %}
 {% block head %}
-    {{ parent() }}
+{{ parent() }}
 {% endblock %}
 
 {% block content %}
-Zucht... een foutmelding
+
+<div class="whitespace h40"></div>
+
+<div class="readable ranking marg-bot">
+    <h2 class="full ascii regular">404<br>(╥﹏╥)</h2>
+</div>
+
+<blockquote>
+    <div class="sayer">
+        Murphy
+    </div>
+    <div class="quote">
+        If anything can go wrong, it will
+    </div>
+</blockquote>
+
+<div class="readable ranking marg-bot">
+    Aiii, die pagina werkt of bestaat niet.
+    <br>
+    Kunnen we je misschien blij maken met wat random quotes?
+</div>
+
+<div class="whitespace h80"></div>
+
+<section id="quotes_list" class="quotes-list">
+    {% set n = 0 %}
+    {% set a = 0 %}
+    {% for quote in quotes %}
+    {{ include('partials/blockquote.html') }}
+    {% set n = n + 1 %}
+    {% if a == 0 and n > 6 %}
+    <div class="readable ranking">
+        <p class="ad-info">[ reclame ]</p>
+    </div>
+    <a class="ad-link marg-bot" href="https://amzn.to/38Z7hgw" target="_blank">
+        <img src="{{ tqd.site_url }}/img/amazon-gaming-week.jpeg" alt="Amazon ad" />
+    </a>
+    {% set a = 1 %}
+    {% endif %}
+    {% endfor %}
+    {% if not quotes %}
+    <p>Geen quotes gevonden</p>
+    {% endif %}
+</section>
+
 {% endblock %}

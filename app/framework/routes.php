@@ -33,7 +33,19 @@ $f3->route('GET /from/@submitter', function($f3, $params) {
 	$f3->reroute(site_url("quotes/from/{$params["submitter"]}"));
 });
 
-// $f3->set('ONERROR', function($f3) {
-// 	// !d(\Template::instance());
-// 	echo \Template::instance()->render('error.html');
-// });
+$f3->set('ONERROR', function($f3) {
+		
+	global $assets_manifest, $dataproxy;
+	
+	$quotes = $dataproxy->get_quotes(null, null, null, $dataproxy::$ORDER_RANDOM, null, 12, 1, "
+		AND LENGTH(`quote`) > 16 AND LENGTH(`quote`) < 120
+")["results"];
+	
+	$said_last_week = $dataproxy->get_quotes(null, null, null, $dataproxy::$ORDER_RANDOM, null, 9, 1, "
+		 AND (`created` > DATE_SUB(now(), INTERVAL 30 DAY)) AND LENGTH(`quote`) > 16 AND LENGTH(`quote`) < 120
+	")["results"];
+		
+	render_template('error.html', [
+		"quotes" => $quotes,
+	]);
+});
