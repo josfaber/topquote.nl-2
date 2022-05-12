@@ -35,6 +35,7 @@ $f3->route('GET /from/@submitter', function($f3, $params) {
 
 $f3->set('ONERROR', function($f3) {
 		
+	// !d($f3->ERROR["code"]);
 	global $assets_manifest, $dataproxy;
 	
 	$quotes = $dataproxy->get_quotes(null, null, null, $dataproxy::$ORDER_RANDOM, null, 12, 1, "
@@ -47,5 +48,6 @@ $f3->set('ONERROR', function($f3) {
 		
 	render_template('error.html', [
 		"quotes" => $quotes,
+		"code" => $f3->ERROR["code"] ?? 0
 	]);
 });
