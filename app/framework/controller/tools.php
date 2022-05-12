@@ -324,7 +324,7 @@ class Tools
 
 		global $dataproxy;
 
-		$sitemap_modified = filemtime(PUBLIC_DIR . "/sitemap_general.xml.gz");
+		$sitemap_modified = file_exists(PUBLIC_DIR . "/sitemap_general.xml.gz") ? filemtime(PUBLIC_DIR . "/sitemap_general.xml.gz") : 0;
 		if ($sitemap_modified > time() - 60 * 60 * 24) {
 			exit;
 		}
