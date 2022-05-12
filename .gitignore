@@ -2,3 +2,4 @@
 .env
 node_modules
 app/templates/cache
+app/public/sitemap_*

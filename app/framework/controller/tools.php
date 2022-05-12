@@ -306,127 +306,18 @@ class Tools
 			exit;
 		}
 
-		$now = date("Y-m-d\TH:i:sP");
-		$sitemap = '<?xml version="1.0" encoding="UTF-8"?>' . PHP_EOL .'<urlset xmlns="http://www.sitemaps.org/schemas/sitemap/0.9">' . PHP_EOL; 
-		
-		$sitemap .= '<url>' . PHP_EOL . '	<loc>https://topquote.nl</loc>' . PHP_EOL . '	<lastmod>' . $now . '	</lastmod>' . PHP_EOL . '</url>' . PHP_EOL;
-		
-		foreach([ "frikandellenbos", "poep", "rusland", "amerika", "kleuter", "opvoeding", "eten", "radio", "tv", "internet", "maandag", "dinsdag", "woensdag", "vrijdag",
-			"aarde", "natuur", "geweld", "sex", "game", "bijbel", "geloof", "jinek", "britt", "dekker", "food", "voetbal", "jan smit", "nederland", "bekend", "geld", "porno",
-			"idee"
-		] as $term) {
-			$sitemap .= '<url>' . PHP_EOL . '	<loc>https://topquote.nl/search/' . $term . '</loc>' . PHP_EOL . '	<lastmod>' . $now . '	</lastmod>' . PHP_EOL . '</url>' . PHP_EOL;
+		$sitemap = "<?xml version=\"1.0\" encoding=\"UTF-8\"?>" . PHP_EOL . "<sitemapindex xmlns=\"http://www.sitemaps.org/schemas/sitemap/0.9\">" . PHP_EOL;
+		$filenames = array_diff(scandir(PUBLIC_DIR), array('..', '.'));
+		foreach ($filenames as $filename) {
+			if (strpos($filename, 'sitemap_') !== false) {
+				$sitemap .= "<sitemap><loc>" . site_url() . "/" . $filename . "</loc></sitemap>" . PHP_EOL;
+			}
 		}
-
-		$all_quotes = $dataproxy->get_all_quotes_slugs();
-		foreach ($all_quotes as $quote) {
-			$sitemap .= '<url>' . PHP_EOL;
-			$sitemap .= '	<loc>https://topquote.nl/quote/' . $quote["slug"] . '</loc>' . PHP_EOL;
-			$sitemap .= '	<lastmod>' . $now . '</lastmod>' . PHP_EOL;
-			$sitemap .= '</url>' . PHP_EOL;
-		}
-
-		$all_single_tags = $dataproxy->get_all_tags_slugs();
-		foreach($all_single_tags as $tag) {
-			$sitemap .= '<url>' . PHP_EOL;
-			$sitemap .= '	<loc>https://topquote.nl/quotes/tag/' . $tag . '</loc>' . PHP_EOL;
-			$sitemap .= '	<lastmod>' . $now . '</lastmod>' . PHP_EOL;
-			$sitemap .= '</url>' . PHP_EOL;
-		}
-
-		$all_sayers = $dataproxy->get_all_sayers_slugs();
-		foreach($all_sayers as $quote) {
-			$sitemap .= '<url>' . PHP_EOL;
-			$sitemap .= '	<loc>https://topquote.nl/quotes/by/' . $quote["sayer_slug"] . '</loc>' . PHP_EOL;
-			$sitemap .= '	<lastmod>' . $now . '</lastmod>' . PHP_EOL;
-			$sitemap .= '</url>' . PHP_EOL;
-		}
-
-		$all_submitters = $dataproxy->get_all_submitters_slugs();
-		foreach($all_submitters as $quote) {
-			$sitemap .= '<url>' . PHP_EOL;
-			$sitemap .= '	<loc>https://topquote.nl/quotes/from/' . $quote["submitter_slug"] . '</loc>' . PHP_EOL;
-			$sitemap .= '	<lastmod>' . $now . '</lastmod>' . PHP_EOL;
-			$sitemap .= '</url>' . PHP_EOL;
-		}
-		
-		$sitemap .= '</urlset>';
+		$sitemap .= "</sitemapindex>";
 
 		$dataproxy->to_cache($cache_key, json_encode($sitemap), $cache_time);
 		echo $sitemap;
+		exit;
 	}
-	
-	// function test1(\Base $f3, $params) 
-	// {
-	// 	try {
-	// 		$client = new ApiClient();
-	// 		$client->setConfig([
-	// 			'apiKey' => MAILCHIMP_API_KEY,
-	// 			'server' => MAILCHIMP_SERVER_PREFIX,
-	// 		]);
-	
-	// 		$email = 'test2@topquote.nl';
-	
-	// 		$response = $client->lists->addListMember(MAILCHIMP_LIST_ID, [
-	// 			"email_address" => $email,
-	// 			"merge_fields" => [
-	// 			  "FNAME" => explode("@", $email)[0]
-	// 			],
-	// 			"status" => "subscribed",
-	// 		]);
-	
-	// 		!d($response);
 
-	// 	} catch (\Exception $e) {
-	// 		!d($e->getMessage());
-	// 	}
-	// }
-
-	// function img(\Base $f3, $params)
-	// {
-	// 	!d($params);
-
-	// 	global $dataproxy;
-	// 	$quote = $dataproxy->get_quote($params["id"]);
-
-	// 	if (!$quote) {
-	// 		exit(0);
-	// 	}
-
-	// 	// function tryText($size, $font, $quote, $w, $h) {
-	// 	// 	$box 	= imagettfbbox($size, 0, $font, $quote);
-	// 	// 	$box_h 	= imagettfbbox($size, 0, $font, "Wdp");
-	// 	// 	$tw 	= abs(max($box[2], $box[4]));
-	// 	// 	$th 	= abs(max($box[5], $box[7]));
-		
-	// 	// 	if ($tw < $w && $th < $h) {
-	// 	// 		return array(
-	// 	// 			"size" => $size,
-	// 	// 			"tw" => $tw,
-	// 	// 			"th" => $th + 36,
-	// 	// 		);
-	// 	// 	} else {
-	// 	// 		return tryText($size - 1, $font, $quote, $w, $h);
-	// 	// 	}
-	// 	// }
-
-	// 	$font =  BASE_DIR . '/assets/NHaasGroteskDSPro-55Rg.otf';
-	// 	!d($font, function_exists('imagettfbbox'));
-	// 	phpinfo();
-	// 	$width = 1600;
-	// 	$height = 900;
-
-	// 	// header("Content-Type: image/png");
-
-	// 	$im = imagecreate($width, $height);
-	// 	$bg = imagecolorallocate($im, 0, 0, 0);
-	// 	$fg = imagecolorallocate($im, 229, 0, 124);
-	// 	imagefilledrectangle($im, 0, 0, $width, $height, $bg);
-
-	// 	$t1 = tryText(100, $font, "Lorum ipsum allicandor lorum", $width, $height);
-
-	// 	// imagepng($im, $filepath, 85);
-	// 	imagepng($im);
-	// 	imagedestroy($im);
-	// }
 }
