@@ -320,4 +320,16 @@ class Tools
 		exit;
 	}
 
+	function create_sitemaps(\Base $f3, $params) {
+
+		global $dataproxy;
+
+		$sitemap_modified = filemtime(PUBLIC_DIR . "/sitemap_general.xml.gz");
+		if ($sitemap_modified > time() - 60 * 60 * 24) {
+			exit;
+		}
+
+		include BASE_DIR . "/bin/includes/render_sitemap.php";
+	}
+
 }

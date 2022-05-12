@@ -19,6 +19,7 @@ $f3->route('POST /mod', 					'Controller\Quote->update');
 
 // $f3->route('GET /import',  					'Controller\Tools->import');
 $f3->route('GET /t-clear',					'Controller\Tools->clear_cache');
+$f3->route('GET /t-sitemap',				'Controller\Tools->create_sitemaps');
 
 $f3->route('POST /api/quotes [ajax]',		'Controller\Api->quotes');
 $f3->route('POST /api/vote [ajax]',			'Controller\Api->vote');
