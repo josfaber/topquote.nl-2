@@ -3,3 +3,4 @@
 node_modules
 app/templates/cache
 app/public/sitemap_*
+dockerfiles/db/data
