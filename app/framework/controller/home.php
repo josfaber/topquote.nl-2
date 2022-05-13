@@ -16,6 +16,8 @@ class Home {
 		")["results"];
 
 		$top_tags = $dataproxy->get_top_tags();
+		foreach(["hjkm", "tc", "touchcreative", "RTV", "RTV", "woedend", "nrg3", "meidengeheimen"] as $tag) { $top_tags[] = array( "tag" => $tag, "amount" => 1000 ); }
+		$top_tags = array_unique($top_tags, SORT_REGULAR);
 		shuffle($top_tags);
 
 		$top_sayers = $dataproxy->get_top_sayers();

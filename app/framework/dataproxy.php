@@ -405,7 +405,7 @@ class DataProxy
 			SELECT tag, amount 
 			FROM `tag_rank` 
 			ORDER BY amount DESC
-			LIMIT 12;
+			LIMIT 10;
 		");
 
 		if (!$results || $this->db->count() == 0) {
