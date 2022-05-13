@@ -324,7 +324,7 @@ class Tools
 
 		global $dataproxy;
 
-		$is_stale = !file_exists(PUBLIC_DIR . "/sitemap_general.xml.gz") || filemtime(PUBLIC_DIR . "/sitemap_general.xml.gz") < time() - 60 * 60 * 24;
+		$is_stale = !file_exists(PUBLIC_DIR . "/sitemap_general.xml.gz") || filemtime(PUBLIC_DIR . "/sitemap_general.xml.gz") < time() - 60 * 10;
 		if (!$is_stale) {
 			echo "<!-- not stale, skipping -->"; 
 			exit;
