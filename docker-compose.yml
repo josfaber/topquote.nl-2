@@ -13,7 +13,7 @@ services:
       MYSQL_RANDOM_ROOT_PASSWORD: "yes"
     volumes:
       - ./dockerfiles/db/data:/var/lib/mysql 
-      - ./dockerfiles/db/topquote-nl3.sql:/docker-entrypoint-initdb.d/db.sql
+      - ./dockerfiles/db/topquote-nl4.sql:/docker-entrypoint-initdb.d/db.sql
 
   cache:
     image: redis:7.0-rc
