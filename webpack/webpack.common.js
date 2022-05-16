@@ -2,6 +2,7 @@ const path = require( 'path' );
 const webpack = require( 'webpack' );
 const MiniCssExtractPlugin = require( "mini-css-extract-plugin" );
 const CopyWebpackPlugin = require('copy-webpack-plugin');
+const { CleanWebpackPlugin } = require('clean-webpack-plugin');
 
 module.exports = {
     entry: {
@@ -54,6 +55,9 @@ module.exports = {
         ]
     },
     plugins: [
+        new CleanWebpackPlugin({
+            cleanOnceBeforeBuildPatterns: ["**/*", "!*.php", "!sitemap*.*", "!favicon.ico", "!visual.png", "!ads.txt"],
+        }),
         new MiniCssExtractPlugin( {
             // filename: "css/[name].bundle.css",
             // chunkFilename: "css/[name][id].bundle.css"

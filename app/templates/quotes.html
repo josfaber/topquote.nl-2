@@ -17,19 +17,37 @@
 </section>
 
 <section id="quotes_list" class="quotes-list">
-{% set n = 0 %}
 {% set a = 0 %}
+{% set n = 0 %}
 {% for quote in quotes %}
     {{ include('partials/blockquote.html') }}
+    {% set a = a + 1 %}
     {% set n = n + 1 %}
-    {% if a == 0 and n > 6 %}
+    {% if a == 6 %}
         <div class="readable ranking">
             <p class="ad-info">[ reclame ]</p>
         </div>
-        <a class="ad-link marg-bot" href="https://amzn.to/38Z7hgw" target="_blank">
-            <img src="{{ tqd.site_url }}/img/amazon-gaming-week.jpeg" alt="Amazon ad" />
-        </a>
-        {% set a = 1 %}
+        <ins class="adsbygoogle"
+            style="display:block"
+            data-adtest="on"
+            data-ad-client="ca-pub-2356098750828124"
+            data-ad-slot="9888249064"
+            data-ad-format="auto"
+            data-full-width-responsive="true"></ins>
+        {% set n = 0 %}
+    {% endif %}
+    {% if n > 11 %}
+        <div class="readable ranking">
+            <p class="ad-info">[ reclame ]</p>
+        </div>
+        <ins class="adsbygoogle"
+            style="display:block"
+            data-adtest="on" 
+            data-ad-format="fluid"
+            data-ad-layout-key="-he-3+1f-3d+2z"
+            data-ad-client="ca-pub-2356098750828124"
+            data-ad-slot="1104754020"></ins>
+        {% set n = 0 %}
     {% endif %}
 {% endfor %}
 {% if not quotes %}
@@ -37,4 +55,13 @@
 {% endif %}
 </section>
 
+{% endblock %}
+
+{% block scripts %}
+    {{ parent() }}
+    <script async src="https://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js?client=ca-pub-2356098750828124"
+    crossorigin="anonymous"></script>
+    <script>
+        (adsbygoogle = window.adsbygoogle || []).push({});
+   </script>
 {% endblock %}
