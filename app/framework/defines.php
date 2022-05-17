@@ -12,6 +12,8 @@ define("DB_PASSWORD",				getenv('DB_PASSWORD'));
 
 define("QUOTES_PER_PAGE",			48);
 
+define("SENTRY_DSN",				getenv('SENTRY_DSN'));
+
 define("MAILCHIMP_URL",				getenv("MAILCHIMP_URL"));
 define("MAILCHIMP_API_KEY",			getenv("MAILCHIMP_API_KEY"));
 define("MAILCHIMP_LIST_ID",			getenv("MAILCHIMP_LIST_ID"));

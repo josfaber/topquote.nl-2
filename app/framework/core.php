@@ -3,6 +3,11 @@
 // Composer
 require BASE_DIR . '/vendor/autoload.php';
 
+// Sentry
+if (defined('SENTRY_DSN') && !empty(SENTRY_DSN)) {
+	\Sentry\init([ 'dsn' => SENTRY_DSN, 'environment' => ENVIRONMENT ]);
+}
+
 // Load core
 require FW_DIR . '/dataproxy.php';
 require FW_DIR . '/defines.php';
