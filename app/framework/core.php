@@ -2,16 +2,15 @@
 
 // Composer
 require BASE_DIR . '/vendor/autoload.php';
-
-// Sentry
-if (defined('SENTRY_DSN') && !empty(SENTRY_DSN)) {
-	\Sentry\init([ 'dsn' => SENTRY_DSN, 'environment' => ENVIRONMENT ]);
-}
-
 // Load core
 require FW_DIR . '/dataproxy.php';
 require FW_DIR . '/defines.php';
 require FW_DIR . '/functions.php';
+
+// Sentry
+if (defined('SENTRY_DSN') && !empty(SENTRY_DSN)) {
+	\Sentry\init([ 'dsn' => SENTRY_DSN, 'environment' => ENVIRONMENT, 'traces_sample_rate' => SENTRY_SAMPLE_RATE ]);
+}
 
 // Fat Free Rendering! 
 $f3 = \Base::instance();
