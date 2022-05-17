@@ -106,4 +106,8 @@ document.body.onload = ( () => {
         }
     } );
 
+    document.querySelectorAll('.sliding-quotes').forEach( (el) => {
+      el.classList.add('active');
+    });
+
  });
