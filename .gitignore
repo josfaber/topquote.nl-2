@@ -3,5 +3,5 @@
 .dockerignore
 node_modules
 app/templates/cache
-app/public/sitemap_*
+app/public/sitemap*
 dockerfiles/db/data
