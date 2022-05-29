@@ -75,12 +75,12 @@ foreach(range('a','z') as $char) {
 
 // Index
 $sitemap = '<?xml version="1.0" encoding="UTF-8"?>' . PHP_EOL . '<sitemapindex xmlns="http://www.sitemaps.org/schemas/sitemap/0.9">' . PHP_EOL;
-$sitemap .= '	<sitemap>' . PHP_EOL . '		<loc>https://topquote.nl/sitemap_general.xml.gz' . PHP_EOL . '	</sitemap>' . PHP_EOL;
-$sitemap .= '	<sitemap>' . PHP_EOL . '		<loc>https://topquote.nl/sitemap_slugs.xml.gz' . PHP_EOL . '	</sitemap>' . PHP_EOL;
-$sitemap .= '	<sitemap>' . PHP_EOL . '		<loc>https://topquote.nl/sitemap_sayers.xml.gz' . PHP_EOL . '	</sitemap>' . PHP_EOL;
-$sitemap .= '	<sitemap>' . PHP_EOL . '		<loc>https://topquote.nl/sitemap_submitters.xml.gz' . PHP_EOL . '	</sitemap>' . PHP_EOL;
+$sitemap .= '	<sitemap>' . PHP_EOL . '		<loc>https://topquote.nl/sitemap_general.xml.gz</loc>' . PHP_EOL . '	</sitemap>' . PHP_EOL;
+$sitemap .= '	<sitemap>' . PHP_EOL . '		<loc>https://topquote.nl/sitemap_slugs.xml.gz</loc>' . PHP_EOL . '	</sitemap>' . PHP_EOL;
+$sitemap .= '	<sitemap>' . PHP_EOL . '		<loc>https://topquote.nl/sitemap_sayers.xml.gz</loc>' . PHP_EOL . '	</sitemap>' . PHP_EOL;
+$sitemap .= '	<sitemap>' . PHP_EOL . '		<loc>https://topquote.nl/sitemap_submitters.xml.gz</loc>' . PHP_EOL . '	</sitemap>' . PHP_EOL;
 foreach(range('a','z') as $char) {
-	$sitemap .= '	<sitemap>' . PHP_EOL . '		<loc>https://topquote.nl/sitemap_tags_' . $char . '.xml.gz' . PHP_EOL . '	</sitemap>' . PHP_EOL;
+	$sitemap .= '	<sitemap>' . PHP_EOL . '		<loc>https://topquote.nl/sitemap_tags_' . $char . '.xml.gz</loc>' . PHP_EOL . '	</sitemap>' . PHP_EOL;
 }
 $sitemap .= '</sitemapindex>'; 
 $handle = fopen(PUBLIC_DIR . "/sitemap.xml", "w") or die("Unable to open file!");
