@@ -323,8 +323,7 @@ class Tools
 	function create_sitemaps(\Base $f3, $params) {
 
 		global $dataproxy;
-
-		$is_stale = !file_exists(PUBLIC_DIR . "/sitemap_general.xml.gz") || filemtime(PUBLIC_DIR . "/sitemap_general.xml.gz") < time() - 60 * 5;
+		$is_stale = (defined('ENVIRONMENT') && ENVIRONMENT == 'development') || !file_exists(PUBLIC_DIR . "/sitemap.xml") || filemtime(PUBLIC_DIR . "/sitemap.xml") < time() - 60 * 5;
 		if (!$is_stale) {
 			echo "<!-- not stale, skipping -->"; 
 			exit;
