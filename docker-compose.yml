@@ -59,6 +59,8 @@ services:
       dockerfile: dockerfiles/nginx/Dockerfile
     container_name: topquote-nginx
     restart: on-failure
+    ports:
+      - "${NGINX_PORT}:80"
     volumes:
       - './app:/var/www'
     depends_on:
