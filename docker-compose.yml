@@ -73,7 +73,8 @@ services:
     labels:
       - traefik.enable=true
       # - traefik.port=80
-      - traefik.http.routers.topquote.rule=Host(`topquote.nl`)
+      - traefik.http.routers.topquote.rule=Host(`topquote.nl`, `www.topquote.nl`)
+      - traefik.http.routers.topquote.middlewares=www2nonwww@file
       - traefik.http.routers.topquote.entrypoints=websecure
       - traefik.http.routers.topquote.tls=true
       - traefik.http.routers.topquote.tls.certresolver=letsencrypt

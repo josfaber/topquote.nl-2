@@ -25,7 +25,7 @@ $f3->route('POST /api/quotes [ajax]',		'Controller\Api->quotes');
 $f3->route('POST /api/vote [ajax]',			'Controller\Api->vote');
 $f3->route('POST /api/quote/@id [ajax]',	'Controller\Api->quote');
 
-$f3->route('GET /sitemap.xml',				'Controller\Tools->sitemap');
+// $f3->route('GET /sitemap.xml',				'Controller\Tools->sitemap');
 
 $f3->route('GET /by/@sayer', function($f3, $params) {
 	$f3->reroute(site_url("quotes/by/{$params["sayer"]}"));
