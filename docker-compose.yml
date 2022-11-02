@@ -59,8 +59,8 @@ services:
       dockerfile: dockerfiles/nginx/Dockerfile
     container_name: topquote-nginx
     restart: on-failure
-    ports:
-      - "${NGINX_PORT}:80"
+    # ports:
+      # - "${NGINX_PORT}:80"
     volumes:
       - './app:/var/www'
     depends_on:
@@ -85,16 +85,20 @@ services:
       - PMA_ARB ITRARY=1
       - PMA_HOST=${DB_HOST}
       - PMA_PORT=3306
-      - PMA_ABSOLUTE_URI=${SITE_URL}/pma/
+      - PMA_ABSOLUTE_URI=pma.topquote.nl
       - UPLOAD_LIMIT=400M
-    ports:
-      - "${PHPMYADMIN_PORT}:80"
+    # ports:
+      # - "${PHPMYADMIN_PORT}:80"
     links:
       - db
     networks:
       - internal
     labels:
-      - traefik.enable=false
+      - traefik.enable=true
+      - traefik.http.routers.pma.rule=Host(`pma.topquote.nl`)
+      - traefik.http.routers.topquote.entrypoints=websecure
+      - traefik.http.routers.topquote.tls=true
+      - traefik.http.routers.topquote.tls.certresolver=letsencrypt
 
 volumes:
   cache:

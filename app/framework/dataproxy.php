@@ -22,8 +22,11 @@ class DataProxy
 	public function __construct()
 	{
 		$this->db = new \DB\SQL('mysql:host=' . DB_HOST . ';port=3306;dbname=' . DB_NAME, DB_USER, DB_PASSWORD);
-		$this->redis = new \Redis();
-		$this->redis->connect('cache', 6379);
+		
+		if (!defined('ENVIRONMENT') || ENVIRONMENT !== "development") {
+			$this->redis = new \Redis();
+			$this->redis->connect('cache', 6379);
+		}
 	}
 
 	public function from_cache($key)
