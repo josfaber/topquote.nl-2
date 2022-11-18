@@ -78,24 +78,6 @@ services:
       - traefik.http.routers.topquote.rule=Host(`topquote.local`)
       - traefik.http.routers.topquote.entrypoints=web
 
-  phpmyadmin:
-    container_name: topquote-phpmyadmin
-    image: phpmyadmin/phpmyadmin
-    environment:
-      - PMA_ARB ITRARY=1
-      - PMA_HOST=${DB_HOST}
-      - PMA_PORT=3306
-      - PMA_ABSOLUTE_URI=http://pma.local
-      - UPLOAD_LIMIT=400M
-    # ports:
-      # - "${PHPMYADMIN_PORT}:80"
-    links:
-      - db
-    labels:
-      - traefik.enable=true
-      - traefik.http.routers.pma.rule=Host(`pma.local`)
-      - traefik.http.routers.pma.entrypoints=web
-
 volumes:
   cache:
     driver: local

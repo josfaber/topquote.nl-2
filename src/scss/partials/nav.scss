@@ -48,6 +48,9 @@
             @include medium65;
             flex: 0 auto;
             // background: blue;
+            position: absolute;
+            left: 50%;
+            transform: translateX(-50%);
             
             a {
                 color: var(--primary-color);
@@ -55,9 +58,15 @@
                 text-decoration: none;
             }
         }
+
+        .add {
+            margin-left: auto;
+            padding: 0.25rem 0.5rem;
+        }
         
         .menu {
             margin-left: auto;
+            // margin-left: 10px;
             font-size: 2rem;
             padding-right: calc(1rem - 8px);
     
