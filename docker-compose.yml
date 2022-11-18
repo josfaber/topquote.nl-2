@@ -12,7 +12,7 @@ services:
       MYSQL_PASSWORD: ${DB_PASSWORD}
       MYSQL_RANDOM_ROOT_PASSWORD: "yes"
     ports:
-      - "3306:3306"
+      - "3307:3306"
     volumes:
       - ./dockerfiles/db/data:/var/lib/mysql 
       - ./dockerfiles/db/topquote-nl4.sql:/docker-entrypoint-initdb.d/db.sql
