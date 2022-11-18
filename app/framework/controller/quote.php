@@ -200,11 +200,15 @@ class Quote
 			$html .= "</ul>";
 
 			// mail to topquote
-			$mail = $dataproxy->get_mailer();
-			$mail->addAddress('josfaber@me.com', 'topquote');
-			$mail->Subject = "Nieuwe quote van {$sayer}, door {$submitter}";
-			$mail->msgHTML($html);
-			$mail->send();	
+			try {
+				$mail = $dataproxy->get_mailer();
+				$mail->addAddress('josfaber@me.com', 'topquote');
+				$mail->Subject = "Nieuwe quote van {$sayer}, door {$submitter}";
+				$mail->msgHTML($html);
+				$mail->send();	
+			} catch (\Exception $e) {
+				error_log("Mailer Error: {$mail->ErrorInfo}");
+			}
 
 			// mail to submitter
 			$html = "
@@ -217,11 +221,15 @@ class Quote
 				<p>&#9881;&#65039; Beheren: <a href=\"" . site_url('mod') . "?key={$modkey}&id={$quote_id}\">Beheer deze quote</a></p>
 				";
 		
-			$mail = $dataproxy->get_mailer();
-			$mail->addAddress($email);
-			$mail->Subject = "Je opgeslagen quote van {$sayer} (beheer link)";
-			$mail->msgHTML($html);
-			$mail->send();
+			try {
+				$mail = $dataproxy->get_mailer();
+				$mail->addAddress($email);
+				$mail->Subject = "Je opgeslagen quote van {$sayer} (beheer link)";
+				$mail->msgHTML($html);
+				$mail->send();
+			} catch (\Exception $e) {
+				echo "Message could not be sent. Mailer Error: {$mail->ErrorInfo}";
+			}
 
 			// add to Mailchimp 
 			try {
@@ -240,6 +248,7 @@ class Quote
 				]);
 
 			} catch (\Exception $e) {
+				error_log('Mailchimp error: ' . $e->getMessage());
 			}			
 
 			render_template('jump.html', [
