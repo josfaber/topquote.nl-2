@@ -49,7 +49,7 @@ module.exports = merge( common, {
                 path.resolve( __dirname, '../app/**/*.php' ),
                 path.resolve( __dirname, '../app/**/*.html' ),
             ],
-            proxy: 'http://localhost:8085',
+            proxy: 'http://topquote.local',
             open: false,
         }, {
             reload: false,
