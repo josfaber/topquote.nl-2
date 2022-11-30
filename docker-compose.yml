@@ -97,9 +97,9 @@ services:
   #   labels:
   #     - traefik.enable=true
   #     - traefik.http.routers.pma.rule=Host(`pma.topquote.nl`)
-  #     - traefik.http.routers.topquote.entrypoints=websecure
-  #     - traefik.http.routers.topquote.tls=true
-  #     - traefik.http.routers.topquote.tls.certresolver=letsencrypt
+  #     - traefik.http.routers.pma.entrypoints=websecure
+  #     - traefik.http.routers.pma.tls=true
+  #     - traefik.http.routers.pma.tls.certresolver=letsencrypt
 
 volumes:
   cache:
