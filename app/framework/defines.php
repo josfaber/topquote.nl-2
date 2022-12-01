@@ -33,3 +33,4 @@ define("SMTP_SECURE",				getenv("SMTP_SECURE"));
 define("SMTP_PORT",					getenv("SMTP_PORT"));
 	
 define("FROM_EMAIL",				getenv("FROM_EMAIL"));
+define("TO_EMAIL",					getenv("TO_EMAIL"));

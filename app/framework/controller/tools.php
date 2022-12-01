@@ -277,7 +277,7 @@ class Tools
 			// mail to topquote
 			$mail = $dataproxy->get_mailer();
 			$mail->addReplyTo($email, $_POST["from"]);
-			$mail->addAddress('josfaber@me.com', 'topquote');
+			$mail->addAddress(TO_EMAIL, 'topquote');
 			$mail->Subject = "Topquote feedback van " . $_POST["from"];
 			$mail->msgHTML($html);
 			$mail->send();

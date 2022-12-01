@@ -202,8 +202,8 @@ class Quote
 			// mail to topquote
 			try {
 				$mail = $dataproxy->get_mailer();
-				$mail->addAddress('josfaber@me.com', 'topquote');
-				$mail->Subject = "Nieuwe quote van {$sayer}, door {$submitter}";
+				$mail->addAddress(TO_EMAIL, 'topquote');
+				$mail->Subject = "Nieuwe quote van {$sayer}, opgeslagen door {$submitter}";
 				$mail->msgHTML($html);
 				$mail->send();	
 			} catch (\Exception $e) {
