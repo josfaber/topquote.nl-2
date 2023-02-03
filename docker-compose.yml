@@ -16,9 +16,6 @@ services:
       - ./import/topquote-nl4.sql:/docker-entrypoint-initdb.d/00-init.sql
 
   php:
-    build:
-      context: app
-      dockerfile: Dockerfile
     container_name: topquote-php
     restart: always
     volumes:
@@ -29,11 +26,10 @@ services:
       - db
 
   nginx:
-    build:
-      context: nginx
-      dockerfile: Dockerfile
     container_name: topquote-nginx
     restart: always
+    volumes:
+      - './app:/var/www'
     depends_on:
       - php
     env_file:
