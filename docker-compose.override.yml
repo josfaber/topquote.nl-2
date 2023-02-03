@@ -24,10 +24,15 @@ services:
   db:
     ports:
       - "3307:3306"
+  php:
+    build:
+      context: app
+      dockerfile: Dockerfile
 
   nginx:
-    volumes:
-      - './app:/var/www'
+    build:
+      context: nginx
+      dockerfile: Dockerfile
     labels:
       - traefik.enable=true
       - traefik.http.routers.topquote.rule=Host(`topquote.local`)
