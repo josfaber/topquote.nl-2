@@ -12,6 +12,10 @@ define("DB_PASSWORD",				getenv('DB_PASSWORD'));
 
 define("QUOTES_PER_PAGE",			48);
 
+define("REDIS_HOST",				getenv('REDIS_HOST'));
+define("REDIS_PORT",				getenv('REDIS_PORT') ?: 6379);
+define("REDIS_TEST",				getenv('REDIS_TEST') ?: '3');
+
 define("SENTRY_DSN",				getenv('SENTRY_DSN'));
 define("SENTRY_SAMPLE_RATE",		(float) getenv('SENTRY_SAMPLE_RATE'));
 

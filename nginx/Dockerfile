@@ -15,5 +15,5 @@ RUN adduser \
 
 RUN rm /etc/nginx/conf.d/default.conf
 
-COPY ./dockerfiles/nginx/nginx.conf /etc/nginx/nginx.conf
-COPY ./dockerfiles/nginx/default.conf /etc/nginx/templates/default.conf.template
+COPY ./nginx.conf /etc/nginx/nginx.conf
+COPY ./default.conf /etc/nginx/templates/default.conf.template
