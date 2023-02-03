@@ -4,5 +4,4 @@
 node_modules
 app/templates/cache
 app/public/sitemap*
-mount/*
-*.BAK
+dockerfiles/db/data

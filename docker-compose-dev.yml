@@ -1,0 +1,83 @@
+version: '3'
+
+services:
+
+  traefik:
+    image: "traefik:2.4"
+    container_name: topquote-traefik
+    restart: always
+    command:
+      - "--log.level=DEBUG"
+      - "--configFile=/config/traefik.yml"
+    ports:
+      - "80:80"
+    #      - "443:443"
+    volumes:
+      - "./traefik.dev.yml:/config/traefik.yml"
+      - "/var/run/docker.sock:/var/run/docker.sock:ro"
+    labels:
+      - "traefik.enable=true"
+      - "traefik.http.routers.api.rule=Host(`traefik.local`)"
+      - "traefik.http.routers.api.entrypoints=web"
+      - "traefik.http.routers.api.service=api@internal"
+
+  db:
+    image: mariadb:10.7.1
+    container_name: topquote-db
+    restart: always
+    environment:
+      MYSQL_DATABASE: ${DB_NAME}
+      MYSQL_USER: ${DB_USER}
+      MYSQL_PASSWORD: ${DB_PASSWORD}
+      MYSQL_RANDOM_ROOT_PASSWORD: "yes"
+    volumes:
+      - ./dockerfiles/db/data:/var/lib/mysql
+      - ./dockerfiles/db/topquote-nl4.sql:/docker-entrypoint-initdb.d/db.sql
+
+  # cache:
+  #   image: redis:7.0-rc
+  #   container_name: topquote-cache
+  #   restart: always
+  #   ports:
+  #     - 6379
+  #   command: redis-server --save 20 1 --loglevel warning
+  #   volumes:
+  #     - cache:/data
+  #   depends_on:
+  #     - db
+
+  php:
+    container_name: topquote-php
+    build:
+      context: .
+      dockerfile: dockerfiles/php/Dockerfile
+    volumes:
+      - './app:/var/www'
+    restart: on-failure
+    env_file:
+      - .env
+    depends_on:
+      - db
+
+  nginx:
+    container_name: topquote-nginx
+    build:
+      context: .
+      dockerfile: dockerfiles/nginx/Dockerfile
+    restart: on-failure
+    volumes:
+      - './app:/var/www'
+    # ports:
+      # - "8080:80"
+    depends_on:
+      - php
+    env_file:
+      - .env
+    labels:
+      - traefik.enable=true
+      - traefik.http.routers.topquote.rule=Host(`topquote.local`)
+      - traefik.http.routers.topquote.entrypoints=web
+
+volumes:
+  cache:
+    driver: local

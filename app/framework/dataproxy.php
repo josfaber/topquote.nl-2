@@ -23,10 +23,7 @@ class DataProxy
 	{
 		$this->db = new \DB\SQL('mysql:host=' . DB_HOST . ';port=3306;dbname=' . DB_NAME, DB_USER, DB_PASSWORD);
 		
-		if (
-			(!defined('ENVIRONMENT') || ENVIRONMENT === "production") 
-			&& defined('REDIS_HOST') && !empty(REDIS_HOST)
-			) {
+		if (!defined('ENVIRONMENT') || ENVIRONMENT !== "development") {
 			$this->redis = new \Redis();
 			$this->redis->connect('cache', 6379);
 		}
@@ -34,10 +31,6 @@ class DataProxy
 
 	public function from_cache($key)
 	{
-		if (!defined('REDIS_HOST') || REDIS_HOST == false) {
-			return false;
-		}
-
 		if (defined('ENVIRONMENT') && ENVIRONMENT == "development") {
 			return false;
 		}
@@ -54,10 +47,6 @@ class DataProxy
 
 	public function to_cache($key, $value, $ttl = 60 * 5)
 	{
-		if (!defined('REDIS_HOST') || REDIS_HOST == false) {
-			return false;
-		}
-
 		if (defined('ENVIRONMENT') && ENVIRONMENT == "development") {
 			return false;
 		}
@@ -71,14 +60,6 @@ class DataProxy
 
 	public function del_cache($key)
 	{
-		if (!defined('REDIS_HOST') || REDIS_HOST == false) {
-			return false;
-		}
-
-		if (defined('ENVIRONMENT') && ENVIRONMENT == "development") {
-			return false;
-		}
-		
 		try {
 			$this->redis->del($key);
 		} catch (\Exception $e) {
