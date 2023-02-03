@@ -30,6 +30,7 @@ services:
     restart: always
     volumes:
       - './app:/var/www'
+      - ./service:/var/service
     depends_on:
       - php
     env_file:

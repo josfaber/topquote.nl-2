@@ -34,6 +34,23 @@ $f3->route('GET /from/@submitter', function($f3, $params) {
 	$f3->reroute(site_url("quotes/from/{$params["submitter"]}"));
 });
 
+
+    // location /tile {
+    //     rewrite ^/tile/(.*)$ /poster.php?id=$1 last;
+    // }
+    // location /thumb {
+    //     rewrite ^/thumb/(.*)$ /poster.php?id=$1&thumb=1 last;
+    // }
+    // location /img {
+    //     rewrite ^/img/(.*)$ /img.php?id=$1 last;
+    // } 
+    // location /img2 {
+    //     rewrite ^/img2/(.*)$ /img2.php?id=$1 last;
+    // }
+    // location /poster {
+    //     rewrite ^/poster/(.*)$ /poster.php?id=$1 last;
+    // }
+
 $f3->set('ONERROR', function($f3) {
 		
 	// !d($f3->ERROR["code"]);

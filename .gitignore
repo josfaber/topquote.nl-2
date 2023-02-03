@@ -6,3 +6,4 @@ app/templates/cache
 app/public/sitemap*
 mount/*
 *.BAK
+service/public/cache
