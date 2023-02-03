@@ -6,3 +6,10 @@ app/templates/cache
 app/public/sitemap*
 mount/*
 *.BAK
+dockerfiles/mount/db/aria_log_control
+dockerfiles/mount/db/aria_log.00000001
+dockerfiles/mount/db/ddl_recovery-backup.log
+dockerfiles/mount/db/ib_buffer_pool
+dockerfiles/mount/db/ib_logfile0
+dockerfiles/mount/db/ibdata1
+dockerfiles/mount/db/multi-master.info
