@@ -31,6 +31,10 @@ services:
       - traefik.http.routers.topquote.tls=true
       - traefik.http.routers.topquote.tls.certresolver=letsencrypt
 
+      - traefik.http.routers.topquote2.rule=Host(`topquote.nl`, `www.topquote.nl`)
+      - traefik.http.routers.topquote2.middlewares=redirect-https@file
+      - traefik.http.routers.topquote2.entrypoints=web
+
   # cache:
   #   image: redis:7.0-rc
   #   container_name: topquote-cache
