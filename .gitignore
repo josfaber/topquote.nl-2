@@ -4,5 +4,6 @@
 node_modules
 app/templates/cache
 app/public/sitemap*
-mount/*
+mount/cache/*
+mount/db
 *.BAK

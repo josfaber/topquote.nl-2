@@ -3,9 +3,9 @@
 {% block title %}Uitspraak van {{ quote.sayer }}{% endblock %}
 {% block head %}
     {{ parent() }}
-    <meta property="og:image" content="https://service.topquote.nl/img/{{ quote.id }}" />
+    <meta property="og:image" content="{{ constant('SERVICE_URL') }}/img/{{ quote.id }}" />
     <meta property="og:title" content="Uitspraak van {{ quote.sayer }}" />
-    <meta property="og:url" content="{{ tqd.site_url }}/quote/{{ quote.slug }}" />
+    <meta property="og:url" content="{{ constant('SITE_URL') }}/quote/{{ quote.slug }}" />
     <meta property="og:type" content="website" />
     <meta name="description" content="{{ quote.quote }}">
     <meta property="og:description" content="{{ quote.quote }}" />

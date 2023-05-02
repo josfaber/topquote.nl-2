@@ -55,4 +55,9 @@ class Home {
 		], [], [site_url($assets_manifest["home.js"])]);
 
 	}
+
+	function phpinfo(\Base $f3, $params) {
+		echo "<pre>"; var_dump(gd_info()); echo "</pre>";
+		phpinfo();
+	}
 }

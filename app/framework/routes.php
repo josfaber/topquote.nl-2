@@ -35,21 +35,13 @@ $f3->route('GET /from/@submitter', function($f3, $params) {
 });
 
 
-    // location /tile {
-    //     rewrite ^/tile/(.*)$ /poster.php?id=$1 last;
-    // }
-    // location /thumb {
-    //     rewrite ^/thumb/(.*)$ /poster.php?id=$1&thumb=1 last;
-    // }
-    // location /img {
-    //     rewrite ^/img/(.*)$ /img.php?id=$1 last;
-    // } 
-    // location /img2 {
-    //     rewrite ^/img2/(.*)$ /img2.php?id=$1 last;
-    // }
-    // location /poster {
-    //     rewrite ^/poster/(.*)$ /poster.php?id=$1 last;
-    // }
+// $f3->route('GET /tile/@id',					'Controller\Service->tile');
+// $f3->route('GET /thumb/@id',				'Controller\Service->tile');
+$f3->route('GET /img/@id',					'Controller\Service->img');
+// $f3->route('GET /img2/@id',					'Controller\Service->img2');
+$f3->route('GET /poster/@id',				'Controller\Service->poster');
+
+$f3->route('GET /phpinfo',				'Controller\Home->phpinfo');
 
 $f3->set('ONERROR', function($f3) {
 		
@@ -58,11 +50,11 @@ $f3->set('ONERROR', function($f3) {
 	
 	$quotes = $dataproxy->get_quotes(null, null, null, $dataproxy::$ORDER_RANDOM, null, 12, 1, "
 		AND LENGTH(`quote`) > 16 AND LENGTH(`quote`) < 120
-")["results"];
+")["results"] ?? [];
 	
 	$said_last_week = $dataproxy->get_quotes(null, null, null, $dataproxy::$ORDER_RANDOM, null, 9, 1, "
 		 AND (`created` > DATE_SUB(now(), INTERVAL 30 DAY)) AND LENGTH(`quote`) > 16 AND LENGTH(`quote`) < 120
-	")["results"];
+	")["results"] ?? [];
 		
 	render_template('error.html', [
 		"quotes" => $quotes,

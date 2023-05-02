@@ -20,6 +20,7 @@ services:
     restart: always
     volumes:
       - './app:/var/www'
+      - './mount/cache:/var/www/cache'
     env_file:
       - .env
     depends_on:
@@ -28,9 +29,8 @@ services:
   nginx:
     container_name: topquote-nginx
     restart: always
-    volumes:
-      - './app:/var/www'
-      - ./service:/var/service
+    volumes_from:
+      - php
     depends_on:
       - php
     env_file:

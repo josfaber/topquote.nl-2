@@ -49,18 +49,20 @@ blockquote {
         flex-wrap: wrap;
         justify-content: flex-end;
         margin-top: 1em;
+        align-items: center;
 
         & > div:not(:first-child) {
             margin-left: 0.5rem;
         }
 
-        div.tags {
-            display: flex;
-            flex-wrap: wrap;
-            align-items: center;
-        }
+        // div.tags, {
+        //     display: flex;
+        //     flex-wrap: wrap;
+        //     align-items: center;
+        // }
                         
         [class^="icon-"], [class*=" icon-"] {
+            margin-left: 0.5em;
             margin-right: 0.5em;
 
             &:hover {

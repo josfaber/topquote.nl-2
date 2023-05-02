@@ -1,7 +1,11 @@
 <?php
 
 define("SITE_URL", 					rtrim(getenv('SITE_URL'), '/'));
+define("API_URL", 					rtrim(getenv('API_URL'), '/'));
+define("SERVICE_URL",				rtrim(getenv('SERVICE_URL'), '/'));
 define("ENVIRONMENT",				getenv('ENVIRONMENT'));
+
+define('CACHE_DIR', 			 	getenv('CACHE_DIR') ?: '/var/www/cache');
 
 define("USE_TWIG_CACHE", 			getenv('USE_TWIG_CACHE') == "true");
 
@@ -12,12 +16,11 @@ define("DB_PASSWORD",				getenv('DB_PASSWORD'));
 
 define("QUOTES_PER_PAGE",			48);
 
-define("REDIS_HOST",				getenv('REDIS_HOST'));
-define("REDIS_PORT",				getenv('REDIS_PORT') ?: 6379);
-define("REDIS_TEST",				getenv('REDIS_TEST') ?: '3');
+// define("REDIS_HOST",				getenv('REDIS_HOST'));
+// define("REDIS_PORT",				getenv('REDIS_PORT') ?: 6379);
 
-define("SENTRY_DSN",				getenv('SENTRY_DSN'));
-define("SENTRY_SAMPLE_RATE",		(float) getenv('SENTRY_SAMPLE_RATE'));
+// define("SENTRY_DSN",				getenv('SENTRY_DSN'));
+// define("SENTRY_SAMPLE_RATE",		(float) getenv('SENTRY_SAMPLE_RATE'));
 
 define("MAILCHIMP_URL",				getenv("MAILCHIMP_URL"));
 define("MAILCHIMP_API_KEY",			getenv("MAILCHIMP_API_KEY"));
