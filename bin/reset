@@ -1,0 +1,15 @@
+#!/bin/bash
+
+set -e
+
+WORK_DIR="$( cd -- "$( dirname -- "${BASH_SOURCE[0]}" )" &> /dev/null && pwd )/.."
+cd $WORK_DIR
+
+sudo rm -rf app/cache/*
+sudo chmod -R 777 app/cache
+
+sudo rm -rf app/templates/cache/*
+sudo chmod -R 777 app/templates/cache
+
+sudo rm -rf mount/cache/*
+sudo chmod -R 777 mount/cache
