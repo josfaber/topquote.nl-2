@@ -95,6 +95,8 @@ RUN set -eux; \
     zip; \
     rm -rf /var/lib/apt/lists/*
 
+RUN pecl install redis
+
 RUN set -eux; \
     docker-php-ext-install pdo_mysql; \
     docker-php-ext-install pdo_pgsql; \
@@ -104,7 +106,8 @@ RUN set -eux; \
     --with-webp \
     --with-xpm \
     --with-freetype; \
-    docker-php-ext-install gd; 
+    docker-php-ext-install gd && \
+    docker-php-ext-enable redis; 
 
 COPY ./config/php.ini /usr/local/etc/php/php.ini
 COPY ./config/php-fpm-pool.conf /usr/local/etc/php-fpm.d

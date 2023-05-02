@@ -5,6 +5,10 @@ namespace TopQuote;
 use PHPMailer\PHPMailer\PHPMailer;
 use PHPMailer\PHPMailer\Exception;
 
+use DB;
+
+use Redis;
+
 class DataProxy
 {
 
@@ -21,14 +25,13 @@ class DataProxy
 
 	public function __construct()
 	{
-		$this->db = new \DB\SQL('mysql:host=' . DB_HOST . ';port=3306;dbname=' . DB_NAME, DB_USER, DB_PASSWORD);
+		$this->db = new DB\SQL('mysql:host=' . DB_HOST . ';port=3306;dbname=' . DB_NAME, DB_USER, DB_PASSWORD);
 		
-		if (
-			(!defined('ENVIRONMENT') || ENVIRONMENT === "production") 
-			&& defined('REDIS_HOST') && !empty(REDIS_HOST)
-			) {
-			$this->redis = new \Redis();
-			$this->redis->connect('cache', 6379);
+		// !d(REDIS_HOST, REDIS_PORT); 
+
+		if ( defined('REDIS_HOST') && !empty(REDIS_HOST) ) {
+			$this->redis = new Redis();
+			$this->redis->connect(REDIS_HOST, REDIS_PORT ?? 6379);
 		}
 	}
 
@@ -38,9 +41,9 @@ class DataProxy
 			return false;
 		}
 
-		if (defined('ENVIRONMENT') && ENVIRONMENT == "development") {
-			return false;
-		}
+		// if (defined('ENVIRONMENT') && ENVIRONMENT == "development") {
+		// 	return false;
+		// }
 
 		try {
 			// $this->redis->del($key);
@@ -58,9 +61,9 @@ class DataProxy
 			return false;
 		}
 
-		if (defined('ENVIRONMENT') && ENVIRONMENT == "development") {
-			return false;
-		}
+		// if (defined('ENVIRONMENT') && ENVIRONMENT == "development") {
+		// 	return false;
+		// }
 
 		try {
 			$this->redis->setex($key, $ttl, $value);
