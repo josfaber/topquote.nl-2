@@ -16,6 +16,8 @@ services:
       - internal
     labels:
       - traefik.enable=false
+    volumes:
+      - './mount/cache:/var/www/cache'
 
   nginx:
     image: registry.mmsrv.nl/topquote-nginx:latest

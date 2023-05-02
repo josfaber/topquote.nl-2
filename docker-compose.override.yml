@@ -28,6 +28,9 @@ services:
     build:
       context: app
       dockerfile: Dockerfile
+    volumes:
+      - './app:/var/www'
+      - './mount/cache:/var/www/cache'
 
   nginx:
     build:

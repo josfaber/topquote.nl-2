@@ -2,8 +2,8 @@
 
 set -e
 
-docker build --platform linux/amd64 --tag registry.mmsrv.nl/topquote-php:latest ./app \
+docker build --no-cache --platform linux/amd64 --tag registry.mmsrv.nl/topquote-php:latest ./app \
 && docker push registry.mmsrv.nl/topquote-php:latest
 
-docker build --platform linux/amd64 --tag registry.mmsrv.nl/topquote-nginx:latest ./nginx \
+docker build --no-cache --platform linux/amd64 --tag registry.mmsrv.nl/topquote-nginx:latest ./nginx \
 && docker push registry.mmsrv.nl/topquote-nginx:latest
