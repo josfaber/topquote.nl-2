@@ -385,7 +385,7 @@ class DataProxy
 	{
 		$quote["tags"] = explode(",", $quote["tags"]);
 		$quote["tags_links"] = implode("", array_map(function ($tag) {
-			return "<a class=\"tag\" href='" . site_url("quotes/tag") . "/" . strtolower(trim($tag)) . "'>{$tag}</a>";
+			return "<a class=\"tag\" href='" . site_url("quotes/tag") . "/" . strtolower(trim($tag)) . "' title='Alle uitspraken met tag {$tag}'>{$tag}</a>";
 		}, $quote["tags"]));
 		$quote["link"] = $this->get_quote_link($quote);
 		$quote["sayer_link"] = $this->get_sayer_link($quote);

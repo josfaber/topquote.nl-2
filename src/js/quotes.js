@@ -29,6 +29,8 @@ const loadMore = () => {
 
             if (!response.data.hasOwnProperty('EOD') || response.data.EOD != true) {
                 setTimeout(() => canLoadMore = true, 500);
+                "undefined" === typeof activateLikeButtons || activateLikeButtons();
+                "undefined" === typeof updateLikeButtons || updateLikeButtons();
             }
         } )
         .catch( function ( error ) {

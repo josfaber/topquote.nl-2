@@ -17,12 +17,8 @@
 
 
 <section class="intro">
-Op topquote <em>sla je zelf</em> alle hilarische <em>uitspraken</em> van je vrienden, familie en collega&rsquo;s op. 
-<em>Zonder account!</em>
-Je kunt ze ook nog makkelijk <em>taggen</em> zodat je ze zonder moeite terug vind. Erg leuk op werk, borrels, verjaardagen en vakantie!
-<br>
-<br>
-Ohja, en uitspraken zijn automatisch als <em>wallpaper</em> en <em>poster</em> te downloaden! 
+Op topquote <em>sla je zelf</em> alle hilarische <em>uitspraken</em> van je vrienden, familie en collega&rsquo;s op, <em>zonder account</em>.
+Erg leuk op werk, borrels, verjaardagen en vakantie!
 <br>
 <br>
 <a href="{{ site_url }}/add" class="btn">Uitspraak toevoegen</a>
@@ -54,32 +50,27 @@ Ohja, en uitspraken zijn automatisch als <em>wallpaper</em> en <em>poster</em> t
             {% endfor %}
         </ul>
     </div>
-    
-    <div class="readable marg-bot">
-        <h2 class="full">Sla je eigen uitspraken op!</h2>
-        <p>Sla al die prachtige, ontwapenende en hilarische quotes van je collega&rsquo;s, kinderen, vriend-en-vijanden en (on)bekenden op. Je hoeft geen account te maken.</p>
-        <div class="centered pad-top-20">
-            <a href="{{ site_url }}/add" class="btn">Uitspraak toevoegen</a>
-        </div>
-    </div>
-    
+        
     <div class="readable ranking marg-bot">
-        <a name="topzeggers"></a>
-        <h2 class="full">Top zeggers</h2>
-        <p>Ranking the stars! De meeste uitspraken zijn momenteel van ...</p>
+        <a name="topinzenders"></a>
+        <h2 class="full">Top inzenders</h2>
+        <p>Op dit moment zijn degenen die de meeste uitspraken hebben ingezonden:</p>
         <ul class="rank-cloud">
-            {% for sayer in top_sayers %}
-            <li><span class="icon-topquote-logo-outlines"></span><a href="{{ site_url }}/quotes/by/{{ sayer.sayer_slug }}">{{ sayer.sayer }}</a></li>
+            {% for submitter in top_submitters %}
+            <li><span class="icon-pencil"></span><a href="{{ site_url }}/quotes/from/{{ submitter.submitter_slug }}">{{ submitter.submitter }}</a></li>
             {% endfor %}
         </ul>
     </div>
     
-    <div class="readable marg-bot">
-        <h2 class="full">Op de hoogte blijven</h2>
-        <p>Schrijf je hier in om af en toe een update te krijgen. We geven je e-mailadres niet aan derden. Beloofd!</p>
-        <div id="mc_embed_signup">
-            {{ include('partials/mailform.html') }}
-        </div>
+    <div class="readable ranking marg-bot">
+        <a name="topinzenders"></a>
+        <h2 class="full">Zoekopdrachten</h2>
+        <p>Op zoek naar nog meer geweldige uitspraken?<br>Deze zoektermen komen nogal eens voorbij:</p>
+        <ul class="rank-cloud">
+            {% for term in ["jinek", "britt", "dekker", "frikandellenbos", "poep", "rusland", "amerika", "kleuter", "eten", "tv", "internet", "maandag", "aarde", "natuur", "geweld", "sex", "game", "bijbel", "voetbal", "geld", "porno"] %}
+            <li><span class="icon-search"></span><a href="{{ site_url }}/quotes/search/{{ term }}">{{ term }}</a></li>
+            {% endfor %}
+        </ul>
     </div>
     
     <div class="readable ranking marg-bot">
@@ -97,27 +88,32 @@ Ohja, en uitspraken zijn automatisch als <em>wallpaper</em> en <em>poster</em> t
             (adsbygoogle = window.adsbygoogle || []).push({});
         </script>
     </div>
-        
+    
     <div class="readable ranking marg-bot">
-        <a name="topinzenders"></a>
-        <h2 class="full">Top inzenders</h2>
-        <p>Op dit moment zijn de meeste uitspraken die werden ingezonden van:</p>
+        <a name="topzeggers"></a>
+        <h2 class="full">Top zeggers</h2>
+        <p>Ranking the stars! De meeste uitspraken zijn momenteel van ...</p>
         <ul class="rank-cloud">
-            {% for submitter in top_submitters %}
-            <li><span class="icon-pencil"></span><a href="{{ site_url }}/quotes/from/{{ submitter.submitter_slug }}">{{ submitter.submitter }}</a></li>
+            {% for sayer in top_sayers %}
+            <li><span class="icon-topquote-logo-outlines"></span><a href="{{ site_url }}/quotes/by/{{ sayer.sayer_slug }}">{{ sayer.sayer }}</a></li>
             {% endfor %}
         </ul>
     </div>
     
-    <div class="readable ranking marg-bot">
-        <a name="topinzenders"></a>
-        <h2 class="full">Zoekopdrachten</h2>
-        <p>Op zoek naar nog meer geweldige uitspraken?<br>Deze zoektermen komen nogal eens voorbij:</p>
-        <ul class="rank-cloud">
-            {% for term in ["jinek", "britt", "dekker", "frikandellenbos", "poep", "rusland", "amerika", "kleuter", "eten", "tv", "internet", "maandag", "aarde", "natuur", "geweld", "sex", "game", "bijbel", "voetbal", "geld", "porno"] %}
-            <li><span class="icon-search"></span><a href="{{ site_url }}/quotes/search/{{ term }}">{{ term }}</a></li>
-            {% endfor %}
-        </ul>
+    <div class="readable marg-bot">
+        <h2 class="full">Sla je eigen uitspraken op!</h2>
+        <p>Sla al die prachtige, ontwapenende en hilarische quotes van je collega&rsquo;s, kinderen, vriend-en-vijanden en (on)bekenden op. Je hoeft geen account te maken.</p>
+        <div class="centered pad-top-20">
+            <a href="{{ site_url }}/add" class="btn">Uitspraak toevoegen</a>
+        </div>
+    </div>
+    
+    <div class="readable marg-bot">
+        <h2 class="full">Op de hoogte blijven</h2>
+        <p>Schrijf je hier in om af en toe een update te krijgen. We geven je e-mailadres niet aan derden. Beloofd!</p>
+        <div id="mc_embed_signup">
+            {{ include('partials/mailform.html') }}
+        </div>
     </div>
 
 </section>

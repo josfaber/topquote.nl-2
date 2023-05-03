@@ -1,6 +1,6 @@
 <blockquote>
     <div class="sayer">
-        <a href="{{ quote.sayer_link }}">{{ quote.sayer }}</a>
+        <a href="{{ quote.sayer_link }}" title="Alle uitspraken gezegd door {{ quote.sayer }}">{{ quote.sayer }}</a>
     </div>
     <div class="quote">
         {% if not is_single_quote %}<a href="{{ quote.link }}">{% endif %}
@@ -9,7 +9,7 @@
     </div>
     <div class="meta">
         <div><span class="icon-clock"></span> {{ quote.ago }}</div>
-        <div><span class="icon-pencil"></span> <a href="{{ quote.submitter_link }}">{{ quote.submitter }}</a></div>
+        <div><span class="icon-pencil"></span> <a href="{{ quote.submitter_link }}" title="Alle uitspraken opgeslagen door {{ quote.submitter }}">{{ quote.submitter }}</a></div>
         <div class="like-container">
             <span class="icon-heart1 quote-btn-like" data-id="{{ quote.id }}"></span> <span id="q{{ quote.id }}-likes">{{ quote.likes }}</span>
             <div id="q{{ quote.id }}-anim" class="anim">
@@ -21,7 +21,7 @@
 
         <span data-url="{{ quote.link }}" class="icon-share quote-btn-share"></span>
         <span class="icon-price-tags"></span>{{ quote.tags_links|raw }}
-        <a href="{{constant('SERVICE_URL')}}/img/{{ quote.id }}" target="_blank" rel="noopener" class="icon-photo"></a>
-        <a href="{{constant('SERVICE_URL')}}/poster/{{ quote.id }}" target="_blank" rel="noopener" class="icon-file-text"></a>
+        <a href="{{constant('SERVICE_URL')}}/img/{{ quote.id }}" target="_blank" rel="noopener" class="icon-photo" title="Wallpaper van deze quote"></a>
+        <a href="{{constant('SERVICE_URL')}}/poster/{{ quote.id }}" target="_blank" rel="noopener" class="icon-file-text" title="Poster van deze quote"></a>
     </div>
 </blockquote>

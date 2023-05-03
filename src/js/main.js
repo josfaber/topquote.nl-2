@@ -63,18 +63,20 @@ const mailUrl = () => {
 };
 
 const likeQuote = ( id ) => {
-    id = parseInt(id);
+    id = parseInt( id );
     // get cookie 
-    const likes_array = (Cookies.get( `tql` ) || "")
+    // const likes_array = (Cookies.get( `tql` ) || "")
+    const likes_array = ( window.localStorage.getItem( 'topquote-likes' ) || "" )
         .split( ',' )
         .filter( ( x ) => x !== "" )
         .map( ( x ) => parseInt( x ) );
-    console.log(likes_array, id, likes_array.includes( id ));
+    // console.log( likes_array, id, likes_array.includes( id ) );
 
     // const quote_like_cookie = Cookies.get( `tql${id}` );
     // if (!quote_like_cookie) {
-    if (!likes_array.includes( id )) {
-        const anim = document.getElementById( `q${id}-anim` );
+    if ( !likes_array.includes( id ) )
+    {
+        const anim = document.getElementById( `q${ id }-anim` );
         !anim || anim.classList.add( 'active' );
 
         let data = new URLSearchParams();
@@ -88,27 +90,30 @@ const likeQuote = ( id ) => {
         } )
             .then( function ( response ) {
                 // console.log( response.data );
-                const message = response.data.message || false; 
-                console.log('message', message);
-                if (message && message === 'voted') {
+                const message = response.data.message || false;
+                console.log( 'message', message );
+                if ( message && message === 'voted' )
+                {
                     const quote_id = response.data.quote_id || false;
                     const likes = response.data.likes || false;
-                    console.log(quote_id, likes);
-                    if (quote_id && likes !== false) {
-                        const likes_el = document.getElementById( `q${quote_id}-likes` );
-                        console.log(`q${quote_id}-likes`, likes_el);
-                        if (likes_el) likes_el.innerText = likes;
+                    console.log( quote_id, likes );
+                    if ( quote_id && likes !== false )
+                    {
+                        const likes_el = document.getElementById( `q${ quote_id }-likes` );
+                        console.log( `q${ quote_id }-likes`, likes_el );
+                        if ( likes_el ) likes_el.innerText = likes;
                     }
                 }
                 likes_array.push( id );
-                Cookies.set( `tql`, likes_array.join(','), { expires: 365 * 10 } );
+                // Cookies.set( `tql`, likes_array.join(','), { expires: 365 * 10 } );
+                window.localStorage.setItem( 'topquote-likes', likes_array.join( ',' ) );
             } )
             .catch( function ( error ) {
                 // handle error
                 console.log( error );
             } );
     }
-}
+};
 
 const shareQuote = ( url ) => {
     !main_el || main_el.classList.add( 'blur' );
@@ -149,9 +154,39 @@ const bodyClickHandler = ( e ) => {
 
 const showLoader = () => {
     !main_el || main_el.classList.add( 'blur' );
-    const loader_el = document.getElementById('loader-container');
+    const loader_el = document.getElementById( 'loader-container' );
     console.log( "#", loader_el );
     !loader_el || loader_el.classList.add( 'active' );
+};
+
+window.updateLikeButtons = () => {
+    const likes_array = ( window.localStorage.getItem( 'topquote-likes' ) || "" )
+        .split( ',' )
+        .filter( ( x ) => x !== "" )
+        .map( ( x ) => parseInt( x ) );
+    console.log( likes_array );
+    const like_buttons = document.querySelectorAll( '.quote-btn-like' );
+    like_buttons.forEach( ( el ) => {
+        const id = parseInt( el.dataset.id );
+        if ( likes_array.includes( id ) )
+        {
+            el.classList.add( 'priclr' );
+            el.parentElement.querySelector( '.anim > .heart > .icon' ).classList.add( 'priclr' );
+        }
+    } );
+};
+
+window.activateLikeButtons = () => {
+    console.log('activate like buttons')
+    const like_buttons = document.querySelectorAll( '.quote-btn-like' );
+    like_buttons.forEach( ( el ) => {
+        el.addEventListener( 'click', ( e ) => {
+            e.preventDefault();
+            el.classList.add( 'priclr' );
+            el.parentElement.querySelector( '.anim > .heart > .icon' ).classList.add( 'priclr' );
+            likeQuote( e.target.dataset.id );
+        } );
+    } );
 };
 
 /**
@@ -160,9 +195,9 @@ const showLoader = () => {
 document.body.onload = ( () => {
 
     window.dataLayer = window.dataLayer || [];
-    function gtag(){dataLayer.push(arguments);}
-    gtag('js', new Date());
-    gtag('config', 'G-6YFKGSMEFN');
+    function gtag() { dataLayer.push( arguments ); }
+    gtag( 'js', new Date() );
+    gtag( 'config', 'G-6YFKGSMEFN' );
 
     main_el = document.getElementsByTagName( 'main' )[ 0 ];
     menucb = document.getElementById( 'menucb' );
@@ -177,13 +212,15 @@ document.body.onload = ( () => {
     } );
 
     // like 
-    const like_buttons = document.querySelectorAll( '.quote-btn-like' );
-    like_buttons.forEach( ( el ) => {
-        el.addEventListener( 'click', ( e ) => {
-            e.preventDefault();
-            likeQuote( e.target.dataset.id );
-        } );
-    } );
+    // const like_buttons = document.querySelectorAll( '.quote-btn-like' );
+    // like_buttons.forEach( ( el ) => {
+    //     el.addEventListener( 'click', ( e ) => {
+    //         e.preventDefault();
+    //         el.classList.add( 'priclr' );
+    //         el.parentElement.querySelector( '.anim > .heart > .icon' ).classList.add( 'priclr' );
+    //         likeQuote( e.target.dataset.id );
+    //     } );
+    // } );
 
     // onchange menucb
     menucb.onchange = ( () => setTimeout( () => {
@@ -319,5 +356,9 @@ document.body.onload = ( () => {
     {
         scaleDownQuote( document.querySelector( 'blockquote .quote' ) );
     }
+
+    activateLikeButtons();
+
+    updateLikeButtons();
 
 } )();

@@ -70,16 +70,19 @@ blockquote {
             }
         }
 
-        a.quote-btn-like,
-        a.quote-btn-share {
-            cursor: pointer;
-        }
+        // a.quote-btn-like,
+        // a.quote-btn-share {
+        //     cursor: pointer;
+        // }
 
         a.tag:not(:last-child) {
             margin-right: 8px;
         }
 
-        .quote-btn-like,
+        .quote-btn-like {
+            cursor: pointer;
+        }
+
         .quote-btn-share {
             color: var(--primary-color);
             cursor: pointer;
@@ -148,8 +151,14 @@ blockquote {
                         top: 7px;
                         left: 0;
                         // transform: translate(-50%, -50%);
-                        color: red;
+                        // color: red;
+                        // color: var(--primary-color);
+                        // color: $grey;
 
+                        &.liked {
+                            color: var(--primary-color);
+                        }
+                        
                     }
                 }
                 
@@ -163,6 +172,10 @@ blockquote {
                     }
                 }
             }
+        }
+
+        .priclr {
+            color: var(--primary-color);
         }
     }
 
