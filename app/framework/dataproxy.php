@@ -536,6 +536,7 @@ class DataProxy
 		$all_sayers = $this->db->exec("
 			SELECT DISTINCT(sayer_slug) 
 			FROM quotes 
+			ORDER BY sayer_slug ASC
 		");
 
 		if (!$all_sayers || $this->db->count() == 0) {
@@ -558,6 +559,7 @@ class DataProxy
 		$all_submitters = $this->db->exec("
 			SELECT DISTINCT(submitter_slug) 
 			FROM quotes 
+			ORDER BY submitter_slug ASC
 		");
 
 		if (!$all_submitters || $this->db->count() == 0) {
@@ -580,6 +582,7 @@ class DataProxy
 		$all_quotes = $this->db->exec("
 			SELECT slug  
 			FROM quotes 
+			ORDER BY slug ASC
 		");
 
 		if (!$all_quotes || $this->db->count() == 0) {
@@ -602,6 +605,7 @@ class DataProxy
 		$all_tags = $this->db->exec("
 			SELECT DISTINCT(tags_lc)   
 			FROM quotes 
+			ORDER BY tags_lc ASC
 		");
 
 		if (!$all_tags || $this->db->count() == 0) {
@@ -615,7 +619,9 @@ class DataProxy
 				$all_single_tags[] = $tag;
 			}
 		}
-		$all_single_tags = array_filter($all_single_tags);
+		$all_single_tags = array_filter($all_single_tags, function($tag) {
+			return !empty($tag) && preg_match("/^[a-zA-Z0-9]+$/", $tag) == 1;
+		});
 
 		$this->to_cache($cache_key, json_encode($all_single_tags), $cache_time);
 

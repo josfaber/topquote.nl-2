@@ -1,6 +1,7 @@
 .vscode
 .env*
 .dockerignore
+.DS_Store
 node_modules
 app/templates/cache
 app/public/sitemap*
