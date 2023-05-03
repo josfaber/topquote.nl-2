@@ -42,23 +42,17 @@ services:
       - traefik.http.routers.topquote.rule=Host(`topquote.local`)
       - traefik.http.routers.topquote.entrypoints=web
 
-  cache:
-    image: redis:7.0-rc
-    container_name: topquote-cache
-    restart: always
-    ports:
-      - 6379
-    command: redis-server --save 20 1 --loglevel warning
+  compiler:
+    image: topquote-compiler 
+    container_name: topquote-compiler
+    build:
+      context: .
+      dockerfile: ./compiler/Dockerfile
     volumes:
-      - cache:/data
-    depends_on:
-      - db
-    # networks:
-    #   - internal
-    # labels:
-    #   - traefik.enable=false
-
-volumes:
-  cache:
-    driver: local
+      - ./app:/project/app
+      - ./src:/project/src
+      - ./webpack:/project/webpack
+      - ./webpack.config.js:/project/webpack.config.js
+      - ./package.json:/project/package.json
+      - ./package-lock.json:/project/package-lock.json
 

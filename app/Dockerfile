@@ -113,13 +113,6 @@ COPY ./config/php.ini /usr/local/etc/php/php.ini
 COPY ./config/php-fpm-pool.conf /usr/local/etc/php-fpm.d
 COPY ./config/opcache.ini /usr/local/etc/php/conf.d/opcache.ini
 
-WORKDIR /var/www
-
-COPY . .
-
 RUN PATH=$PATH:/var/www/bin:bin
-
-RUN curl -sS https://getcomposer.org/installer | php -- --install-dir=/usr/bin --filename=composer && \
-    composer install
 
 CMD ["php-fpm", "-F"]

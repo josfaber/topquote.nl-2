@@ -25,6 +25,7 @@ write_sitemap(PUBLIC_DIR . "/sitemap_general.xml.gz", $sitemap);
 // Slugs 
 $all_quotes = $dataproxy->get_all_quotes_slugs();
 $sitemap = $sitemap_header; 
+!d("all_quotes", count($all_quotes));
 foreach ($all_quotes as $quote) {
 	$sitemap .= '<url>' . PHP_EOL;
 	$sitemap .= '	<loc>https://topquote.nl/quote/' . $quote["slug"] . '</loc>' . PHP_EOL;
@@ -36,6 +37,7 @@ write_sitemap(PUBLIC_DIR . "/sitemap_slugs.xml.gz", $sitemap);
 
 // Sayers 
 $all_sayers = $dataproxy->get_all_sayers_slugs();
+!d("all_sayers", count($all_sayers));
 $sitemap = $sitemap_header; 
 foreach($all_sayers as $quote) {
 	$sitemap .= '<url>' . PHP_EOL;
@@ -48,6 +50,7 @@ write_sitemap(PUBLIC_DIR . "/sitemap_sayers.xml.gz", $sitemap);
 
 // Submitters
 $all_submitters = $dataproxy->get_all_submitters_slugs();
+!d("all_submitters", count($all_submitters));
 $sitemap = $sitemap_header; 
 foreach($all_submitters as $quote) {
 	$sitemap .= '<url>' . PHP_EOL;
@@ -60,28 +63,41 @@ write_sitemap(PUBLIC_DIR . "/sitemap_submitters.xml.gz", $sitemap);
 
 // Tags
 $all_single_tags = $dataproxy->get_all_tags_slugs();
-foreach(range('a','z') as $char) {
-	$sitemap = $sitemap_header; 
-	foreach($all_single_tags as $tag) {
-		if (substr(strtolower($tag), 0, 1) != $char) continue;
-		$sitemap .= '<url>' . PHP_EOL;
-		$sitemap .= '	<loc>https://topquote.nl/quotes/tag/' . $tag . '</loc>' . PHP_EOL;
-		$sitemap .= '	<lastmod>' . $now . '</lastmod>' . PHP_EOL;
-		$sitemap .= '</url>' . PHP_EOL;
-	}
-	$sitemap .= $sitemap_footer;
-	write_sitemap(PUBLIC_DIR . "/sitemap_tags_{$char}.xml.gz", $sitemap);
+!d("all_single_tags", count($all_single_tags));
+
+$sitemap = $sitemap_header;
+foreach ($all_single_tags as $tag) {
+	$sitemap .= '<url>' . PHP_EOL;
+	$sitemap .= '	<loc>https://topquote.nl/quotes/tag/' . $tag . '</loc>' . PHP_EOL;
+	$sitemap .= '	<lastmod>' . $now . '</lastmod>' . PHP_EOL;
+	$sitemap .= '</url>' . PHP_EOL;
 }
+$sitemap .= $sitemap_footer;
+write_sitemap(PUBLIC_DIR . "/sitemap_tags.xml.gz", $sitemap);
+
+// foreach(range('a','z') as $char) {
+// 	$sitemap = $sitemap_header; 
+// 	foreach($all_single_tags as $tag) {
+// 		if (substr(strtolower($tag), 0, 1) != $char) continue;
+// 		$sitemap .= '<url>' . PHP_EOL;
+// 		$sitemap .= '	<loc>https://topquote.nl/quotes/tag/' . $tag . '</loc>' . PHP_EOL;
+// 		$sitemap .= '	<lastmod>' . $now . '</lastmod>' . PHP_EOL;
+// 		$sitemap .= '</url>' . PHP_EOL;
+// 	}
+// 	$sitemap .= $sitemap_footer;
+// 	write_sitemap(PUBLIC_DIR . "/sitemap_tags_{$char}.xml.gz", $sitemap);
+// }
 
 // Index
 $sitemap = '<?xml version="1.0" encoding="UTF-8"?>' . PHP_EOL . '<sitemapindex xmlns="http://www.sitemaps.org/schemas/sitemap/0.9">' . PHP_EOL;
-$sitemap .= '	<sitemap>' . PHP_EOL . '		<loc>https://topquote.nl/sitemap_general.xml.gz</loc>' . PHP_EOL . '	</sitemap>' . PHP_EOL;
-$sitemap .= '	<sitemap>' . PHP_EOL . '		<loc>https://topquote.nl/sitemap_slugs.xml.gz</loc>' . PHP_EOL . '	</sitemap>' . PHP_EOL;
-$sitemap .= '	<sitemap>' . PHP_EOL . '		<loc>https://topquote.nl/sitemap_sayers.xml.gz</loc>' . PHP_EOL . '	</sitemap>' . PHP_EOL;
-$sitemap .= '	<sitemap>' . PHP_EOL . '		<loc>https://topquote.nl/sitemap_submitters.xml.gz</loc>' . PHP_EOL . '	</sitemap>' . PHP_EOL;
-foreach(range('a','z') as $char) {
-	$sitemap .= '	<sitemap>' . PHP_EOL . '		<loc>https://topquote.nl/sitemap_tags_' . $char . '.xml.gz</loc>' . PHP_EOL . '	</sitemap>' . PHP_EOL;
-}
+$sitemap .= '	<sitemap>' . PHP_EOL . '		<loc>https://topquote.nl/sitemap_general.xml.gz</loc>' . PHP_EOL . '		<lastmod>' . $now . '</lastmod>' . PHP_EOL . '	</sitemap>' . PHP_EOL;
+$sitemap .= '	<sitemap>' . PHP_EOL . '		<loc>https://topquote.nl/sitemap_slugs.xml.gz</loc>' . PHP_EOL . '		<lastmod>' . $now . '</lastmod>' . PHP_EOL . '	</sitemap>' . PHP_EOL;
+$sitemap .= '	<sitemap>' . PHP_EOL . '		<loc>https://topquote.nl/sitemap_sayers.xml.gz</loc>' . PHP_EOL . '		<lastmod>' . $now . '</lastmod>' . PHP_EOL . '	</sitemap>' . PHP_EOL;
+$sitemap .= '	<sitemap>' . PHP_EOL . '		<loc>https://topquote.nl/sitemap_submitters.xml.gz</loc>' . PHP_EOL . '		<lastmod>' . $now . '</lastmod>' . PHP_EOL . '	</sitemap>' . PHP_EOL;
+$sitemap .= '	<sitemap>' . PHP_EOL . '		<loc>https://topquote.nl/sitemap_tags.xml.gz</loc>' . PHP_EOL . '		<lastmod>' . $now . '</lastmod>' . PHP_EOL . '	</sitemap>' . PHP_EOL;
+// foreach(range('a','z') as $char) {
+// 	$sitemap .= '	<sitemap>' . PHP_EOL . '		<loc>https://topquote.nl/sitemap_tags_' . $char . '.xml.gz</loc>' . PHP_EOL . '		<lastmod>' . $now . '</lastmod>' . PHP_EOL . '	</sitemap>' . PHP_EOL;
+// }
 $sitemap .= '</sitemapindex>'; 
 $handle = fopen(PUBLIC_DIR . "/sitemap.xml", "w") or die("Unable to open file!");
 fwrite($handle, $sitemap);

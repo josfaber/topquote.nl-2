@@ -1,6 +1,8 @@
 entryPoints:
   web:
     address: :80
+  websecure:
+    address: :443
 
 api:
   insecure: false
@@ -9,3 +11,12 @@ api:
 providers:
   docker:
     exposedByDefault: false
+  file:
+    filename: /config/dynamic.yml
+
+certificatesResolvers:
+  letsencrypt:
+    acme:
+      tlsChallenge: {}
+      email: mail@josfaber.nl
+      storage: /letsencrypt/acme.json

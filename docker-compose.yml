@@ -20,11 +20,11 @@ services:
     restart: always
     env_file:
       - .env
-    depends_on:
-      - db
     volumes:
       - './app:/var/www'
       - './mount/cache:/var/www/cache'
+    depends_on:
+      - db
 
   nginx:
     container_name: topquote-nginx
