@@ -25,6 +25,9 @@ services:
       - './mount/cache:/var/www/cache'
     depends_on:
       - db
+    volumes:
+      - './app:/var/www'
+      - './mount/cache:/var/www/cache'
 
   nginx:
     container_name: topquote-nginx
