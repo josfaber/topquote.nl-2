@@ -1,5 +1,5 @@
 .vscode
-.env
+.env*
 .dockerignore
 node_modules
 app/templates/cache

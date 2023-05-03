@@ -1,0 +1,5 @@
+#!/bin/bash
+
+set -e
+
+docker exec -it topquote-compiler bash -c "npm run build"

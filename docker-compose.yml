@@ -20,6 +20,9 @@ services:
     restart: always
     env_file:
       - .env
+    volumes:
+      - './app:/var/www'
+      - './mount/cache:/var/www/cache'
     depends_on:
       - db
 
