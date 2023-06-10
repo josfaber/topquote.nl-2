@@ -34,8 +34,15 @@
 <h3 class="full">Gerelateerde uitspraken</h3>
 <section id="quotes_list" class="quotes-list">
     {% set is_single_quote = false %}
+    {% set a = 0 %}
     {% for quote in related %}
         {{ include('partials/blockquote.html') }}
+        {% set a = a + 1 %}
+        {% if a == 2 %}
+            <div class="readable ranking marg-bot">
+                <a target="_blank" class="txtad" href="https://www.amazon.nl/gp/search?ie=UTF8&tag=jfams-21&linkCode=ur2&linkId=04e044e712e1f7faadbe539aaee79f87&camp=247&creative=1211&index=books&keywords=Citaten">Inspirerende boeken met citaten</a>
+            </div>
+        {% endif %}
     {% endfor %}
     {% if not related %}
         <p>Geen gerelateerde uitspraken</p>
