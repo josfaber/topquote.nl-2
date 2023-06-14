@@ -6,6 +6,8 @@ services:
     restart: always
     networks:
       - internal
+    ports:
+      - 3308:3306
     labels:
       - traefik.enable=false
 
