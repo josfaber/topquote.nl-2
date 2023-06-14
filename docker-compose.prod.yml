@@ -3,14 +3,14 @@ version: '3'
 services:
 
   db:
-    ports:
-      - "3307:3306"
+    restart: always
     networks:
       - internal
     labels:
       - traefik.enable=false
 
   php:
+    restart: always
     image: registry.mmsrv.nl/topquote-php:latest
     networks:
       - internal
@@ -18,6 +18,7 @@ services:
       - traefik.enable=false
 
   nginx:
+    restart: always
     image: registry.mmsrv.nl/topquote-nginx:latest
     networks:
       - internal
@@ -50,6 +51,25 @@ services:
       - internal
     labels:
       - traefik.enable=false
+
+  dbbackup:
+    image: fradelg/mysql-cron-backup
+    restart: unless-stopped
+    volumes:
+      - ./mount/backups/db:/backup
+    environment:
+      - MYSQL_HOST=db
+      - MYSQL_USER=${DB_USER}
+      - MYSQL_PASS=${DB_PASSWORD}
+      - MYSQL_DATABASE=${DB_NAME}
+      - CRON_TIME=0 4 * * *
+      - INIT_BACKUP=0
+      - MAX_BACKUPS=7
+      - GZIP_LEVEL=9
+    networks:
+      - internal
+    depends_on:
+      - db
 
 volumes:
   cache:

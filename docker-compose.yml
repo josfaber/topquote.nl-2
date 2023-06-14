@@ -5,33 +5,34 @@ services:
   db:
     image: mariadb:10.7.1
     container_name: topquote-db
-    restart: always
     environment:
       MYSQL_DATABASE: ${DB_NAME}
       MYSQL_USER: ${DB_USER}
       MYSQL_PASSWORD: ${DB_PASSWORD}
       MYSQL_RANDOM_ROOT_PASSWORD: "yes"
     volumes:
-      - ./mount/db:/var/lib/mysql
-      - ./import/topquote-nl4.sql:/docker-entrypoint-initdb.d/00-init.sql
+      - dbdata:/var/lib/mysql
+      - ./import:/docker-entrypoint-initdb.d
 
   php:
     container_name: topquote-php
-    restart: always
     env_file:
       - .env
     volumes:
-      - './app:/var/www'
-      - './mount/cache:/var/www/cache'
+      - ./app:/var/www
+      - ./mount/cache:/var/www/cache
+      - ./mount/template-cache:/var/www/templates/cache
     depends_on:
       - db
 
   nginx:
     container_name: topquote-nginx
-    restart: always
     volumes_from:
       - php
     depends_on:
       - php
     env_file:
       - .env
+
+volumes:
+  dbdata:
