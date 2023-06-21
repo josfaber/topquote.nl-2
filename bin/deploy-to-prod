@@ -52,7 +52,7 @@ scp $USE_SSH_KEY $WORK_DIR/docker-compose{.prod.yml,.yml} "$REMOTE_USER"@$REMOTE
 scp $USE_SSH_KEY $WORK_DIR/.env.production "$REMOTE_USER"@$REMOTE_HOST:$REMOTE_PATH/.env
 scp $USE_SSH_KEY $WORK_DIR/bin/{prod,dbdump,clear-caches} "$REMOTE_USER"@$REMOTE_HOST:$REMOTE_PATH/bin/
 
-rsync -rz $USE_SSH_KEY -e ssh $WORK_DIR/app/ "$REMOTE_USER"@$REMOTE_HOST:$REMOTE_PATH/app/ --delete
+rsync -rz $USE_SSH_KEY -e ssh $WORK_DIR/app/ "$REMOTE_USER"@$REMOTE_HOST:$REMOTE_PATH/app/ --exclude 'public/sitemap*'  --delete
 rsync -rz $USE_SSH_KEY -e ssh $WORK_DIR/import/ "$REMOTE_USER"@$REMOTE_HOST:$REMOTE_PATH/import/ --delete
 
 #
@@ -61,7 +61,7 @@ echo "Starting..."
 ssh $USE_SSH_KEY "$REMOTE_USER"@$REMOTE_HOST "cd $REMOTE_PATH && bin/prod"
 
 #
-sleep 5
+sleep 3
 
 #
 echo "Clearing caches..."

@@ -17,7 +17,7 @@ foreach([ "frikandellenbos", "poep", "rusland", "amerika", "kleuter", "opvoeding
 	"aarde", "natuur", "geweld", "sex", "game", "bijbel", "geloof", "jinek", "britt", "dekker", "food", "voetbal", "jan smit", "nederland", "bekend", "geld", "porno",
 	"idee"
 ] as $term) {
-	$sitemap .= '<url>' . PHP_EOL . '	<loc>https://topquote.nl/search/' . $term . '</loc>' . PHP_EOL . '	<lastmod>' . $now . '	</lastmod>' . PHP_EOL . '</url>' . PHP_EOL;
+	$sitemap .= '<url>' . PHP_EOL . '	<loc>https://topquote.nl/search/' . $term . '</loc>' . PHP_EOL . '	<lastmod>' . $now . '</lastmod>' . PHP_EOL . '</url>' . PHP_EOL;
 }
 $sitemap .= $sitemap_footer;
 write_sitemap(PUBLIC_DIR . "/sitemap_general.xml.gz", $sitemap);

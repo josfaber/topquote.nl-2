@@ -1,0 +1,24 @@
+#!/bin/bash
+
+REMOTE_USER=root
+REMOTE_HOST=de.mmsrv.nl
+REMOTE_PATH=/root/topquote.nl
+# SSH_KEY=~/.ssh/id_rsa
+
+set -e
+
+WORK_DIR="$( cd -- "$( dirname -- "${BASH_SOURCE[0]}" )" &> /dev/null && pwd )/.."
+cd $WORK_DIR
+
+#
+if [ -z $SSH_KEY ]; then 
+    USE_SSH_KEY=""
+else
+    USE_SSH_KEY="-i $SSH_KEY"
+fi
+
+#
+echo "Creating new sitemap..."
+
+ssh $USE_SSH_KEY "$REMOTE_USER"@$REMOTE_HOST "cd $REMOTE_PATH && rm -rf app/public/sitemap*"
+ssh $USE_SSH_KEY "$REMOTE_USER"@$REMOTE_HOST "cd $REMOTE_PATH && docker exec topquote-php php /var/www/bin/sitemap.php" 

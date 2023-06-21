@@ -6,8 +6,6 @@ $f3->route('GET /quotes/@filter/@slug', 	'Controller\Quotes->@filter');
 $f3->route('GET /quotes/search/@terms', 	'Controller\Quotes->search');
 $f3->route('GET /quote/@slug', 				'Controller\Quote->detail');
 
-// $f3->route('GET /img/@id', 					'Controller\Tools->img');
-
 $f3->route('GET /add', 						'Controller\Quote->add');
 $f3->route('POST /add', 					'Controller\Quote->store');
 
@@ -19,13 +17,11 @@ $f3->route('POST /mod', 					'Controller\Quote->update');
 
 // $f3->route('GET /import',  					'Controller\Tools->import');
 $f3->route('GET /t-clear',					'Controller\Tools->clear_cache');
-$f3->route('GET /t-sitemap',				'Controller\Tools->create_sitemaps');
+// $f3->route('GET /t-sitemap',				'Controller\Tools->create_sitemaps');
 
 $f3->route('POST /api/quotes [ajax]',		'Controller\Api->quotes');
 $f3->route('POST /api/vote [ajax]',			'Controller\Api->vote');
 $f3->route('POST /api/quote/@id [ajax]',	'Controller\Api->quote');
-
-// $f3->route('GET /sitemap.xml',				'Controller\Tools->sitemap');
 
 $f3->route('GET /by/@sayer', function($f3, $params) {
 	$f3->reroute(site_url("quotes/by/{$params["sayer"]}"));
@@ -34,14 +30,11 @@ $f3->route('GET /from/@submitter', function($f3, $params) {
 	$f3->reroute(site_url("quotes/from/{$params["submitter"]}"));
 });
 
-
-// $f3->route('GET /tile/@id',					'Controller\Service->tile');
-// $f3->route('GET /thumb/@id',				'Controller\Service->tile');
 $f3->route('GET /img/@id',					'Controller\Service->img');
-// $f3->route('GET /img2/@id',					'Controller\Service->img2');
+
 $f3->route('GET /poster/@id',				'Controller\Service->poster');
 
-$f3->route('GET /phpinfo',				'Controller\Home->phpinfo');
+// $f3->route('GET /phpinfo',				'Controller\Home->phpinfo');
 
 $f3->set('ONERROR', function($f3) {
 		
