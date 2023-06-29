@@ -5,7 +5,7 @@ $sitemap_footer = '</urlset>';
 $max_urls_per_map = 40000;
 
 function write_sitemap($filename, $content) {
-	// !s($filename, $content);
+	echo "Writing sitemap " . $filename . PHP_EOL;
 	$fp = gzopen($filename, 'w9');
 	gzwrite ($fp, $content);
 	gzclose($fp);

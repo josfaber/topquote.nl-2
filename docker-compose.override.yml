@@ -23,6 +23,8 @@ services:
     build:
       context: app
       dockerfile: Dockerfile
+    volumes:
+      - ./mount/log/cron.log:/var/log/cron.log
 
   nginx:
     build:
