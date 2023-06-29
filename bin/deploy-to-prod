@@ -67,3 +67,11 @@ sleep 3
 echo "Clearing caches..."
 
 ssh $USE_SSH_KEY "$REMOTE_USER"@$REMOTE_HOST "cd $REMOTE_PATH && bin/clear-caches"
+
+#
+sleep 3
+
+#
+echo "Update sitemap..."
+
+$WORK_DIR/bin/update-sitemap

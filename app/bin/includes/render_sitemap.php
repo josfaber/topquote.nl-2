@@ -121,7 +121,7 @@ for ($n=1; $n<=$num_slug_map; $n++) {
 }
 $sitemap .= '	<sitemap>' . PHP_EOL . '		<loc>https://topquote.nl/sitemap_sayers.xml.gz</loc>' . PHP_EOL . '		<lastmod>' . $now . '</lastmod>' . PHP_EOL . '	</sitemap>' . PHP_EOL;
 $sitemap .= '	<sitemap>' . PHP_EOL . '		<loc>https://topquote.nl/sitemap_submitters.xml.gz</loc>' . PHP_EOL . '		<lastmod>' . $now . '</lastmod>' . PHP_EOL . '	</sitemap>' . PHP_EOL;
-$sitemap .= '	<sitemap>' . PHP_EOL . '		<loc>https://topquote.nl/sitemap_tags.xml.gz</loc>' . PHP_EOL . '		<lastmod>' . $now . '</lastmod>' . PHP_EOL . '	</sitemap>' . PHP_EOL;
+// $sitemap .= '	<sitemap>' . PHP_EOL . '		<loc>https://topquote.nl/sitemap_tags.xml.gz</loc>' . PHP_EOL . '		<lastmod>' . $now . '</lastmod>' . PHP_EOL . '	</sitemap>' . PHP_EOL;
 for ($n=1; $n<=$num_tag_map; $n++) {
 	$sitemap .= '	<sitemap>' . PHP_EOL . '		<loc>https://topquote.nl/sitemap_tags_' . $n . '.xml.gz</loc>' . PHP_EOL . '		<lastmod>' . $now . '</lastmod>' . PHP_EOL . '	</sitemap>' . PHP_EOL;
 }
