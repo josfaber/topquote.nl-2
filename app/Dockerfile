@@ -48,6 +48,10 @@ COPY ./config/opcache.ini /usr/local/etc/php/conf.d/opcache.ini
 
 RUN PATH=$PATH:/var/www/bin:bin
 
+COPY --from=composer:latest /usr/bin/composer /usr/local/bin/composer
+
+WORKDIR /var/www 
+
 # CMD /usr/bin/bash -c "declare -p | grep -E 'DB_NAME|DB_USER|DB_HOST|DB_PASSWORD' > /container.env" ; \
 #     /etc/init.d/cron start ; \
 #     php-fpm -F

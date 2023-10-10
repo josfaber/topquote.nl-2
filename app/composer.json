@@ -13,7 +13,8 @@
         "phpmailer/phpmailer": "^6.6",
         "mailchimp/marketing": "^3.0",
         "donatello-za/rake-php-plus": "^1.0",
-        "ramsey/uuid": "^4.1"
+        "ramsey/uuid": "^4.1",
+        "sentry/sdk": "^3.4"
     },
     "autoload": {
         "psr-4": {"TopQuote\\": "framework/"}
