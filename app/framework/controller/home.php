@@ -44,7 +44,7 @@ class Home {
 		$top_submitters = $dataproxy->get_top_submitters();
 		shuffle($top_submitters);
 
-		render_template('home.html', [
+		render_template('home.html.twig', [
 			"is_home" => true,
 			"mailchimp_url" => MAILCHIMP_URL,
 			"random_quotes" => $random_quotes,

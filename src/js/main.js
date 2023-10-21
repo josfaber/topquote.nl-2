@@ -354,7 +354,7 @@ document.body.onload = ( () => {
     // single quote
     if ( document.body.classList.contains( "single-quote" ) )
     {
-        scaleDownQuote( document.querySelector( 'blockquote .quote' ) );
+        scaleDownQuote( document.querySelector( 'blockquote .quote h1' ) );
     }
 
     activateLikeButtons();

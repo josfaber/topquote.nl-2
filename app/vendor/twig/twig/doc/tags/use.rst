@@ -14,7 +14,7 @@ debug:
 
 .. code-block:: twig
 
-    {% extends "base.html" %}
+    {% extends "base.html.twig" %}
 
     {% block title %}{% endblock %}
     {% block content %}{% endblock %}
@@ -24,7 +24,7 @@ but without the associated complexity:
 
 .. code-block:: twig
 
-    {% extends "base.html" %}
+    {% extends "base.html.twig" %}
 
     {% use "blocks.html" %}
 
@@ -46,7 +46,7 @@ imported blocks are not outputted automatically):
 
 .. code-block:: twig
 
-    {% extends "base.html" %}
+    {% extends "base.html.twig" %}
 
     {% block sidebar %}{% endblock %}
     {% block title %}{% endblock %}
@@ -69,7 +69,7 @@ is ignored. To avoid name conflicts, you can rename imported blocks:
 
 .. code-block:: twig
 
-    {% extends "base.html" %}
+    {% extends "base.html.twig" %}
 
     {% use "blocks.html" with sidebar as base_sidebar, title as base_title %}
 
@@ -83,7 +83,7 @@ template:
 
 .. code-block:: twig
 
-    {% extends "base.html" %}
+    {% extends "base.html.twig" %}
 
     {% use "blocks.html" %}
 
@@ -103,7 +103,7 @@ the ``blocks.html`` template.
 
     .. code-block:: twig
 
-        {% extends "base.html" %}
+        {% extends "base.html.twig" %}
 
         {% use "blocks.html" with sidebar as parent_sidebar %}
 

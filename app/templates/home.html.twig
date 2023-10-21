@@ -1,4 +1,4 @@
-{% extends "base.html" %}
+{% extends "base.html.twig" %}
 
 {% block title %}Home{% endblock %}
 {% block head %}
@@ -29,14 +29,14 @@ Erg leuk op werk, borrels, verjaardagen en vakantie!
     <h2 class="full">Afgelopen maanden toegevoegd</h2>
     <div id="said-last-week" class="sliding-quotes" data-simple-slider>
         {% for quote in said_last_month %}
-        {{ include('partials/blockquote.html') }}
+        {{ include('partials/blockquote.html.twig') }}
         {% endfor %}
     </div>
 
     <h2 class="full">Random uitspraken</h2>
     <div id="random-quotes" class="sliding-quotes" data-simple-slider>
         {% for quote in random_quotes %}
-        {{ include('partials/blockquote.html') }}
+        {{ include('partials/blockquote.html.twig') }}
         {% endfor %}
     </div>
     
@@ -128,7 +128,7 @@ Erg leuk op werk, borrels, verjaardagen en vakantie!
         <h2 class="full">Op de hoogte blijven</h2>
         <p>Schrijf je hier in om af en toe een update te krijgen. We geven je e-mailadres niet aan derden. Beloofd!</p>
         <div id="mc_embed_signup">
-            {{ include('partials/mailform.html') }}
+            {{ include('partials/mailform.html.twig') }}
         </div>
     </div>
 

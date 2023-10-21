@@ -28,17 +28,27 @@ blockquote {
         @include bold75;
         line-height: 32px/$font-base * 1rem;
         line-height: 1.081;
-        quotes: "“" "”" "‘" "’";
         color: var(--primary-color-wh);
         
-        &::before {
-            content: open-quote;
-            color: $dark-grey;
+        a, h1 {
+            quotes: "“" "”" "‘" "’";
+            &::before {
+                content: open-quote;
+                color: $dark-grey;
+            }
+            
+            &::after {
+                content: close-quote;
+                color: $dark-grey;
+            }
         }
-        
-        &::after {
-            content: close-quote;
-            color: $dark-grey;
+
+        h1 {
+            display: inline;
+            font-size: 36px/$font-base * 1rem;
+            @include bold75;
+            line-height: 1.081;
+            color: var(--primary-color-wh);
         }
     }
 

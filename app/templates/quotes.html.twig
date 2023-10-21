@@ -1,8 +1,9 @@
-{% extends "base.html" %}
+{% extends "base.html.twig" %}
 
 {% block title %}{{ list_title|striptags }}{% endblock %}
 {% block head %}
     {{ parent() }}
+    <link rel="canonical" href="{{ list_url }}">
     <meta property="og:image" content="{{ tqd.site_url }}/visual.png" />
     <meta property="og:title" content="{{ list_title|striptags }}" />
     <meta property="og:url" content="{{ list_url }}" />
@@ -20,7 +21,7 @@
 {% set a = 0 %}
 {% set n = 0 %}
 {% for quote in quotes %}
-    {{ include('partials/blockquote.html') }}
+    {{ include('partials/blockquote.html.twig') }}
     {% set a = a + 1 %}
     {% set n = n + 1 %}
     {% if a == 6 %}

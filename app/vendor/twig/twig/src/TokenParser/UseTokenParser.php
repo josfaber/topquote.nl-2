@@ -19,7 +19,7 @@ use Twig\Token;
 /**
  * Imports blocks defined in another template into the current template.
  *
- *    {% extends "base.html" %}
+ *    {% extends "base.html.twig" %}
  *
  *    {% use "blocks.html" %}
  *

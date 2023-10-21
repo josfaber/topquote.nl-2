@@ -254,7 +254,7 @@ class Tools
 
 	function feedback(\Base $f3, $params)
 	{
-		render_template('feedback.html', [
+		render_template('feedback.html.twig', [
 			"RECAPTCHA_SITE_KEY" => RECAPTCHA_SITE_KEY,
 		]);
 	}
@@ -282,7 +282,7 @@ class Tools
 			$mail->msgHTML($html);
 			$mail->send();
 
-			render_template('jump.html', [
+			render_template('jump.html.twig', [
 				"message" => "Bericht verzonden.",
 				"jump_url" => site_url(),
 				"jump_url_text" => "Terug naar home"
@@ -290,7 +290,7 @@ class Tools
 			exit(0);
 		}
 
-		render_template('feedback.html', [
+		render_template('feedback.html.twig', [
 			"RECAPTCHA_SITE_KEY" => RECAPTCHA_SITE_KEY,
 		]);
 	}

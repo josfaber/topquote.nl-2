@@ -19,7 +19,7 @@ class Quotes {
 		$quotes = $dataproxy->get_quotes(null, null, null, $orderby, $order, QUOTES_PER_PAGE);
 
 		// render
-		render_template('quotes.html', [
+		render_template('quotes.html.twig', [
 			"list_title" => "Alle uitspraken",
 			"list_url" => site_url('quotes'),
 			"quotes" => $quotes ? $quotes["results"] : [],
@@ -41,7 +41,7 @@ class Quotes {
 		$quotes = $dataproxy->get_quotes($params["slug"], null, null, $orderby, $order, QUOTES_PER_PAGE);
 		$sayer = $quotes ? $quotes["results"][0]["sayer"] : $params["slug"];
 		
-		render_template('quotes.html', [
+		render_template('quotes.html.twig', [
 			"list_title" => "Alle uitspraken van <span class=\"em\">{$sayer}</span>",
 			"list_url" => site_url('quotes/by/' . $params["slug"]),
 			"quotes" => $quotes ? $quotes["results"] : [],
@@ -63,7 +63,7 @@ class Quotes {
 		$quotes = $dataproxy->get_quotes(null, $params["slug"], null, $orderby, $order, QUOTES_PER_PAGE);
 		$submitter = $quotes ? $quotes["results"][0]["submitter"] : $params["slug"];
 
-		render_template('quotes.html', [
+		render_template('quotes.html.twig', [
 			"list_title" => "Alle uitspraken opgeslagen door <span class=\"em\">{$submitter}</span>",
 			"list_url" => site_url('quotes/from/' . $params["slug"]),
 			"quotes" => $quotes ? $quotes["results"] : [],
@@ -84,7 +84,7 @@ class Quotes {
 		// get quotes
 		$quotes = $dataproxy->get_quotes(null, null, $params["slug"], $orderby, $order, QUOTES_PER_PAGE);
 
-		render_template('quotes.html', [
+		render_template('quotes.html.twig', [
 			"list_title" => "Alle uitspraken met tag <span class=\"em\">{$params["slug"]}</span>",
 			"list_url" => site_url('quotes/tag/' . $params["slug"]),
 			"quotes" => $quotes ? $quotes["results"] : [],
@@ -103,7 +103,7 @@ class Quotes {
 		$quotes = $dataproxy->search_quotes($params["terms"]);
 		// !d($params);
 
-		render_template('quotes.html', [
+		render_template('quotes.html.twig', [
 			"is_search" => true,
 			"list_title" => "Alle uitspraken met <span class=\"em\">{$params["terms"]}</span>",
 			"list_url" => site_url('quotes/search/' . $params["terms"]),

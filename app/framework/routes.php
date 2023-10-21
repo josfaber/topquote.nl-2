@@ -49,7 +49,7 @@ $f3->set('ONERROR', function($f3) {
 		 AND (`created` > DATE_SUB(now(), INTERVAL 30 DAY)) AND LENGTH(`quote`) > 16 AND LENGTH(`quote`) < 120
 	")["results"] ?? [];
 		
-	render_template('error.html', [
+	render_template('error.html.twig', [
 		"quotes" => $quotes,
 		"code" => $f3->ERROR["code"] ?? 0
 	]);

@@ -1,4 +1,4 @@
-{% extends "base.html" %}
+{% extends "base.html.twig" %}
 
 {% block title %}Fout{% endblock %}
 {% block head %}
@@ -34,7 +34,7 @@
     {% set n = 0 %}
     {% set a = 0 %}
     {% for quote in quotes %}
-    {{ include('partials/blockquote.html') }}
+    {{ include('partials/blockquote.html.twig') }}
     {% set n = n + 1 %}
     {% if a == 0 and n > 6 %}
     <div class="readable ranking">

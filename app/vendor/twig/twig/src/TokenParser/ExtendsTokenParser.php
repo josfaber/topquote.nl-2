@@ -19,7 +19,7 @@ use Twig\Token;
 /**
  * Extends a template by another one.
  *
- *  {% extends "base.html" %}
+ *  {% extends "base.html.twig" %}
  *
  * @internal
  */

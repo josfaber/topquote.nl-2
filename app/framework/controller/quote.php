@@ -36,7 +36,7 @@ class Quote
 
 		// !d( $results );
 
-		render_template('quote.html', [
+		render_template('quote.html.twig', [
 			"is_single_quote" => true,
 			"quote" => $quote,
 			"related" => $related["results"],
@@ -45,7 +45,7 @@ class Quote
 
 	function add(\Base $f3, $params)
 	{
-		render_template('add.html', [
+		render_template('add.html.twig', [
 			"RECAPTCHA_SITE_KEY" => RECAPTCHA_SITE_KEY,
 		]);
 	}
@@ -64,7 +64,7 @@ class Quote
 			$f3->error(404);
 		}
 
-		render_template('add.html', [
+		render_template('add.html.twig', [
 			"edit_url" => site_url('mod'),
 			"quote_id" => $quote["id"],
 			"modkey" => $_GET["key"],
@@ -110,7 +110,7 @@ class Quote
 			$dataproxy->removeQuoteFromCache($db_quote);
 			$db_quote->erase();
 
-			render_template('jump.html', [
+			render_template('jump.html.twig', [
 				"message" => "Quote verwijderd.",
 				"jump_url" => site_url(),
 				"jump_url_text" => "Naar home"
@@ -138,7 +138,7 @@ class Quote
 		$db_quote->tags_lc = strtolower($tags);
 		$db_quote->save();
 
-		render_template('jump.html', [
+		render_template('jump.html.twig', [
 			"message" => "Quote geüpdatet.",
 			"jump_url" => site_url("/quote/{$slug}"),
 			"jump_url_text" => "Bekijk de quote"
@@ -251,7 +251,7 @@ class Quote
 				error_log('Mailchimp error: ' . $e->getMessage());
 			}			
 
-			render_template('jump.html', [
+			render_template('jump.html.twig', [
 				"message" => "Quote opgeslagen.",
 				"jump_url" => site_url("/quote/{$slug}"),
 				"jump_url_text" => "Bekijk de quote"
@@ -259,7 +259,7 @@ class Quote
 		
 		} else {
 
-			render_template('add.html', array_merge($_POST, [
+			render_template('add.html.twig', array_merge($_POST, [
 				"RECAPTCHA_SITE_KEY" => RECAPTCHA_SITE_KEY,
 			]));
 		}

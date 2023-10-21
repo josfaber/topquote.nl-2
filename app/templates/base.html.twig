@@ -19,7 +19,7 @@
     <body class="{% if is_home %}home{% endif %}{% if is_single_quote %} single-quote {% endif %} {% if constant('ENVIRONMENT') == 'development' %}dev{% endif %}">
         <nav>
             {% block nav %}
-            {{ include('partials/nav.html') }}
+            {{ include('partials/nav.html.twig') }}
             {% endblock %}
         </nav>
         <main>

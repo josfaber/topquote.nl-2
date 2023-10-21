@@ -50,7 +50,7 @@ class Api {
 			ob_start();
 
 			foreach ($quotes["results"] as $quote) {
-				render_template('partials/blockquote.html', [
+				render_template('partials/blockquote.html.twig.twig', [
 					"quote" => $quote,
 				]);
 			}

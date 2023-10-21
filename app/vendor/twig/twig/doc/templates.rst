@@ -363,7 +363,7 @@ A child template might look like this:
 
 .. code-block:: html+twig
 
-    {% extends "base.html" %}
+    {% extends "base.html.twig" %}
 
     {% block title %}Index{% endblock %}
     {% block head %}

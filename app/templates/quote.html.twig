@@ -1,8 +1,9 @@
-{% extends "base.html" %}
+{% extends "base.html.twig" %}
 
 {% block title %}Uitspraak van {{ quote.sayer }}{% endblock %}
 {% block head %}
     {{ parent() }}
+    <link rel="canonical" href="{{ constant('SITE_URL') }}/quote/{{ quote.slug }}">
     <meta property="og:image" content="{{ constant('SERVICE_URL') }}/img/{{ quote.id }}" />
     <meta property="og:title" content="Uitspraak van {{ quote.sayer }}" />
     <meta property="og:url" content="{{ constant('SITE_URL') }}/quote/{{ quote.slug }}" />
@@ -28,7 +29,7 @@
 {% endblock %}
 {% block content %}
 <div class="full-h">
-    {{ include('partials/blockquote.html') }}
+    {{ include('partials/blockquote.html.twig') }}
 </div>
 
 <h3 class="full">Gerelateerde uitspraken</h3>
@@ -36,7 +37,7 @@
     {% set is_single_quote = false %}
     {% set a = 0 %}
     {% for quote in related %}
-        {{ include('partials/blockquote.html') }}
+        {{ include('partials/blockquote.html.twig') }}
         {% set a = a + 1 %}
         {% if a == 1 %}
             <div class="readable ranking marg-bot">

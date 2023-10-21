@@ -66,7 +66,7 @@ the request is made via Ajax and choose the layout accordingly:
 
 .. code-block:: twig
 
-    {% extends request.ajax ? "base_ajax.html" : "base.html" %}
+    {% extends request.ajax ? "base_ajax.html" : "base.html.twig" %}
 
     {% block content %}
         This is the content to be displayed.

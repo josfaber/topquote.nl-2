@@ -45,7 +45,7 @@ A child template might look like this:
 
 .. code-block:: html+twig
 
-    {% extends "base.html" %}
+    {% extends "base.html.twig" %}
 
     {% block title %}Index{% endblock %}
     {% block head %}
@@ -175,10 +175,10 @@ possible to make the inheritance mechanism conditional:
 
 .. code-block:: twig
 
-    {% extends standalone ? "minimum.html" : "base.html" %}
+    {% extends standalone ? "minimum.html" : "base.html.twig" %}
 
 In this example, the template will extend the "minimum.html" layout template
-if the ``standalone`` variable evaluates to ``true``, and "base.html"
+if the ``standalone`` variable evaluates to ``true``, and "base.html.twig"
 otherwise.
 
 How do blocks work?

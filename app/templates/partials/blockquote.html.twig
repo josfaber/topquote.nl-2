@@ -3,9 +3,11 @@
         <a href="{{ quote.sayer_link }}" title="Alle uitspraken gezegd door {{ quote.sayer }}">{{ quote.sayer }}</a>
     </div>
     <div class="quote">
-        {% if not is_single_quote %}<a href="{{ quote.link }}">{% endif %}
+        {% if not is_single_quote %}<a href="{{ quote.link }}">
+        {% else %}<h1>{% endif %}
         {{ quote.quote }}
-        {% if not is_single_quote %}</a>{% endif %}
+        {% if not is_single_quote %}</a>
+        {% else %}</h1>{% endif %}
     </div>
     <div class="meta">
         <div><span class="icon-clock"></span> {{ quote.ago }}</div>
