@@ -42,7 +42,8 @@ COPY ./config/php-fpm-pool.conf /usr/local/etc/php-fpm.d
 COPY ./config/opcache.ini /usr/local/etc/php/conf.d/opcache.ini
 
 # RUN touch /var/log/cron.log; \
-#     echo "* * * * * SHELL=/usr/bin/bash ; BASH_ENV=/container.env ; bash -c \"/usr/local/bin/php /var/www/bin/sitemap.php \" >> /var/log/cron.log 2>&1 " >> /etc/cron.d/sitemap; \
+#     # echo "0 3 * * * /bin/bash -c \"/usr/local/bin/php /var/www/bin/sitemap.php \" >> /var/log/cron.log 2>&1 " >> /etc/cron.d/sitemap; \
+#     echo "* * * * * /bin/bash -c \"/usr/local/bin/php /var/www/bin/sitemap.php \" >> /var/log/cron.log 2>&1 " >> /etc/cron.d/sitemap; \
 #     chmod 0644 /etc/cron.d/sitemap; \
 #     crontab /etc/cron.d/sitemap;
 
@@ -52,7 +53,7 @@ COPY --from=composer:latest /usr/bin/composer /usr/local/bin/composer
 
 WORKDIR /var/www 
 
-# CMD /usr/bin/bash -c "declare -p | grep -E 'DB_NAME|DB_USER|DB_HOST|DB_PASSWORD' > /container.env" ; \
+# CMD /bin/bash -c "printenv | grep -E 'DB_NAME|DB_USER|DB_HOST|DB_PASSWORD' > /var/www/cron.env" ; \
 #     /etc/init.d/cron start ; \
 #     php-fpm -F
 

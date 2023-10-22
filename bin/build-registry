@@ -6,21 +6,23 @@ WORK_DIR="$( cd -- "$( dirname -- "${BASH_SOURCE[0]}" )" &> /dev/null && pwd )/.
 cd $WORK_DIR
 
 # Compile before building app image
-docker run --rm --name topquote-onetime-compiler -it \
-    -v $(pwd)/app:/project/app \
-    -v $(pwd)/src:/project/src \
-    -v $(pwd)/webpack:/project/webpack \
-    -v $(pwd)/webpack.config.js:/project/webpack.config.js \
-    -v $(pwd)/package.json:/project/package.json \
-    -v $(pwd)/package-lock.json:/project/package-lock.json \
+# docker run --rm --name topquote-onetime-compiler -it \
+#     -v $(pwd)/app:/project/app \
+#     -v $(pwd)/src:/project/src \
+#     -v $(pwd)/webpack:/project/webpack \
+#     -v $(pwd)/webpack.config.js:/project/webpack.config.js \
+#     -v $(pwd)/package.json:/project/package.json \
+#     -v $(pwd)/package-lock.json:/project/package-lock.json \
+#     -w /project \
+#     topquote-compiler \
+#     npm run build
+docker run --rm -it \
+    -v .:/project \
     -w /project \
-    topquote-compiler \
-    npm run build
+    node:18-slim npm i && npm run build  
 
 # Build and push app image
-docker build --platform linux/amd64 --tag registry.mmsrv.nl/topquote-php:latest ./app \
-&& docker push registry.mmsrv.nl/topquote-php:latest
+docker buildx build --platform linux/amd64 --tag registry.mmsrv.nl/topquote-php:latest --push ./app
 
 # Build and push nginx image
-docker build --platform linux/amd64 --tag registry.mmsrv.nl/topquote-nginx:latest ./nginx \
-&& docker push registry.mmsrv.nl/topquote-nginx:latest
+docker buildx build --platform linux/amd64 --tag registry.mmsrv.nl/topquote-nginx:latest --push ./nginx 

@@ -46,6 +46,15 @@
             'aliases' => array(),
             'dev_requirement' => false,
         ),
+        'graham-campbell/result-type' => array(
+            'pretty_version' => 'v1.1.1',
+            'version' => '1.1.1.0',
+            'reference' => '672eff8cf1d6fe1ef09ca0f89c4b287d6a3eb831',
+            'type' => 'library',
+            'install_path' => __DIR__ . '/../graham-campbell/result-type',
+            'aliases' => array(),
+            'dev_requirement' => false,
+        ),
         'guzzlehttp/guzzle' => array(
             'pretty_version' => '7.5.1',
             'version' => '7.5.1.0',
@@ -199,6 +208,15 @@
             'aliases' => array(),
             'dev_requirement' => false,
         ),
+        'phpoption/phpoption' => array(
+            'pretty_version' => '1.9.1',
+            'version' => '1.9.1.0',
+            'reference' => 'dd3a383e599f49777d8b628dadbb90cae435b87e',
+            'type' => 'library',
+            'install_path' => __DIR__ . '/../phpoption/phpoption',
+            'aliases' => array(),
+            'dev_requirement' => false,
+        ),
         'psr/container' => array(
             'pretty_version' => '2.0.2',
             'version' => '2.0.2.0',
@@ -237,8 +255,8 @@
             'dev_requirement' => false,
             'provided' => array(
                 0 => '1.0',
-                1 => '*',
-                2 => '^1.0',
+                1 => '^1.0',
+                2 => '*',
             ),
         ),
         'psr/http-message' => array(
@@ -401,6 +419,15 @@
             'reference' => 'a6e0510cc793912b451fd40ab983a1d28f611c15',
             'type' => 'library',
             'install_path' => __DIR__ . '/../twig/twig',
+            'aliases' => array(),
+            'dev_requirement' => false,
+        ),
+        'vlucas/phpdotenv' => array(
+            'pretty_version' => 'v5.5.0',
+            'version' => '5.5.0.0',
+            'reference' => '1a7ea2afc49c3ee6d87061f5a233e3a035d0eae7',
+            'type' => 'library',
+            'install_path' => __DIR__ . '/../vlucas/phpdotenv',
             'aliases' => array(),
             'dev_requirement' => false,
         ),
