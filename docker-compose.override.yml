@@ -23,8 +23,6 @@ services:
     build:
       context: app
       dockerfile: Dockerfile
-    volumes:
-      - ./mount/log/cron.log:/var/log/cron.log
 
   nginx:
     build:
@@ -39,17 +37,17 @@ services:
       - traefik.http.routers.topquote.rule=Host(`topquote.local`)
       - traefik.http.routers.topquote.entrypoints=web
 
-  compiler:
-    image: topquote-compiler 
-    container_name: topquote-compiler
-    build:
-      context: .
-      dockerfile: ./compiler/Dockerfile
-    volumes:
-      - ./app:/project/app
-      - ./src:/project/src
-      - ./webpack:/project/webpack
-      - ./webpack.config.js:/project/webpack.config.js
-      - ./package.json:/project/package.json
-      - ./package-lock.json:/project/package-lock.json
+  # compiler:
+  #   image: topquote-compiler 
+  #   container_name: topquote-compiler
+  #   build:
+  #     context: .
+  #     dockerfile: ./compiler/Dockerfile
+  #   volumes:
+  #     - ./app:/project/app
+  #     - ./src:/project/src
+  #     - ./webpack:/project/webpack
+  #     - ./webpack.config.js:/project/webpack.config.js
+  #     - ./package.json:/project/package.json
+  #     - ./package-lock.json:/project/package-lock.json
 

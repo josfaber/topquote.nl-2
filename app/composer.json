@@ -14,7 +14,8 @@
         "mailchimp/marketing": "^3.0",
         "donatello-za/rake-php-plus": "^1.0",
         "ramsey/uuid": "^4.1",
-        "sentry/sdk": "^3.4"
+        "sentry/sdk": "^3.4",
+        "vlucas/phpdotenv": "^5.5"
     },
     "autoload": {
         "psr-4": {"TopQuote\\": "framework/"}
