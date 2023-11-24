@@ -14,6 +14,15 @@
             {% endfor %}
             <title>{% block title %}{% endblock %} - topquote</title>
             <link rel="shortcut icon" href="/favicon.ico">
+            <script async src="https://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js?client=ca-pub-2356098750828124" crossorigin="anonymous"></script>
+            <script async src="https://www.googletagmanager.com/gtag/js?id=G-6YFKGSMEFN"></script>
+            <script>
+            window.dataLayer = window.dataLayer || [];
+            function gtag(){dataLayer.push(arguments);}
+            gtag('js', new Date());
+
+            gtag('config', 'G-6YFKGSMEFN', { 'anonymize_ip': true });
+            </script>
         {% endblock %}
     </head>
     <body class="{% if is_home %}home{% endif %}{% if is_single_quote %} single-quote {% endif %} {% if constant('ENVIRONMENT') == 'development' %}dev{% endif %}">
@@ -44,7 +53,6 @@
         </div>
         {% block scripts %}
             <script>window.tqd = { is_search: {% if is_search %}true{% else %}false{% endif %} , rsk: '{{ RECAPTCHA_SITE_KEY }}', {% for key, value in tqd %} {{ key }}: '{{ value }}', {% endfor %}{% for key, value in tqd_num %} {{ key }}: {{ value }}, {% endfor %} };</script>
-            <script defer src="https://www.googletagmanager.com/gtag/js?id=G-6YFKGSMEFN"></script>
             {% for js_file in js_files %}
                 <script defer src="{{ js_file}}"></script>
             {% endfor %}

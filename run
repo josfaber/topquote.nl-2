@@ -1,0 +1,78 @@
+#!/bin/bash
+
+REMOTE_USER=root
+REMOTE_HOST=de.mmsrv.nl
+REMOTE_PATH=/root/topquote.nl
+
+REGISTRY_URL="registry.mmsrv.nl"
+
+dev() {
+    docker-compose -f docker-compose.yml -f docker-compose.override.yml up -d
+    npm run watch
+}
+
+console() {
+    docker exec -it topquote-php bash
+}
+
+build() {
+    docker run --rm -it -v .:/project -w /project node:20-slim npm i && npm run build  
+    docker buildx build --platform linux/amd64 --tag ${REGISTRY_URL}/topquote-php:latest --push ./app
+    docker buildx build --platform linux/amd64 --tag ${REGISTRY_URL}/topquote-nginx:latest --push ./nginx 
+}
+
+clear_caches() {
+    ssh "$REMOTE_USER"@$REMOTE_HOST "cd $REMOTE_PATH && bin/clear-caches"
+}
+
+deploy() {
+    build
+    ssh "$REMOTE_USER"@$REMOTE_HOST "cd $REMOTE_PATH && docker compose -f docker-compose.yml -f docker-compose.prod.yml down --remove-orphans"
+    ssh "$REMOTE_USER"@$REMOTE_HOST mkdir -p $REMOTE_PATH/{app,bin,import}
+    scp docker-compose{.prod.yml,.yml} "$REMOTE_USER"@$REMOTE_HOST:$REMOTE_PATH/
+    scp .env.production "$REMOTE_USER"@$REMOTE_HOST:$REMOTE_PATH/.env
+    scp bin/{prod,dbdump,clear-caches} "$REMOTE_USER"@$REMOTE_HOST:$REMOTE_PATH/bin/
+    rsync -rz -e ssh app/ "$REMOTE_USER"@$REMOTE_HOST:$REMOTE_PATH/app/ --exclude 'public/sitemap*'  --delete
+    rsync -rz -e ssh import/ "$REMOTE_USER"@$REMOTE_HOST:$REMOTE_PATH/import/ --delete
+    ssh "$REMOTE_USER"@$REMOTE_HOST "cd $REMOTE_PATH && bin/prod"
+    sleep 10
+    clear_caches
+    sleep 5
+    ssh "$REMOTE_USER"@$REMOTE_HOST "cd $REMOTE_PATH && rm -rf app/public/sitemap*"
+    ssh "$REMOTE_USER"@$REMOTE_HOST "cd $REMOTE_PATH && docker exec topquote-php php /var/www/bin/sitemap.php" 
+}
+
+# Check if a command is provided as an argument
+if [ $# -eq 1 ]; then
+    command="$1"
+    shift
+    case "$command" in
+        "dev")
+            dev
+            ;;
+        "console")
+            console
+            ;;
+        "clear_caches")
+            clear_caches
+            ;;
+        "build")
+            build
+            ;;
+        "deploy")
+            deploy
+            ;;
+        *)
+            echo "Invalid command: $command"
+            ;;
+    esac
+else
+    # Display the list of available commands with explanations
+    echo "Available commands"
+    echo "----------------------"
+    echo "  run dev            -  Start local development"
+    echo "  run console        -  Run console in container"
+    echo "  run clear_caches   -  Run console in container"
+    echo "  run build          -  Build, tag and push Docker images to the registry"
+    echo "  run deploy         -  Start containers on the production server"
+fi

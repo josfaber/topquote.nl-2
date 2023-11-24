@@ -8,13 +8,6 @@ require FW_DIR . '/dataproxy.php';
 require FW_DIR . '/defines.php';
 require FW_DIR . '/functions.php';
 
-// Sentry 
-\Sentry\init([
-	'dsn' => 'https://7742c99b3b189a89b5d6bb21d365f701@sentry.mmsrv.nl/4',
-	'traces_sample_rate' => 1.0,
-	'environment' => defined('ENVIRONMENT') ? ENVIRONMENT : 'unknown',
-]);
-
 // Fat Free Rendering! 
 $f3 = \Base::instance();
 $f3->set('AUTOLOAD', FW_DIR . '/');

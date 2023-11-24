@@ -24,7 +24,6 @@ const loadMore = () => {
         .then( function ( response ) {
             // handle success
             // console.log( response.data );
-            document.getElementById('quotes_list').innerHTML += response.data.html + '<div class="readable ranking"><p class="ad-info">[ reclame ]</p></div><script async src="https://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js?client=ca-pub-2356098750828124" crossorigin="anonymous"></script><ins class="adsbygoogle" style="display:block; text-align:center;" data-ad-layout="in-article" data-ad-format="fluid" data-ad-client="ca-pub-2356098750828124" data-ad-slot="5230818758"></ins><script>(adsbygoogle = window.adsbygoogle || []).push({});</script>';
             current_page++;
 
             if (!response.data.hasOwnProperty('EOD') || response.data.EOD != true) {
