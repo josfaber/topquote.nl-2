@@ -16,7 +16,7 @@ console() {
 }
 
 build() {
-    docker run --rm -it -v .:/project -w /project node:20-slim npm i && npm run build  
+    docker run --platform linux/amd64 --rm -it -v .:/project -w /project node:20-slim npm i && npm run build  
     docker buildx build --platform linux/amd64 --tag ${REGISTRY_URL}/topquote-php:latest --push ./app
     docker buildx build --platform linux/amd64 --tag ${REGISTRY_URL}/topquote-nginx:latest --push ./nginx 
 }
