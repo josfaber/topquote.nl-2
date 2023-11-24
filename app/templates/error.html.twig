@@ -35,16 +35,6 @@
     {% set a = 0 %}
     {% for quote in quotes %}
     {{ include('partials/blockquote.html.twig') }}
-    {% set n = n + 1 %}
-    {% if a == 0 and n > 6 %}
-    <div class="readable ranking">
-        <p class="ad-info">[ reclame ]</p>
-    </div>
-    <!--<a class="ad-link marg-bot" href="https://amzn.to/38Z7hgw" target="_blank">
-        <img src="{{ tqd.site_url }}/img/amazon-gaming-week.jpeg" alt="Amazon ad" />
-    </a>-->
-    {% set a = 1 %}
-    {% endif %}
     {% endfor %}
     {% if not quotes %}
     <p>Geen quotes gevonden</p>

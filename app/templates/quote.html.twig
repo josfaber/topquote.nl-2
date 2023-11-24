@@ -35,37 +35,11 @@
 <h3 class="full">Gerelateerde uitspraken</h3>
 <section id="quotes_list" class="quotes-list">
     {% set is_single_quote = false %}
-    {% set a = 0 %}
     {% for quote in related %}
         {{ include('partials/blockquote.html.twig') }}
-        {% set a = a + 1 %}
-        {% if a == 1 %}
-            <div class="readable ranking marg-bot">
-                <p class="ad-info">[ reclame ]</p>
-                <script async src="https://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js?client=ca-pub-2356098750828124"
-                    crossorigin="anonymous"></script>
-                <!-- horizontaal -->
-                <ins class="adsbygoogle" style="display:block" data-ad-client="ca-pub-2356098750828124" data-ad-slot="7031205682"
-                    data-ad-format="auto" data-full-width-responsive="true"></ins>
-                <script>
-                    ( adsbygoogle = window.adsbygoogle || [] ).push( {} );
-                </script>
-            </div>
-        {% endif %}
     {% endfor %}
     {% if not related %}
         <p>Geen gerelateerde uitspraken</p>
     {% endif %}
-    <div class="readable ranking marg-bot">
-        <p class="ad-info">[ reclame ]</p>
-        <script async src="https://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js?client=ca-pub-2356098750828124"
-            crossorigin="anonymous"></script>
-        <!-- horizontaal -->
-        <ins class="adsbygoogle" style="display:block" data-ad-client="ca-pub-2356098750828124" data-ad-slot="7031205682"
-            data-ad-format="auto" data-full-width-responsive="true"></ins>
-        <script>
-            ( adsbygoogle = window.adsbygoogle || [] ).push( {} );
-        </script>
-    </div>
     </section>
 {% endblock %}
