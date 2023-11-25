@@ -2,29 +2,34 @@
 <html lang="nl">
     <head>
         {% block head %}
-            <meta http-equiv="X-UA-Compatible" content="IE=edge">
-            <meta name="viewport" content="width=device-width, initial-scale=1">
-            <link rel="profile" href="http://gmpg.org/xfn/11" />
-            <link rel="dns-prefetch" href="//use.typekit.net">
-            <link rel="preconnect" href="https://use.typekit.net/" crossorigin>
-            <style>{{ inlinecss }}</style>
-            {% for css_file in css_files %}
-                <link rel="preload" href="{{ css_file }}" as="style" onload="this.onload=null;this.rel='stylesheet'">
-                <noscript><link rel="stylesheet" href="{{ css_file }}"></noscript>
-            {% endfor %}
-            <title>{% block title %}{% endblock %} - topquote</title>
-            <link rel="shortcut icon" href="/favicon.ico">
-            <script async src="https://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js?client=ca-pub-2356098750828124" crossorigin="anonymous"></script>
-            <script async src="https://www.googletagmanager.com/gtag/js?id=G-6YFKGSMEFN"></script>
-            <script>
+        <meta http-equiv="X-UA-Compatible" content="IE=edge">
+        <meta name="viewport" content="width=device-width, initial-scale=1">
+        <link rel="profile" href="http://gmpg.org/xfn/11" />
+        <link rel="dns-prefetch" href="//use.typekit.net">
+        <link rel="preconnect" href="https://use.typekit.net/" crossorigin>
+        <style>{{ inlinecss }}</style>
+        {% for css_file in css_files %}
+            <link rel="preload" href="{{ css_file }}" as="style" onload="this.onload=null;this.rel='stylesheet'">
+            <noscript><link rel="stylesheet" href="{{ css_file }}"></noscript>
+        {% endfor %}
+        <title>{% block title %}{% endblock %} - topquote</title>
+        <link rel="shortcut icon" href="/favicon.ico">
+        {% endblock %}
+        <script id="cookieyes" type="text/javascript" src="https://cdn-cookieyes.com/client_data/2b1dc6bf53e833741ae1003a/script.js"></script>
+
+        <script async src="https://www.googletagmanager.com/gtag/js?id=G-6YFKGSMEFN"></script>
+        <script>
             window.dataLayer = window.dataLayer || [];
-            function gtag(){dataLayer.push(arguments);}
+            function gtag() {
+                dataLayer.push(arguments);
+            }
             gtag('js', new Date());
 
-            gtag('config', 'G-6YFKGSMEFN', { 'anonymize_ip': true });
-            </script>
-        {% endblock %}
+            gtag('config', 'G-6YFKGSMEFN', {'anonymize_ip': true});
+        </script>
+        <script async src="https://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js?client=ca-pub-2356098750828124" crossorigin="anonymous"></script>
     </head>
+
     <body class="{% if is_home %}home{% endif %}{% if is_single_quote %} single-quote {% endif %} {% if constant('ENVIRONMENT') == 'development' %}dev{% endif %}">
         <nav>
             {% block nav %}
@@ -57,5 +62,6 @@
                 <script defer src="{{ js_file}}"></script>
             {% endfor %}
         {% endblock %}
+
     </body>
 </html>

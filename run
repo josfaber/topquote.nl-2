@@ -16,7 +16,7 @@ console() {
 }
 
 build() {
-    docker run --platform linux/amd64 --rm -it -v .:/project -w /project node:20-slim npm i && npm run build  
+    docker run --platform linux/amd64 --rm -it -v .:/project -w /project node:20-slim sh -c "npm i && npm run build"  
     docker buildx build --platform linux/amd64 --tag ${REGISTRY_URL}/topquote-php:latest --push ./app
     docker buildx build --platform linux/amd64 --tag ${REGISTRY_URL}/topquote-nginx:latest --push ./nginx 
 }
@@ -27,6 +27,39 @@ clear_caches() {
 
 deploy() {
     build
+    ssh "$REMOTE_USER"@$REMOTE_HOST "cd $REMOTE_PATH && docker compose -f docker-compose.yml -f docker-compose.prod.yml down --remove-orphans"
+    ssh "$REMOTE_USER"@$REMOTE_HOST mkdir -p $REMOTE_PATH/{app,bin,import}
+    scp docker-compose{.prod.yml,.yml} "$REMOTE_USER"@$REMOTE_HOST:$REMOTE_PATH/
+    scp .env.production "$REMOTE_USER"@$REMOTE_HOST:$REMOTE_PATH/.env
+    scp bin/{prod,dbdump,clear-caches} "$REMOTE_USER"@$REMOTE_HOST:$REMOTE_PATH/bin/
+    rsync -rz -e ssh app/ "$REMOTE_USER"@$REMOTE_HOST:$REMOTE_PATH/app/ --exclude 'public/sitemap*'  --delete
+    rsync -rz -e ssh import/ "$REMOTE_USER"@$REMOTE_HOST:$REMOTE_PATH/import/ --delete
+    ssh "$REMOTE_USER"@$REMOTE_HOST "cd $REMOTE_PATH && bin/prod"
+    sleep 10
+    clear_caches
+    sleep 5
+    ssh "$REMOTE_USER"@$REMOTE_HOST "cd $REMOTE_PATH && rm -rf app/public/sitemap*"
+    ssh "$REMOTE_USER"@$REMOTE_HOST "cd $REMOTE_PATH && docker exec topquote-php php /var/www/bin/sitemap.php" 
+}
+
+deploy_no_build() {
+    docker run --platform linux/amd64 --rm -it -v .:/project -w /project node:20-slim sh -c "npm i && npm run build"  
+    ssh "$REMOTE_USER"@$REMOTE_HOST "cd $REMOTE_PATH && docker compose -f docker-compose.yml -f docker-compose.prod.yml down --remove-orphans"
+    ssh "$REMOTE_USER"@$REMOTE_HOST mkdir -p $REMOTE_PATH/{app,bin,import}
+    scp docker-compose{.prod.yml,.yml} "$REMOTE_USER"@$REMOTE_HOST:$REMOTE_PATH/
+    scp .env.production "$REMOTE_USER"@$REMOTE_HOST:$REMOTE_PATH/.env
+    scp bin/{prod,dbdump,clear-caches} "$REMOTE_USER"@$REMOTE_HOST:$REMOTE_PATH/bin/
+    rsync -rz -e ssh app/ "$REMOTE_USER"@$REMOTE_HOST:$REMOTE_PATH/app/ --exclude 'public/sitemap*'  --delete
+    rsync -rz -e ssh import/ "$REMOTE_USER"@$REMOTE_HOST:$REMOTE_PATH/import/ --delete
+    ssh "$REMOTE_USER"@$REMOTE_HOST "cd $REMOTE_PATH && bin/prod"
+    sleep 10
+    clear_caches
+    sleep 5
+    ssh "$REMOTE_USER"@$REMOTE_HOST "cd $REMOTE_PATH && rm -rf app/public/sitemap*"
+    ssh "$REMOTE_USER"@$REMOTE_HOST "cd $REMOTE_PATH && docker exec topquote-php php /var/www/bin/sitemap.php" 
+}
+
+deploy_code_only() {
     ssh "$REMOTE_USER"@$REMOTE_HOST "cd $REMOTE_PATH && docker compose -f docker-compose.yml -f docker-compose.prod.yml down --remove-orphans"
     ssh "$REMOTE_USER"@$REMOTE_HOST mkdir -p $REMOTE_PATH/{app,bin,import}
     scp docker-compose{.prod.yml,.yml} "$REMOTE_USER"@$REMOTE_HOST:$REMOTE_PATH/
@@ -62,6 +95,12 @@ if [ $# -eq 1 ]; then
         "deploy")
             deploy
             ;;
+        "deploy_no_build")
+            deploy_no_build
+            ;;
+        "deploy_code_only")
+            deploy_code_only
+            ;;
         *)
             echo "Invalid command: $command"
             ;;
@@ -70,9 +109,11 @@ else
     # Display the list of available commands with explanations
     echo "Available commands"
     echo "----------------------"
-    echo "  run dev            -  Start local development"
-    echo "  run console        -  Run console in container"
-    echo "  run clear_caches   -  Run console in container"
-    echo "  run build          -  Build, tag and push Docker images to the registry"
-    echo "  run deploy         -  Start containers on the production server"
+    echo "  run dev              -  Start local development"
+    echo "  run console          -  Run console in container"
+    echo "  run clear_caches     -  Run console in container"
+    echo "  run build            -  Build, tag and push Docker images to the registry"
+    echo "  run deploy           -  Build, tag, push, pull and start containers on the production server"
+    echo "  run deploy_no_build  -  Compile styles, copy code and start containers on the production server"
+    echo "  run deploy_code_only -  Copy code and start containers on the production server"
 fi

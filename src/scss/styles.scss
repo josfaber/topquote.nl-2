@@ -9,3 +9,12 @@
 @import "partials/home";
 
 @import "partials/dev"; 
+
+.cky-overlay,
+.cky-btn-revisit-wrapper,
+.cky-modal,
+.cky-notice {
+    a.btn::after, button::after {
+        display: none !important;
+    }
+}
