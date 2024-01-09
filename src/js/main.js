@@ -164,7 +164,7 @@ window.updateLikeButtons = () => {
         .split( ',' )
         .filter( ( x ) => x !== "" )
         .map( ( x ) => parseInt( x ) );
-    console.log( likes_array );
+    // console.log( likes_array );
     const like_buttons = document.querySelectorAll( '.quote-btn-like' );
     like_buttons.forEach( ( el ) => {
         const id = parseInt( el.dataset.id );

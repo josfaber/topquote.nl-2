@@ -15,6 +15,8 @@ const loadMore = () => {
     if (window.tqd.hasOwnProperty('filter')) data.append( 'filter', window.tqd.filter );
     if (window.tqd.hasOwnProperty('slug')) data.append( 'slug', window.tqd.slug );
 
+    console.log( window.tqd.api_url + '/quotes', data );
+
     axios( {
         method: 'post',
         url: window.tqd.api_url + '/quotes',
@@ -24,6 +26,10 @@ const loadMore = () => {
         .then( function ( response ) {
             // handle success
             // console.log( response.data );
+            const quotes_list = document.getElementById( 'quotes_list' );
+            if ( quotes_list ) {
+                quotes_list.innerHTML += response.data.html || "";
+            }
             current_page++;
 
             if (!response.data.hasOwnProperty('EOD') || response.data.EOD != true) {
