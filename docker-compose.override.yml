@@ -2,20 +2,6 @@ version: '3'
 
 services:
 
-  traefik:
-    image: "traefik:2.4"
-    container_name: topquote-traefik
-    command:
-      - "--log.level=DEBUG"
-      - "--configFile=/config/traefik.yml"
-    ports:
-      - "80:80"
-    #      - "443:443"
-    volumes:
-      - "./traefik.dev.yml:/config/traefik.yml"
-      - "./traefik.dev-dynamic.yml:/config/dynamic.yml"
-      - "/var/run/docker.sock:/var/run/docker.sock:ro"
-
   db:
     ports:
       - "3306:3306"
@@ -33,10 +19,8 @@ services:
       default:
         aliases:
           - topquote.local
-    labels:
-      - traefik.enable=true
-      - traefik.http.routers.topquote.rule=Host(`topquote.local`)
-      - traefik.http.routers.topquote.entrypoints=web
+    ports:
+      - "80:80"
 
   # compiler:
   #   image: topquote-compiler 

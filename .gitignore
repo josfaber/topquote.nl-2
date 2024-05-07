@@ -4,6 +4,7 @@ cron.env
 .dockerignore
 .DS_Store
 node_modules
+app/cache
 app/templates/cache
 app/public/sitemap*
 mount/*
