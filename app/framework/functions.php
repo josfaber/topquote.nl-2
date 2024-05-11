@@ -107,20 +107,19 @@ function time_elapsed_string($datetime, $full = false) {
     $ago = new DateTime($datetime);
     $diff = $now->diff($ago);
 
-    $diff->w = floor($diff->d / 7);
-    $diff->d -= $diff->w * 7;
+    $weeks = floor($diff->d / 7);
+    $diff->d -= $weeks * 7;
 
     $string = array(
         'y' => ['jaar', 'jaar'],
         'm' => ['maand', 'maand'],
-        'w' => ['week', 'week'],
         'd' => ['dag', 'dagen'],
         'h' => ['uur', 'uur'],
         'i' => ['minuut', 'minuten'],
         's' => ['seconde', 'seconden'],
     );
     foreach ($string as $k => &$v) {
-        if ($diff->$k) {
+        if (isset($diff->$k)) {
             $v = $diff->$k . ' ' . ($diff->$k > 1 ? $v[1] : $v[0]);
         } else {
             unset($string[$k]);

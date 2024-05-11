@@ -2,7 +2,6 @@
 
 namespace Controller;
 
-use \MailchimpMarketing\ApiClient;
 
 class Tools
 {
@@ -17,13 +16,7 @@ class Tools
 
 	function clear_cache(\Base $f3, $params)
 	{
-		try {
-			$redis = new \Redis();
-			$redis->connect('cache', 6379);
-			$redis->flushDB();
-		} catch (\Exception $e) {
-			error_log($e->getMessage());
-		}
+		error_log("Tools::clear_cache is empty");
 	}
 
 	// function rank_tags(\Base $f3, $params)
@@ -265,7 +258,7 @@ class Tools
 
 		$verify_url = "https://www.google.com/recaptcha/api/siteverify?secret=" . RECAPTCHA_SECRET_KEY . "&response=" . $_POST["rtoken"] . "&remoteip=" . $_SERVER['REMOTE_ADDR'];
 		$response = json_decode(file_get_contents($verify_url), true);
-		
+
 		if ($response['success'] == true) {
 
 			if (!filter_var($email = $_POST["email"], FILTER_VALIDATE_EMAIL)) {
@@ -320,17 +313,17 @@ class Tools
 		exit;
 	}
 
-	function create_sitemaps(\Base $f3, $params) {
+	function create_sitemaps(\Base $f3, $params)
+	{
 
 		global $dataproxy;
 		$is_stale = (defined('ENVIRONMENT') && ENVIRONMENT == 'development') || !file_exists(PUBLIC_DIR . "/sitemap.xml") || filemtime(PUBLIC_DIR . "/sitemap.xml") < time() - 60 * 5;
 		if (!$is_stale) {
-			echo "<!-- not stale, skipping -->"; 
+			echo "<!-- not stale, skipping -->";
 			exit;
 		}
-		
-		echo "<!-- stale, creating -->"; 
+
+		echo "<!-- stale, creating -->";
 		include BASE_DIR . "/bin/includes/render_sitemap.php";
 	}
-
 }

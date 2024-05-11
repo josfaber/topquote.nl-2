@@ -7,8 +7,6 @@ use PHPMailer\PHPMailer\Exception;
 
 use DB;
 
-use Redis;
-
 class DataProxy
 {
 
@@ -21,72 +19,27 @@ class DataProxy
 
 	public $db;
 
-	public $redis;
-
 	public function __construct()
 	{
 		$this->db = new DB\SQL('mysql:host=' . DB_HOST . ';port=3306;dbname=' . DB_NAME, DB_USER, DB_PASSWORD);
-		
-		// !d(REDIS_HOST, REDIS_PORT); 
-
-		if ( defined('REDIS_HOST') && !empty(REDIS_HOST) ) {
-			$this->redis = new Redis();
-			$this->redis->connect(REDIS_HOST, REDIS_PORT ?? 6379);
-		}
 	}
 
 	public function from_cache($key)
 	{
-		if (!defined('REDIS_HOST') || REDIS_HOST == false) {
-			return false;
-		}
-
-		// if (defined('ENVIRONMENT') && ENVIRONMENT == "development") {
-		// 	return false;
-		// }
-
-		try {
-			// $this->redis->del($key);
-			$this->redis->get($key);
-			return $this->redis->get($key);
-		} catch (\Exception $e) {
-			error_log($e->getMessage());
-			return false;
-		}
+		// @todo implement new
+		return false;
 	}
 
 	public function to_cache($key, $value, $ttl = 60 * 5)
 	{
-		if (!defined('REDIS_HOST') || REDIS_HOST == false) {
-			return false;
-		}
-
-		// if (defined('ENVIRONMENT') && ENVIRONMENT == "development") {
-		// 	return false;
-		// }
-
-		try {
-			$this->redis->setex($key, $ttl, $value);
-		} catch (\Exception $e) {
-			error_log($e->getMessage());
-		}
+		// @todo implement new
+		return false;
 	}
 
 	public function del_cache($key)
 	{
-		if (!defined('REDIS_HOST') || REDIS_HOST == false) {
-			return false;
-		}
-
-		if (defined('ENVIRONMENT') && ENVIRONMENT == "development") {
-			return false;
-		}
-		
-		try {
-			$this->redis->del($key);
-		} catch (\Exception $e) {
-			error_log($e->getMessage());
-		}
+		// @todo implement new
+		return false;
 	}
 
 	public function removeQuoteFromCache($quote)
@@ -106,10 +59,10 @@ class DataProxy
 			// already voted
 			return array("message" => "already voted");
 		}
-		
+
 		$db_quote = new \DB\SQL\Mapper($this->db, 'quotes');
 		$db_quote->load(array('id=?', $quote_id));
-		if(!$db_quote->dry()) {
+		if (!$db_quote->dry()) {
 			$db_quote->likes = $db_quote->likes + 1;
 			$db_quote->save();
 
@@ -203,7 +156,6 @@ class DataProxy
 		$cache_time = $orderby == self::$ORDER_RANDOM ? 60 * 5 : 60 * 30;
 
 		if ($results = $this->from_cache($cache_key)) {
-			// !d("redis");
 			return ["results" => json_decode($results, true)];
 		}
 
@@ -282,7 +234,6 @@ class DataProxy
 		$cache_time = 60 * 15;
 
 		if ($results = $this->from_cache($cache_key)) {
-			// !d("redis");
 			return ["results" => json_decode($results, true)];
 		}
 
@@ -308,8 +259,8 @@ class DataProxy
 		";
 
 		$results = $this->db->exec($sql, [
-			":terms" => $terms, 
-			":terms_like" => "%" . $terms . "%", 
+			":terms" => $terms,
+			":terms_like" => "%" . $terms . "%",
 			":tags" => $termsAsTags,
 			":tags_like" => "%" . $termsAsTags . "%",
 		]);
@@ -334,7 +285,6 @@ class DataProxy
 		$cache_time = 60 * 60 * 24;
 
 		if ($results = $this->from_cache($cache_key)) {
-			// !d("redis");
 			return ["results" => json_decode($results, true)];
 		}
 
@@ -361,9 +311,9 @@ class DataProxy
 
 		// $results = $this->db->exec($sql, [":id" => $quote_id]);
 		$results = $this->db->exec($sql, [
-			":id" => $quote_id, 
-			":quote_lc" => $terms[0]["quote_lc"], 
-			":tags_lc" => $terms[0]["tags_lc"], 
+			":id" => $quote_id,
+			":quote_lc" => $terms[0]["quote_lc"],
+			":tags_lc" => $terms[0]["tags_lc"],
 			":sayer_lc" => $terms[0]["sayer_lc"]
 		]);
 
@@ -518,9 +468,11 @@ class DataProxy
 		$mailer->SMTPAuth = true;
 		$mailer->Username = SMTP_USER;
 		$mailer->Password = SMTP_PASS;
-		$mailer->SMTPSecure = SMTP_SECURE;
 		$mailer->SMTPKeepAlive = true;
 		$mailer->Port = SMTP_PORT;
+		if (!empty(SMTP_SECURE)) {
+			$mailer->SMTPSecure = SMTP_SECURE;
+		}
 		$mailer->setFrom(FROM_EMAIL, 'topquote');
 		return $mailer;
 	}
@@ -613,13 +565,13 @@ class DataProxy
 		}
 
 		$all_single_tags = [];
-		foreach($all_tags as $mtags) {
+		foreach ($all_tags as $mtags) {
 			$single_tags = explode(",", $mtags["tags_lc"]);
-			foreach($single_tags as $tag) {
+			foreach ($single_tags as $tag) {
 				$all_single_tags[] = $tag;
 			}
 		}
-		$all_single_tags = array_filter($all_single_tags, function($tag) {
+		$all_single_tags = array_filter($all_single_tags, function ($tag) {
 			return !empty($tag) && preg_match("/^[a-zA-Z0-9]+$/", $tag) == 1;
 		});
 

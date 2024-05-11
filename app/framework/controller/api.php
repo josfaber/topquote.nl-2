@@ -34,14 +34,19 @@ class Api {
 		$order = $f3->get('POST.order') ?? $dataproxy::$ORDER_DESC;
 		$filter = $f3->get('POST.filter') ?? null;
 		$slug = $f3->get('POST.slug') ?? null;
-		$page = (int) $f3->get('POST.page') ?? 1;
+		$page = (int) ($f3->get('POST.page') ?? 1);
+		$per_page = (int) ($f3->get('POST.per_page') ?? QUOTES_PER_PAGE);
 		$render = $f3->get('POST.render') == 'true'; 
+
+		// var_dump($orderby, $order, $filter, $slug, $page, $per_page, $render);
+		// exit;
 
 		$by = !is_null($filter) && $filter == "by" ? $slug : null;
 		$from = !is_null($filter) && $filter == "from" ? $slug : null;
 		$tag = !is_null($filter) && $filter == "tag" ? $slug : null;
 
-		$quotes = $dataproxy->get_quotes($by, $from, $tag, $orderby, $order, QUOTES_PER_PAGE, $page);
+		// $quotes = $dataproxy->get_quotes($by, $from, $tag, $orderby, $order, QUOTES_PER_PAGE, $page);
+		$quotes = $dataproxy->get_quotes($by, $from, $tag, $orderby, $order, $per_page, $page);
 		
 		if ($render) {
 
@@ -78,7 +83,20 @@ class Api {
 			"slug" => $slug,
 			"quotes" => $quotes["results"],
 		]);
+	}
 
+	function last(\Base $f3)
+	{
+		global $dataproxy;
+
+		$quotes = $dataproxy->get_quotes(null, null, null, $dataproxy::$ORDER_CREATED, $dataproxy::$ORDER_DESC, 1, 1);
+
+		ajax_output([
+			"quote" => $quotes["results"][0]["quote"],
+			"sayer" => $quotes["results"][0]["sayer"],
+			"submitter" => $quotes["results"][0]["submitter"],
+			"created" => $quotes["results"][0]["created"],
+		]);
 	}
 
 }
