@@ -1,26 +1,77 @@
-version: '3'
-
 services:
+  
+  traefik:
+    image: "traefik:v2.5"
+    container_name: "traefik"
+    command:
+      - "--api.insecure=true"
+      - "--providers.docker=true"
+      - "--providers.docker.exposedbydefault=false"
+      - "--entrypoints.web.address=:80"
+      - "--entrypoints.web-secure.address=:443"
+      - "--certificatesresolvers.myresolver.acme.httpchallenge=true"
+      - "--certificatesresolvers.myresolver.acme.httpchallenge.entrypoint=web"
+      - "--certificatesresolvers.myresolver.acme.email=dev@mapmappa.nl"
+      - "--certificatesresolvers.myresolver.acme.storage=/letsencrypt/acme.json"
+    ports:
+      - "80:80"
+      - "443:443"
+      - "8080:8080"
+    volumes:
+      - "/var/run/docker.sock:/var/run/docker.sock:ro"
+      - "./mount/letsencrypt:/letsencrypt"
+    networks: 
+      - default
 
   db:
     ports:
       - "3306:3306"
+    networks: 
+      - default
       
   php:
     build:
       context: app
       dockerfile: Dockerfile
+    networks: 
+      - default
 
   nginx:
     build:
       context: nginx
       dockerfile: Dockerfile
-    networks:
-      default:
-        aliases:
-          - topquote.local
+    # networks:
+    #   default:
+    #     aliases:
+    #       - topquote.local
+    # ports:
+    #   - "80:80"
+    networks: 
+      - default
+    labels:
+      - "traefik.enable=true"
+      - "traefik.http.routers.topquote.rule=Host(`topquote.nl`)"
+      - "traefik.http.routers.topquote.entrypoints=web,web-secure"
+      - "traefik.http.routers.topquote.tls=true"
+      - "traefik.http.routers.topquote.tls.certresolver=myresolver"
+      - "traefik.http.services.topquote.loadbalancer.server.port=80"
+
+  mailpit:
+    image: axllent/mailpit
+    container_name: mailpit
+    restart: unless-stopped
+    volumes:
+      - ./mount/mailpit-data:/data
     ports:
-      - "80:80"
+      - 8025:8025
+      - 1025:1025
+    environment:
+      MP_MAX_MESSAGES: 5000
+      MP_DATABASE: /data/mailpit.db
+      MP_SMTP_AUTH_ACCEPT_ANY: 1
+      MP_SMTP_AUTH_ALLOW_INSECURE: 1
+    networks: 
+      - default
 
   # compiler:
   #   image: topquote-compiler 
@@ -35,4 +86,3 @@ services:
   #     - ./webpack.config.js:/project/webpack.config.js
   #     - ./package.json:/project/package.json
   #     - ./package-lock.json:/project/package-lock.json
-

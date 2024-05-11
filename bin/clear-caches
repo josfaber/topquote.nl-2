@@ -1,5 +1,0 @@
-#!/bin/bash
-
-set -e
-
-docker exec topquote-php bash -c "rm -rf /var/www/{cache,templates/cache}/* && chmod -R 777 /var/www/{cache,templates/cache}"

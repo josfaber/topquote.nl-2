@@ -1,106 +1,126 @@
 {% extends "base.html.twig" %}
 
-{% block title %}Home{% endblock %}
+{% block title %}Home
+{% endblock %}
 {% block head %}
-    {{ parent() }}
-    <link rel="canonical" href="{{ tqd.site_url }}">
-    <meta property="og:image" content="{{ tqd.site_url }}/visual.png" />
-    <meta property="og:title" content="{{ site_title }}" />
-    <meta property="og:url" content="{{ tqd.site_url }}" />
-    <meta property="og:type" content="website" />
-    <meta name="description" content="{{ site_description }}">
-    <meta property="og:description" content="{{ site_description }}" />
+	{{ parent() }}
+	<link rel="canonical" href="{{ tqd.site_url }}">
+	<meta property="og:image" content="{{ tqd.site_url }}/visual.png"/>
+	<meta property="og:title" content="{{ site_title }}"/>
+	<meta property="og:url" content="{{ tqd.site_url }}"/>
+	<meta property="og:type" content="website"/>
+	<meta name="description" content="{{ site_description }}">
+	<meta property="og:description" content="{{ site_description }}"/>
 {% endblock %}
 
 {% block content %}
-<a class="h1" href="{{ tqd.site_url }}"><h1 id="home_title">topquote</h1></a>
-<h2 class="plh fixed" id="home_title_bg">topquote</h2>
+	<a class="h1" href="{{ tqd.site_url }}">
+		<h1 id="home_title">topquote</h1>
+	</a>
+	<h2 class="plh fixed" id="home_title_bg">topquote</h2>
 
 
-<section class="intro">
-Op topquote <em>sla je zelf</em> alle hilarische <em>uitspraken</em> van je vrienden, familie en collega&rsquo;s op, <em>zonder account</em>.
-Erg leuk op werk, borrels, verjaardagen en vakantie!
-<br>
-<br>
-<a href="{{ site_url }}/add" class="btn">Uitspraak toevoegen</a>
-</section>
+	<section class="intro">
+		Op topquote
+		<em>sla je zelf</em>
+		alle hilarische
+		<em>uitspraken</em>
+		van je vrienden, familie en collega&rsquo;s op,
+		<em>zonder account</em>.
+			Erg leuk op werk, borrels, verjaardagen en vakantie!
+		<br>
+		<br>
+		<a href="{{ site_url }}/add" class="btn">Uitspraak toevoegen</a>
+	</section>
 
-<section id="quotes_list" class="quotes-list">
+	<section id="quotes_list" class="quotes-list">
 
-    <h2 class="full">Afgelopen maanden toegevoegd</h2>
-    <div id="said-last-week" class="sliding-quotes" data-simple-slider>
-        {% for quote in said_last_month %}
-        {{ include('partials/blockquote.html.twig') }}
-        {% endfor %}
-    </div>
+		<h2 class="full">Afgelopen maanden toegevoegd</h2>
+		<div id="said-last-week" class="sliding-quotes" data-simple-slider>
+			{% for quote in said_last_month %}
+				{{ include('partials/blockquote.html.twig') }}
+			{% endfor %}
+		</div>
 
-    <h2 class="full">Random uitspraken</h2>
-    <div id="random-quotes" class="sliding-quotes" data-simple-slider>
-        {% for quote in random_quotes %}
-        {{ include('partials/blockquote.html.twig') }}
-        {% endfor %}
-    </div>
-    
-    <div class="readable ranking marg-bot">
-        <a name="toptags"></a>
-        <h2 class="full">Top tags</h2>
-        <p>De populairste tags:</p>
-        <ul class="rank-cloud">
-            {% for tag in top_tags %}
-            <li><span class="icon-price-tags"></span><a href="{{ site_url }}/quotes/tag/{{ tag.tag }}">{{ tag.tag }}</a></li>
-            {% endfor %}
-        </ul>
-    </div>
-    
-    <div class="readable ranking marg-bot">
-        <a name="topinzenders"></a>
-        <h2 class="full">Top inzenders</h2>
-        <p>Op dit moment zijn degenen die de meeste uitspraken hebben ingezonden:</p>
-        <ul class="rank-cloud">
-            {% for submitter in top_submitters %}
-            <li><span class="icon-pencil"></span><a href="{{ site_url }}/quotes/from/{{ submitter.submitter_slug }}">{{ submitter.submitter }}</a></li>
-            {% endfor %}
-        </ul>
-    </div>
-    
-    <div class="readable ranking marg-bot">
-        <a name="topinzenders"></a>
-        <h2 class="full">Zoekopdrachten</h2>
-        <p>Op zoek naar nog meer geweldige uitspraken?<br>Deze zoektermen komen nogal eens voorbij:</p>
-        <ul class="rank-cloud">
-            {% for term in ["jinek", "britt", "dekker", "frikandellenbos", "poep", "rusland", "amerika", "kleuter", "eten", "tv", "internet", "maandag", "aarde", "natuur", "geweld", "sex", "game", "bijbel", "voetbal", "geld", "porno"] %}
-            <li><span class="icon-search"></span><a href="{{ site_url }}/quotes/search/{{ term }}">{{ term }}</a></li>
-            {% endfor %}
-        </ul>
-    </div>
-    
-    <div class="readable ranking marg-bot">
-        <a name="topzeggers"></a>
-        <h2 class="full">Top zeggers</h2>
-        <p>Ranking the stars! De meeste uitspraken zijn momenteel van ...</p>
-        <ul class="rank-cloud">
-            {% for sayer in top_sayers %}
-            <li><span class="icon-topquote-logo-outlines"></span><a href="{{ site_url }}/quotes/by/{{ sayer.sayer_slug }}">{{ sayer.sayer }}</a></li>
-            {% endfor %}
-        </ul>
-    </div>
-    
-    <div class="readable marg-bot">
-        <h2 class="full">Sla je eigen uitspraken op!</h2>
-        <p>Sla al die prachtige, ontwapenende en hilarische quotes van je collega&rsquo;s, kinderen, vriend-en-vijanden en (on)bekenden op. Je hoeft geen account te maken.</p>
-        <div class="centered pad-top-20">
-            <a href="{{ site_url }}/add" class="btn">Uitspraak toevoegen</a>
-        </div>
-    </div>
-    
-    <div class="readable marg-bot">
-        <h2 class="full">Op de hoogte blijven</h2>
-        <p>Schrijf je hier in om af en toe een update te krijgen. We geven je e-mailadres niet aan derden. Beloofd!</p>
-        <div id="mc_embed_signup">
-            {{ include('partials/mailform.html.twig') }}
-        </div>
-    </div>
+		<h2 class="full">Random uitspraken</h2>
+		<div id="random-quotes" class="sliding-quotes" data-simple-slider>
+			{% for quote in random_quotes %}
+				{{ include('partials/blockquote.html.twig') }}
+			{% endfor %}
+		</div>
 
-</section>
+		<div class="readable ranking marg-bot">
+			<a name="toptags"></a>
+			<h2 class="full">Top tags</h2>
+			<p>De populairste tags:</p>
+			<ul class="rank-cloud">
+				{% for tag in top_tags %}
+					<li>
+						<span class="icon-price-tags"></span>
+						<a href="{{ site_url }}/quotes/tag/{{ tag.tag }}">{{ tag.tag }}</a>
+					</li>
+				{% endfor %}
+			</ul>
+		</div>
+
+		<div class="readable ranking marg-bot">
+			<a name="topinzenders"></a>
+			<h2 class="full">Top inzenders</h2>
+			<p>Op dit moment zijn degenen die de meeste uitspraken hebben ingezonden:</p>
+			<ul class="rank-cloud">
+				{% for submitter in top_submitters %}
+					<li>
+						<span class="icon-pencil"></span>
+						<a href="{{ site_url }}/quotes/from/{{ submitter.submitter_slug }}">{{ submitter.submitter }}</a>
+					</li>
+				{% endfor %}
+			</ul>
+		</div>
+
+		<div class="readable ranking marg-bot">
+			<a name="topinzenders"></a>
+			<h2 class="full">Zoekopdrachten</h2>
+			<p>Op zoek naar nog meer geweldige uitspraken?<br>Deze zoektermen komen nogal eens voorbij:</p>
+			<ul class="rank-cloud">
+				{% for term in ["jinek", "britt", "dekker", "frikandellenbos", "poep", "rusland", "amerika", "kleuter", "eten", "tv", "internet", "maandag", "aarde", "natuur", "geweld", "sex", "game", "bijbel", "voetbal", "geld", "porno"] %}
+					<li>
+						<span class="icon-search"></span>
+						<a href="{{ site_url }}/quotes/search/{{ term }}">{{ term }}</a>
+					</li>
+				{% endfor %}
+			</ul>
+		</div>
+
+		<div class="readable ranking marg-bot">
+			<a name="topzeggers"></a>
+			<h2 class="full">Top zeggers</h2>
+			<p>Ranking the stars! De meeste uitspraken zijn momenteel van ...</p>
+			<ul class="rank-cloud">
+				{% for sayer in top_sayers %}
+					<li>
+						<span class="icon-topquote-logo-outlines"></span>
+						<a href="{{ site_url }}/quotes/by/{{ sayer.sayer_slug }}">{{ sayer.sayer }}</a>
+					</li>
+				{% endfor %}
+			</ul>
+		</div>
+
+		<div class="readable marg-bot">
+			<h2 class="full">Sla je eigen uitspraken op!</h2>
+			<p>Sla al die prachtige, ontwapenende en hilarische quotes van je collega&rsquo;s, kinderen, vriend-en-vijanden en (on)bekenden op. Je hoeft geen account te maken.</p>
+			<div class="centered pad-top-20">
+				<a href="{{ site_url }}/add" class="btn">Uitspraak toevoegen</a>
+			</div>
+		</div>
+
+		{# <div class="readable marg-bot">
+		        <h2 class="full">Op de hoogte blijven</h2>
+		        <p>Schrijf je hier in om af en toe een update te krijgen. We geven je e-mailadres niet aan derden. Beloofd!</p>
+		        <div id="mc_embed_signup">
+		            {{ include('partials/mailform.html.twig') }}
+		        </div>
+		    </div> #}
+
+	</section>
 
 {% endblock %}
