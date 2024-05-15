@@ -177,7 +177,7 @@ window.updateLikeButtons = () => {
 };
 
 window.activateLikeButtons = () => {
-    console.log('activate like buttons')
+    // console.log( 'activate like buttons' );
     const like_buttons = document.querySelectorAll( '.quote-btn-like' );
     like_buttons.forEach( ( el ) => {
         el.addEventListener( 'click', ( e ) => {
@@ -190,9 +190,10 @@ window.activateLikeButtons = () => {
 };
 
 /**
- * On body ready
+ * On document ready
  */
-document.body.onload = ( () => {
+document.addEventListener( 'DOMContentLoaded', ( event ) => {
+    // console.log( 'main' );
 
     window.dataLayer = window.dataLayer || [];
     function gtag() { dataLayer.push( arguments ); }
@@ -361,4 +362,4 @@ document.body.onload = ( () => {
 
     updateLikeButtons();
 
-} )();
+} );

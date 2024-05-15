@@ -1,8 +1,8 @@
 const path = require( 'path' );
 const webpack = require( 'webpack' );
 const MiniCssExtractPlugin = require( "mini-css-extract-plugin" );
-const CopyWebpackPlugin = require('copy-webpack-plugin');
-const { CleanWebpackPlugin } = require('clean-webpack-plugin');
+const CopyWebpackPlugin = require( 'copy-webpack-plugin' );
+const { CleanWebpackPlugin } = require( 'clean-webpack-plugin' );
 
 module.exports = {
     entry: {
@@ -10,6 +10,7 @@ module.exports = {
         'home': './src/js/home.js',
         'inline': './src/js/inline.js',
         'quotes': './src/js/quotes.js',
+        'slide': './src/js/slide.js',
     },
     output: {
         // filename: 'js/[name].bundle.js',
@@ -41,13 +42,13 @@ module.exports = {
                     {
                         loader: 'resolve-url-loader',
                         options: {
-                            
+
                         }
                     },
                     {
                         loader: 'sass-loader',
                         options: {
-                            sourceMap: true, 
+                            sourceMap: true,
                         },
                     },
                 ]
@@ -55,9 +56,9 @@ module.exports = {
         ]
     },
     plugins: [
-        new CleanWebpackPlugin({
-            cleanOnceBeforeBuildPatterns: ["**/*", "!*.php", "!sitemap*.*", "!favicon.ico", "!visual.png", "!ads.txt"],
-        }),
+        new CleanWebpackPlugin( {
+            cleanOnceBeforeBuildPatterns: [ "**/*", "!*.php", "!sitemap*.*", "!favicon.ico", "!visual.png", "!ads.txt" ],
+        } ),
         new MiniCssExtractPlugin( {
             // filename: "css/[name].bundle.css",
             // chunkFilename: "css/[name][id].bundle.css"
@@ -66,10 +67,10 @@ module.exports = {
         } ),
         new webpack.ProvidePlugin( {
         } ),
-        new CopyWebpackPlugin({
+        new CopyWebpackPlugin( {
             patterns: [
                 { from: 'src/static' }
             ]
-        })
+        } )
     ],
 };

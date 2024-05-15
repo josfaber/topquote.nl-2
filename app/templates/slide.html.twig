@@ -13,21 +13,25 @@
 	<meta name="description" content="{{ list_title|striptags }}">
 	<meta property="og:description" content="{{ list_title|striptags }}"/>
 {% endblock %}
+{% block extra_body_classes %}slide{% endblock %}
 {% block content %}
-
-	<section class="explainer">
-		<p>{{ list_title|raw }}</p>
-		{% if slide_url %}
-			<a href="{{ slide_url }}">slideshow!</a>
-		{% endif %}
-	</section>
-
-	<section id="quotes_list" class="quotes-list">
-		{% for quote in quotes %}
-			{{ include('partials/blockquote.html.twig') }}
-		{% endfor %}
-		{% if not quotes %}
-			<p>Geen quotes gevonden</p>
-		{% endif %}
-	</section>
+	<div class="slide-wrapper">
+		<div id="slide" class="slide">
+			<div class="quote">
+				<a class="aq" id="quote"></a>
+				<a id="sayer" class="sayer"></a>
+			</div>
+		</div class="slide">
+		<div class="title">
+			<span>slide</span>
+			<span>{{ filter }}</span>
+			<span>{{ slug }}</span>
+		</div>
+	</div>
+{% endblock %}
+{% block scripts %}
+	{{ parent() }}
+	<script>
+		window.tqd_sl_q = {{ quotes|json_encode|raw }};
+	</script>
 {% endblock %}

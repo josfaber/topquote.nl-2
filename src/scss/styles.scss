@@ -6,15 +6,18 @@
 @import "partials/nav";
 @import "partials/quotes";
 @import "partials/ranks";
+@import "partials/slide";
 @import "partials/home";
 
-@import "partials/dev"; 
+@import "partials/dev";
 
 .cky-overlay,
 .cky-btn-revisit-wrapper,
 .cky-modal,
 .cky-notice {
-    a.btn::after, button::after {
+
+    a.btn::after,
+    button::after {
         display: none !important;
     }
 }
