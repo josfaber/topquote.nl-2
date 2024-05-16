@@ -12,8 +12,8 @@ const loadMore = () => {
     data.append( 'page', current_page + 1 );
     data.append( 'render', true );
 
-    if (window.tqd.hasOwnProperty('filter')) data.append( 'filter', window.tqd.filter );
-    if (window.tqd.hasOwnProperty('slug')) data.append( 'slug', window.tqd.slug );
+    if ( window.tqd.hasOwnProperty( 'filter' ) ) data.append( 'filter', window.tqd.filter );
+    if ( window.tqd.hasOwnProperty( 'slug' ) ) data.append( 'slug', window.tqd.slug );
 
     console.log( window.tqd.api_url + '/quotes', data );
 
@@ -27,13 +27,15 @@ const loadMore = () => {
             // handle success
             // console.log( response.data );
             const quotes_list = document.getElementById( 'quotes_list' );
-            if ( quotes_list ) {
+            if ( quotes_list )
+            {
                 quotes_list.innerHTML += response.data.html || "";
             }
             current_page++;
 
-            if (!response.data.hasOwnProperty('EOD') || response.data.EOD != true) {
-                setTimeout(() => canLoadMore = true, 500);
+            if ( !response.data.hasOwnProperty( 'EOD' ) || response.data.EOD != true )
+            {
+                setTimeout( () => canLoadMore = true, 500 );
                 "undefined" === typeof activateLikeButtons || activateLikeButtons();
                 "undefined" === typeof updateLikeButtons || updateLikeButtons();
             }
@@ -48,17 +50,17 @@ const loadMore = () => {
 };
 
 /**
- * On body ready
+ * On document ready
  */
-document.body.onload = ( () => {
-
-    window.tqd.is_search || setTimeout(() => {
+document.addEventListener( 'DOMContentLoaded', ( event ) => {
+    window.tqd.is_search || setTimeout( () => {
         window.addEventListener( 'scroll', () => {
-            if ( canLoadMore && window.scrollY + window.innerHeight >= document.body.offsetHeight - 400 ) {
+            if ( canLoadMore && window.scrollY + window.innerHeight >= document.body.offsetHeight - 400 )
+            {
                 canLoadMore = false;
                 loadMore();
             }
         } );
 
-    }, 1000)
-} )();
+    }, 1000 );
+} );

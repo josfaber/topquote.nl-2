@@ -1,0 +1,136 @@
+.slide-wrapper {
+    position: absolute;
+    top: $topbar-height + 10px;
+    left: 0;
+    width: 100%;
+    height: calc(100vh - #{$topbar-height} - 10px);
+    overflow: hidden;
+    
+    .slide {
+        position: absolute;
+        top: 3%;
+        left: 3%;
+        width: 94%;
+        height: 94%;
+        // transform: translateX(100px);
+        // background: repeating-linear-gradient(45deg, rgba(red, 0.2) 0px, rgba(red, 0.2) 10px, black 11px, black 20px);
+
+        .quote {
+            position: absolute;
+            top: 50%;
+            left: 50%;
+            transform: translate(-50%, -50%);
+            width: 80%;
+            text-align: center;
+            color: var(--primary-color);
+            
+            a.aq {
+                font-size: 3.6rem;
+                @include bold75;
+                line-height: 1.281;
+
+                quotes: "“" "”" "‘" "’";
+                
+                &::before {
+                    content: open-quote;
+                    color: $dark-grey;
+                }
+                
+                &::after {
+                    content: close-quote;
+                    color: $dark-grey;
+                }
+            }
+
+        
+            .sayer {
+                font-size: 28px/$font-base * 1rem;
+                @include medium65;
+                position: absolute;
+                top: 0;
+                left: 50%;
+                transform: translate(-50%, -240%);
+                color: var(--primary-color-wh);
+            }
+        }
+    }
+    
+    .title {
+        font-size: 14px/$font-base * 1rem;
+        // @include medium65;
+        position: absolute;
+        bottom: 0;
+        left: 50%;
+        color: $grey;
+        transform: translate(-50%, -30px);
+        text-align: center;
+
+        span {
+
+            &:nth-child(1) {
+                margin-right: 6px;
+                &::after {
+                    margin-left: 8px;
+                    @include light45;
+                    content:"/";
+                }
+            }
+            &:nth-child(2) {
+                @include medium65;
+                margin-right: 6px;
+                &::after {
+                    margin-left: 8px;
+                    @include light45;
+                    content:"/";
+                }
+            }
+            &:nth-child(3) {
+                @include bold75;
+            }
+
+        }
+    }
+
+}
+
+.slide blockquote {
+    position: relative;
+    width: 100%;
+
+    .sayer {
+        font-size: 1rem;
+        @include medium65;
+        margin-bottom: 0.5rem;
+    }
+
+    .quote {
+        font-size: 26px/$font-base * 1rem;
+        @include bold75;
+        line-height: 32px/$font-base * 1rem;
+        line-height: 1.081;
+        color: var(--primary-color-wh);
+
+        a,
+        h1 {
+            quotes: "“" "”" "‘" "’";
+
+            &::before {
+                content: open-quote;
+                color: $dark-grey;
+            }
+
+            &::after {
+                content: close-quote;
+                color: $dark-grey;
+            }
+        }
+
+        h1 {
+            display: inline;
+            font-size: 36px/$font-base * 1rem;
+            @include bold75;
+            line-height: 1.081;
+            color: var(--primary-color-wh);
+        }
+    }
+}

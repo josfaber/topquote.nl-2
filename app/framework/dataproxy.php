@@ -183,6 +183,9 @@ class DataProxy
 		}
 
 		$LIMIT = "LIMIT {$offset_base}, {$quotes_per_page}";
+		if ($quotes_per_page == -1) {
+			$LIMIT = "";
+		}
 
 		switch ($orderby) {
 			case self::$ORDER_LIKES:
