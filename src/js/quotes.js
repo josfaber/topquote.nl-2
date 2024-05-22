@@ -30,6 +30,7 @@ const loadMore = () => {
             if ( quotes_list )
             {
                 quotes_list.innerHTML += response.data.html || "";
+                loadMoreAdSenseAd();
             }
             current_page++;
 
@@ -48,6 +49,20 @@ const loadMore = () => {
     //     // always executed
     // } );
 };
+
+const loadMoreAdSenseAd = () => {
+    const quotes_list = document.getElementById( 'quotes_list' );
+    const ad = document.createElement('ins');
+    ad.className = 'adsbygoogle';
+    ad.style.display = 'block';
+    ad.style.textAlign = 'center';
+    ad.setAttribute('data-ad-client', 'ca-pub-2356098750828124'); 
+    ad.setAttribute('data-ad-slot', '7032630758'); 
+    ad.setAttribute('data-ad-format', 'fluid'); 
+    ad.setAttribute('data-ad-layout', 'in-article'); 
+    quotes_list.appendChild(ad);
+    (adsbygoogle = window.adsbygoogle || []).push({});
+}
 
 /**
  * On document ready

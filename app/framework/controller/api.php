@@ -2,41 +2,45 @@
 
 namespace Controller;
 
-class Api {
-	function vote(\Base $f3, $params) {
-		
-		$id = $f3->get('POST.id'); 
-		if (!$id) ajax_output([ "success" => false ]);
-		
+class Api
+{
+	function vote(\Base $f3, $params)
+	{
+
+		$id = $f3->get('POST.id');
+		if (!$id) ajax_output(["success" => false]);
+
 		global $dataproxy;
 		$result = $dataproxy->vote($id);
 
-		ajax_output(array_merge([ "success" => true ], $result));
+		ajax_output(array_merge(["success" => true], $result));
 	}
 
-	function quote(\Base $f3, $params) {
-		
-		$id = $params["id"]; 
-		if (!$id) ajax_output([ "success" => false ]);
-		
+	function quote(\Base $f3, $params)
+	{
+
+		$id = $params["id"];
+		if (!$id) ajax_output(["success" => false]);
+
 		global $dataproxy;
 		$quote = $dataproxy->get_quote($id);
-		if (!$quote) ajax_output([ "success" => false ]);
+		if (!$quote) ajax_output(["success" => false]);
 
-		ajax_output(array_merge([ "success" => true ], $quote));
+		ajax_output(array_merge(["success" => true], $quote));
 	}
 
-	function quotes(\Base $f3, $params) {
+	function quotes(\Base $f3, $params)
+	{
 
 		global $dataproxy;
-		
-		$orderby = $f3->get('POST.orderby') ?? $dataproxy::$ORDER_CREATED; 
+
+		$orderby = $f3->get('POST.orderby') ?? $dataproxy::$ORDER_CREATED;
 		$order = $f3->get('POST.order') ?? $dataproxy::$ORDER_DESC;
 		$filter = $f3->get('POST.filter') ?? null;
 		$slug = $f3->get('POST.slug') ?? null;
 		$page = (int) ($f3->get('POST.page') ?? 1);
 		$per_page = (int) ($f3->get('POST.per_page') ?? QUOTES_PER_PAGE);
-		$render = $f3->get('POST.render') == 'true'; 
+		$render = $f3->get('POST.render') == 'true';
 
 		// var_dump($orderby, $order, $filter, $slug, $page, $per_page, $render);
 		// exit;
@@ -47,10 +51,10 @@ class Api {
 
 		// $quotes = $dataproxy->get_quotes($by, $from, $tag, $orderby, $order, QUOTES_PER_PAGE, $page);
 		$quotes = $dataproxy->get_quotes($by, $from, $tag, $orderby, $order, $per_page, $page);
-		
+
 		if ($render) {
 
-			if (!$quotes) ajax_output([ "EOD" => true, "html" => "" ]);
+			if (!$quotes) ajax_output(["EOD" => true, "html" => ""]);
 
 			ob_start();
 
@@ -73,7 +77,7 @@ class Api {
 			]);
 		}
 
-		if (!$quotes) ajax_output([ "EOD" => true, "quotes" => $quotes ]); 
+		if (!$quotes) ajax_output(["EOD" => true, "quotes" => $quotes]);
 
 		ajax_output([
 			"orderby" => $orderby,
@@ -98,5 +102,4 @@ class Api {
 			"created" => $quotes["results"][0]["created"],
 		]);
 	}
-
 }

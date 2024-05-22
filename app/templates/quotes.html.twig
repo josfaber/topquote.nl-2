@@ -12,6 +12,8 @@
 	<meta property="og:type" content="website"/>
 	<meta name="description" content="{{ list_title|striptags }}">
 	<meta property="og:description" content="{{ list_title|striptags }}"/>
+	<script async src="https://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js?client=ca-pub-2356098750828124"
+     crossorigin="anonymous"></script>
 {% endblock %}
 {% block content %}
 
@@ -23,8 +25,20 @@
 	</section>
 
 	<section id="quotes_list" class="quotes-list">
+		{% set n = 1 %}
+		{% set first = true %}
 		{% for quote in quotes %}
 			{{ include('partials/blockquote.html.twig') }}
+			{% set n = n + 1 %}
+			{% if n == 4 and first %}
+				{% include('partials/adsense/inbetween.html.twig') %}
+				{% set n = 1 %}
+				{% set first = false %}
+			{% endif %}
+			{% if n == 11 %}
+				{% include('partials/adsense/inbetween.html.twig') %}
+				{% set n = 1 %}
+			{% endif %}
 		{% endfor %}
 		{% if not quotes %}
 			<p>Geen quotes gevonden</p>

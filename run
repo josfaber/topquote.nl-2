@@ -39,7 +39,8 @@ build() {
 }
 
 clear_remote_caches() {
-    ssh "$REMOTE_USER"@$REMOTE_HOST "docker exec topquote-php bash -c "find /var/www/cache /var/www/templates/cache -mindepth 1 -exec rm -rf {} + && chmod -R 777 /var/www/cache /var/www/templates/cache""
+    ssh "$REMOTE_USER"@$REMOTE_HOST "docker exec topquote-php bash -c find /var/www/cache /var/www/templates/cache -mindepth 1 -exec rm -rf {} +"
+    ssh "$REMOTE_USER"@$REMOTE_HOST "docker exec topquote-php bash -c chmod -R 777 /var/www/cache /var/www/templates/cache"
 }
 
 deploy() {

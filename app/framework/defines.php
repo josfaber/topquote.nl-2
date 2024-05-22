@@ -33,3 +33,6 @@ define("SMTP_PORT",					getenv("SMTP_PORT"));
 
 define("FROM_EMAIL",				getenv("FROM_EMAIL"));
 define("TO_EMAIL",					getenv("TO_EMAIL"));
+
+define("ADSENSE_CLIENT_ID",			getenv("ADSENSE_CLIENT_ID"));
+define("ADSENSE_SLOT_INBETWEEN",	getenv("ADSENSE_SLOT_INBETWEEN"));
