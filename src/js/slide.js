@@ -59,7 +59,6 @@ document.addEventListener( 'DOMContentLoaded', ( event ) => {
         }, 530);
 
         setTimeout( () => {
-            // console.log(quote);
             quote_el.innerHTML = quote.quote;
             quote_el.href = quote.link;
             sayer_el.innerHTML = quote.sayer;

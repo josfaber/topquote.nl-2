@@ -3,14 +3,22 @@
 // Composer
 require BASE_DIR . '/vendor/autoload.php';
 
+// Environment
+require FW_DIR . '/defines.php';
+
 // Load core
 require FW_DIR . '/dataproxy.php';
-require FW_DIR . '/defines.php';
 require FW_DIR . '/functions.php';
 
 // Fat Free Rendering! 
 $f3 = \Base::instance();
 $f3->set('AUTOLOAD', FW_DIR . '/');
+
+// Error reporting
+if (defined('ENVIRONMENT') && ENVIRONMENT == 'development') {
+	error_reporting(E_ALL);
+	ini_set('display_errors', 1);
+}
 
 // Globals
 $assets_manifest = get_asset_manifest();

@@ -12,6 +12,7 @@ class Quote
 		}
 
 		global $dataproxy;
+		/** @var QuoteModel */
 		$quote = $dataproxy->get_quote_by_slug($params["slug"]);
 
 		if ($quote == false) {
@@ -22,11 +23,11 @@ class Quote
 		// exit;
 
 		// redirect to canonical URL
-		if ($params["slug"] != $quote["slug"]) {
-			$f3->reroute(site_url("quote/{$quote["slug"]}"));
+		if ($params["slug"] != $quote->getSlug()) {
+			$f3->reroute(site_url("quote/{$quote->getSlug()}"));
 		}
 
-		$related = $dataproxy->get_related_quotes($quote["id"]);
+		$related = $dataproxy->get_related_quotes($quote->getId());
 		// !d($related);
 		if (!$related) {
 			$related = array("results" => []);

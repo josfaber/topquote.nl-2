@@ -154,7 +154,9 @@ class Quotes
 		render_template('slide.html.twig', [
 			"list_title" => "Alle uitspraken {$title_inject} als slideshow",
 			"list_url" => site_url('quotes/tag/' . $params["slug"]),
-			"quotes" => $quotes ? $quotes["results"] : [],
+			"quotes" => $quotes ? array_map(function ($x) {
+				return $x->toArray();
+			}, $quotes["results"]) : [],
 			"filter" => $params["filter"],
 			"slug" => $params["slug"],
 		], [], [site_url($assets_manifest["slide.js"])]);

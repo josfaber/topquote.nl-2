@@ -1,10 +1,11 @@
-<?php 
+<?php
 define("BASE_DIR", 		__DIR__ . "/..");
 define("FW_DIR", 		__DIR__ . "/../framework");
 
+require FW_DIR . '/defines.php';
+
 require BASE_DIR . '/vendor/autoload.php';
 // require FW_DIR . '/dataproxy.php';
-require FW_DIR . '/defines.php';
 require FW_DIR . '/functions.php';
 
 function rank_tags()
@@ -45,7 +46,7 @@ function rank_tags()
 		$db_tag->amount = $tag["count"];
 		$db_tag->save();
 
-		if ($n%1000 == 0)  {
+		if ($n % 1000 == 0) {
 			!s("tag " . $n);
 		}
 		$n++;
@@ -88,7 +89,7 @@ function rank_sayers()
 		$sayer_rank->amount = $sayer["count"];
 		$sayer_rank->save();
 
-		if ($n%1000 == 0)  {
+		if ($n % 1000 == 0) {
 			!s("sayer " . $n);
 		}
 		$n++;
@@ -131,7 +132,7 @@ function rank_submitters()
 		$submitter_rank->amount = $submitter["count"];
 		$submitter_rank->save();
 
-		if ($n%1000 == 0)  {
+		if ($n % 1000 == 0) {
 			!s("submitter " . $n);
 		}
 		$n++;

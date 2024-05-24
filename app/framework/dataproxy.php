@@ -6,6 +6,7 @@ use PHPMailer\PHPMailer\PHPMailer;
 use PHPMailer\PHPMailer\Exception;
 
 use DB;
+use TopQuote\Model\QuoteModel;
 
 class DataProxy
 {
@@ -99,7 +100,7 @@ class DataProxy
 			return false;
 		}
 
-		$quote = $this->hydrate_quote($results[0]);
+		$quote = new QuoteModel($results[0]);
 		$this->to_cache($cache_key, json_encode($quote), $cache_time);
 
 		return $quote;
@@ -142,7 +143,7 @@ class DataProxy
 			return false;
 		}
 
-		$quote = $this->hydrate_quote($results[0]);
+		$quote = new QuoteModel($results[0]);
 		$this->to_cache($cache_key, json_encode($quote), $cache_time);
 
 		return $quote;
@@ -176,10 +177,10 @@ class DataProxy
 			$bounds = [":submitter" => $from, ":submitter_slug" => slugify($from)];
 		}
 		if ($tag != null) {
-			// $WHERE = "WHERE tags_lc LIKE :tag ";
-			// $bounds = [":tag" => "%{$tag}%"];
-			$WHERE = "WHERE find_in_set(:tag, tags_lc)";
-			$bounds = [":tag" => $tag];
+			$WHERE = "WHERE tags LIKE :tag ";
+			$bounds = [":tag" => "%{$tag}%"];
+			// $WHERE = "WHERE find_in_set(:tag, tags_lc)";
+			// $bounds = [":tag" => $tag];
 		}
 
 		$LIMIT = "LIMIT {$offset_base}, {$quotes_per_page}";
@@ -219,7 +220,9 @@ class DataProxy
 			return false;
 		}
 
-		$results = array_map(array($this, 'hydrate_quote'), $results);
+		$results = array_map(function ($x) {
+			return new QuoteModel($x);
+		}, $results);
 		$this->to_cache($cache_key, json_encode($results), $cache_time);
 
 		return [
@@ -248,14 +251,14 @@ class DataProxy
 		$termsAsTags = tagify($terms);
 
 		$sql = "
-			SELECT *, MATCH (quote_lc,sayer_lc,submitter_lc,tags_lc) AGAINST (:terms IN NATURAL LANGUAGE MODE) AS score 
+			SELECT *, MATCH (quote_lc,sayer_lc,submitter_lc,tags) AGAINST (:terms IN NATURAL LANGUAGE MODE) AS score 
 			FROM quotes 
 			WHERE 1 = 2 
-			OR MATCH (quote_lc,sayer_lc,submitter_lc,tags_lc) AGAINST (:terms IN NATURAL LANGUAGE MODE) 
-			OR MATCH (quote_lc,sayer_lc,submitter_lc,tags_lc) AGAINST (:tags IN NATURAL LANGUAGE MODE) 
+			OR MATCH (quote_lc,sayer_lc,submitter_lc,tags) AGAINST (:terms IN NATURAL LANGUAGE MODE) 
+			OR MATCH (quote_lc,sayer_lc,submitter_lc,tags) AGAINST (:tags IN NATURAL LANGUAGE MODE) 
 			OR sayer_lc LIKE :tags_like 
 			OR submitter_lc LIKE :tags_like 
-			OR find_in_set(:tags, tags_lc) 
+			OR tags LIKE :tags_like 
 			OR quote_lc LIKE :terms_like 
 			ORDER BY score DESC
 			{$LIMIT}  
@@ -274,7 +277,9 @@ class DataProxy
 			return false;
 		}
 
-		$results = array_map(array($this, 'hydrate_quote'), $results);
+		$results = array_map(function ($x) {
+			return new QuoteModel($x);
+		}, $results);
 		$this->to_cache($cache_key, json_encode($results), $cache_time);
 
 		return [
@@ -293,19 +298,19 @@ class DataProxy
 
 		$LIMIT = " LIMIT 20 ";
 
-		$sql = "SELECT quote_lc, tags_lc, sayer_lc FROM quotes WHERE id = :id LIMIT 1";
+		$sql = "SELECT quote_lc, tags, sayer_lc FROM quotes WHERE id = :id LIMIT 1";
 		$terms = $this->db->exec($sql, [":id" => $quote_id]);
-		// !d($sql, $quote_id, $terms[0]["quote_lc"], $terms[0]["tags_lc"], $this->db->count());
+		// !d($sql, $quote_id, $terms[0]["quote_lc"], $terms[0]["tags"], $this->db->count());
 
 		$sql = "
 			SELECT *, 
 				MATCH (quote_lc) AGAINST (:quote_lc IN NATURAL LANGUAGE MODE) AS quote_score, 
-				MATCH (tags_lc) AGAINST (:tags_lc IN NATURAL LANGUAGE MODE) AS tags_score, 
+				MATCH (tags) AGAINST (:tags IN NATURAL LANGUAGE MODE) AS tags_score, 
 				MATCH (sayer_lc) AGAINST (:sayer_lc IN NATURAL LANGUAGE MODE) AS sayer_score 
 			FROM quotes 
 			WHERE id <> :id AND (
 				MATCH (quote_lc) AGAINST (:quote_lc IN NATURAL LANGUAGE MODE) 
-				OR MATCH (tags_lc) AGAINST (:tags_lc IN NATURAL LANGUAGE MODE) 
+				OR MATCH (tags) AGAINST (:tags IN NATURAL LANGUAGE MODE) 
 				OR MATCH (sayer_lc) AGAINST (:sayer_lc IN NATURAL LANGUAGE MODE)
 			) 
 			ORDER BY quote_score DESC, tags_score DESC, sayer_score DESC
@@ -316,7 +321,7 @@ class DataProxy
 		$results = $this->db->exec($sql, [
 			":id" => $quote_id,
 			":quote_lc" => $terms[0]["quote_lc"],
-			":tags_lc" => $terms[0]["tags_lc"],
+			":tags" => $terms[0]["tags"],
 			":sayer_lc" => $terms[0]["sayer_lc"]
 		]);
 
@@ -326,7 +331,9 @@ class DataProxy
 			return false;
 		}
 
-		$results = array_map(array($this, 'hydrate_quote'), $results);
+		$results = array_map(function ($x) {
+			return new QuoteModel($x);
+		}, $results);
 		$this->to_cache($cache_key, json_encode($results), $cache_time);
 
 		return [
@@ -334,42 +341,42 @@ class DataProxy
 		];
 	}
 
-	function hydrate_quote($quote)
-	{
-		$quote["tags"] = explode(",", $quote["tags"]);
-		$quote["tags_links"] = implode("", array_map(function ($tag) {
-			return "<a class=\"tag\" href='" . site_url("quotes/tag") . "/" . strtolower(trim($tag)) . "' title='Alle uitspraken met tag {$tag}'>{$tag}</a>";
-		}, $quote["tags"]));
-		$quote["link"] = $this->get_quote_link($quote);
-		$quote["sayer_link"] = $this->get_sayer_link($quote);
-		$quote["submitter_link"] = $this->get_submitter_link($quote);
-		$quote["ago"] = time_elapsed_string($quote["created"]);
-		return $quote;
-	}
+	// function hydrate_quote($quote)
+	// {
+	// 	// $quote["tags"] = explode(",", $quote["tags"]);
+	// 	// $quote["tags_links"] = implode("", array_map(function ($tag) {
+	// 	// 	return "<a class=\"tag\" href='" . site_url("quotes/tag") . "/" . strtolower(trim($tag)) . "' title='Alle uitspraken met tag {$tag}'>{$tag}</a>";
+	// 	// }, $quote["tags"]));
+	// 	// $quote["link"] = $this->get_quote_link($quote);
+	// 	// $quote["sayer_link"] = $this->get_sayer_link($quote);
+	// 	// $quote["submitter_link"] = $this->get_submitter_link($quote);
+	// 	// $quote["ago"] = time_elapsed_string($quote["created"]);
+	// 	return $quote;
+	// }
 
-	function get_quote_link($quote)
-	{
-		if (is_string($quote)) {
-			$quote = $this->get_quote($quote);
-		}
-		return site_url("/quote/{$quote['slug']}");
-	}
+	// function get_quote_link($quote)
+	// {
+	// 	if (is_string($quote)) {
+	// 		$quote = $this->get_quote($quote);
+	// 	}
+	// 	return site_url("/quote/{$quote['slug']}");
+	// }
 
-	function get_sayer_link($quote)
-	{
-		if (is_string($quote)) {
-			$quote = $this->get_quote($quote);
-		}
-		return site_url("/quotes/by/{$quote['sayer_slug']}");
-	}
+	// function get_sayer_link($quote)
+	// {
+	// 	if (is_string($quote)) {
+	// 		$quote = $this->get_quote($quote);
+	// 	}
+	// 	return site_url("/quotes/by/{$quote['sayer_slug']}");
+	// }
 
-	function get_submitter_link($quote)
-	{
-		if (is_string($quote)) {
-			$quote = $this->get_quote($quote);
-		}
-		return site_url("/quotes/from/{$quote['submitter_slug']}");
-	}
+	// function get_submitter_link($quote)
+	// {
+	// 	if (is_string($quote)) {
+	// 		$quote = $this->get_quote($quote);
+	// 	}
+	// 	return site_url("/quotes/from/{$quote['submitter_slug']}");
+	// }
 
 	public function get_top_tags()
 	{
