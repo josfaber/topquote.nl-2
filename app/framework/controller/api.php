@@ -2,7 +2,9 @@
 
 namespace Controller;
 
-class Api
+use Controller\Base;
+
+class Api extends Base
 {
 	function vote(\Base $f3, $params)
 	{
@@ -26,7 +28,7 @@ class Api
 		$quote = $dataproxy->get_quote($id);
 		if (!$quote) ajax_output(["success" => false]);
 
-		ajax_output(array_merge(["success" => true], $quote));
+		ajax_output(array_merge(["success" => true], $quote->toArray()));
 	}
 
 	function quotes(\Base $f3, $params)
@@ -85,7 +87,9 @@ class Api
 			"page" => $page,
 			"filter" => $filter,
 			"slug" => $slug,
-			"quotes" => $quotes["results"],
+			"quotes" => array_map(function ($x) {
+				return $x->toArray();
+			}, $quotes["results"]),
 		]);
 	}
 
@@ -96,10 +100,10 @@ class Api
 		$quotes = $dataproxy->get_quotes(null, null, null, $dataproxy::$ORDER_CREATED, $dataproxy::$ORDER_DESC, 1, 1);
 
 		ajax_output([
-			"quote" => $quotes["results"][0]["quote"],
-			"sayer" => $quotes["results"][0]["sayer"],
-			"submitter" => $quotes["results"][0]["submitter"],
-			"created" => $quotes["results"][0]["created"],
+			"quote" => $quotes["results"][0]->getQuote(),
+			"sayer" => $quotes["results"][0]->getSayer(),
+			"submitter" => $quotes["results"][0]->getSubmitter(),
+			"created" => $quotes["results"][0]->getCreated()->format('Y-m-d H:i:s'),
 		]);
 	}
 }

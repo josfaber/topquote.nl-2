@@ -1,6 +1,6 @@
 {% extends "base.html.twig" %}
 
-{% block title %}{% if not edit %}Voeg nieuwe quote toe{% endif %}{% if edit %}Quote bewerken{% endif %}{% endblock %}
+{% block title %}{% if not edit %}Voeg nieuwe groep toe{% endif %}{% if edit %}Groep bewerken{% endif %}{% endblock %}
 {% block head %}
 {{ parent() }}
 <meta property="og:title" content="{{ site_title }}" />
@@ -12,50 +12,38 @@
 {% block content %}
 
 <div class="readable">
-    <form id="{% if not edit %}addForm{% endif %}{% if edit %}editForm{% endif %}" method="post" class="add-form" {% if edit %}action="{{ edit_url }}"{% endif %}>
+    <form id="{% if not edit %}addGroupForm{% endif %}{% if edit %}editGroupForm{% endif %}" method="post" class="add-form" {% if edit %}action="{{ edit_url }}"{% endif %}>
         {% if edit %}
         <input type="hidden" id="f_is_delete" name="is_delete" value="0">
-        <input type="hidden" name="quote_id" value="{{ quote_id }}">
+        <input type="hidden" name="group_id" value="{{ group_id }}">
         <input type="hidden" name="modkey" value="{{ modkey }}">
         {% endif %}
         <fieldset>
             <legend>
-                {% if not edit %}Sla een nieuwe quote op{% endif %}
-                {% if edit %}Quote bewerken{% endif %}
+                {% if not edit %}Maak een nieuwe privé groep{% endif %}
+                {% if edit %}Groep bewerken{% endif %}
             </legend>
-            <div class="label-group">
-                <label for="f_quote">Quote</label>
-                <p class="info">Wat werd er gezegd?</p>
-            </div>
-            <div class="v"><textarea required name="quote" rows="3" id="f_quote">{{ quote }}</textarea></div>
+            {% if not edit %}<p>Daarna kun je quotes maken in je vers gemaakte groep. Deze zijn alleen te zien door mensen met de login link, die je in een e-mail ontvangt.</p>{% endif %}
         </fieldset>
-        <div class="cols">
-            <fieldset>
-                <div class="label-group">
-                    <label for="f_by">Wie zei het?</label>
-                    {# <p class="info">Naam</p> #}
-                </div>  
-                <div class="v"><input required type="text" name="by" id="f_by" value="{{ by }}"></div>
-            </fieldset>
-            <fieldset>
-                <div class="label-group">
-                    <label for="f_from">Jouw naam</label>
-                    {# <p class="info">Voornaam</p> #}
-                </div>  
-                <div class="v"><input required type="text" name="from" id="f_from" value="{{ from }}"></div>
-            </fieldset>
-        </div>
+
+        {% if not edit %}<div class="cols">{% endif %}
+        {% if not edit %}<fieldset>
+            <div class="label-group">
+                <label for="f_tags">Groepnaam</label>
+            </div>  
+            <div class="v"><input type="text" name="group" id="f_group" value="{{ group }}"></div>
+        </fieldset>{% endif %}
         <fieldset>
             <div class="label-group">
-                <label for="f_tags">Labels</label>
-                <p class="info">Bijv.: inspiratie, jinek, ah</p>
+                <label for="f_tags">Groep wachtwoord</label>
             </div>  
-            <div class="v"><input type="text" name="tags" id="f_tags" value="{{ tags }}"></div>
+            <div class="v"><input type="text" name="password" id="f_password" value="{{ password }}"></div>
         </fieldset>
+        {% if not edit %}</div>{% endif %}
         {% if not edit %}
         <fieldset><label for="f_email">E-mailadres</label>
             <div class="v"><input required type="email" name="email" id="f_email" value="{{ email }}"></div>
-            <p class="info">Je krijgt een mail met link om de quote te kunnen verwijderen. En misschien ooit een nieuwtje. We geven &rsquo;m nooit aan derden. Beloofd!</p>
+            <p class="info">Je krijgt een mail met links om de groep te kunnen delen en bewerken. En misschien ooit een nieuwtje. We geven &rsquo;m nooit aan derden. Beloofd!</p>
         </fieldset>
         {% endif %}
         <fieldset class="submit">
@@ -73,7 +61,7 @@
         <!---->
         {% if edit %}
         <fieldset>
-        <a href="/" id="btnDelete" class="delete"><span class="icon-bin"></span></a>
+        <a href="/" id="btnDeleteGroup" class="delete"><span class="icon-bin"></span></a>
         </fieldset>
         {% endif %}
 

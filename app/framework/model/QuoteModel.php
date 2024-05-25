@@ -53,7 +53,7 @@ class QuoteModel
 			'quote' => $this->getQuote(),
 			'sayer' => $this->getSayer(),
 			'submitter' => $this->getSubmitter(),
-			'tags' => serialize($this->getTags()),
+			'tags' => $this->getTags(),
 			'hits' => $this->getHits(),
 			'likes' => $this->getLikes(),
 			'is_private' => $this->getIsPrivate(),
@@ -188,27 +188,32 @@ class QuoteModel
 		$now = new DateTime;
 		$diff = $now->diff($this->created);
 
-		$weeks = floor($diff->d / 7);
-		$diff->d -= $weeks * 7;
+		// convert DateInterval $diff to stdCls object 
+		$diff = json_decode(json_encode($diff));
 
-		$string = array(
+		$diff->w = floor($diff->d / 7);
+		$diff->d -= $diff->w * 7;
+
+		$mapping = array(
 			'y' => ['jaar', 'jaar'],
 			'm' => ['maand', 'maand'],
+			'w' => ['week', 'weken'],
 			'd' => ['dag', 'dagen'],
 			'h' => ['uur', 'uur'],
 			'i' => ['minuut', 'minuten'],
 			's' => ['seconde', 'seconden'],
 		);
-		foreach ($string as $k => &$v) {
-			if (isset($diff->$k)) {
-				$v = $diff->$k . ' ' . ($diff->$k > 1 ? $v[1] : $v[0]);
+		foreach ($mapping as $key => &$value) {
+			// d($key, $diff->$key, $value, isset($diff->$key));
+			if (isset($diff->$key) && $diff->$key > 0) {
+				$value = $diff->$key . ' ' . ($diff->$key > 1 ? $value[1] : $value[0]);
 			} else {
-				unset($string[$k]);
+				unset($mapping[$key]);
 			}
 		}
 
-		if (TRUE !== $full) $string = array_slice($string, 0, 1);
-		return $string ? implode(', ', $string) . ' geleden' : 'zojuist';
+		if (TRUE !== $full) $mapping = array_slice($mapping, 0, 1);
+		return $mapping ? implode(', ', $mapping) . ' geleden' : 'zojuist';
 	}
 
 	public function getTagsLinks(): string

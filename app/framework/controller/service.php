@@ -2,9 +2,11 @@
 
 namespace Controller;
 
+use Controller\Base;
+
 use \imagettfbox;
 
-class Service
+class Service extends Base
 {
 	function poster(\Base $f3, $params)
 	{

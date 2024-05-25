@@ -1,0 +1,49 @@
+{% extends "base.html.twig" %}
+
+{% block title %}Groep aanmaken{% endblock %}
+{% block head %}
+{{ parent() }}
+<meta property="og:title" content="{{ site_title }}" />
+<meta property="og:url" content="{{ tqd.site_url }}/add" />
+<meta property="og:type" content="website" />
+<meta name="description" content="Sla alle quotes, citaten en uitspraken van je collega s, kinderen, vrienden en (on)bekenden op zonder account">
+<meta property="og:description" content="Sla alle quotes, citaten en uitspraken van je collega s, kinderen, vrienden en (on)bekenden op zonder account" />
+{% endblock %}
+{% block content %}
+
+<div class="readable">
+    <form id="groupLoginForm" method="post" class="add-form">
+        <fieldset>
+            <legend>
+                Toegang voor groep '{{ group.name }}'
+            </legend>
+        </fieldset>
+        <div class="cols">
+            <fieldset>
+                <div class="label-group">
+                    <label for="f_by">Wachtwoord</label>
+                    {# <p class="info">Naam</p> #}
+                </div>  
+                <div class="v"><input required type="password" name="password" id="f_password" value="{{ password }}"></div>
+            </fieldset>
+            <fieldset class="submit">
+                <button>Inloggen</button>
+            </fieldset>
+        </div>
+        <fieldset>
+            <p class="disclaimer">Dit formulier wordt beschermd door reCAPTCHA en Google’s <a target="_blank"
+            rel="noopener norererer" href="https://policies.google.com/privacy">Privacybeleid</a> en <a target="_blank"
+            rel="noopener norererer" href="https://policies.google.com/terms">Servicevoorwaarden</a> zijn van
+            toepassing.</p>
+        </fieldset>
+        <input type="hidden" name="rtoken" id="rtoken">
+
+    </form>
+</div>
+
+{% endblock %}
+
+{% block scripts %}
+<script src="https://www.google.com/recaptcha/api.js?render={{ RECAPTCHA_SITE_KEY }}"></script>
+{{ parent() }}
+{% endblock %}

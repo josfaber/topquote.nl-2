@@ -2,8 +2,10 @@
 
 namespace Controller;
 
+use Controller\Base;
 
-class Tools
+
+class Tools extends Base
 {
 	// function rank(\Base $f3, $params)
 	// {

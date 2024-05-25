@@ -2,7 +2,9 @@
 
 namespace Controller;
 
-class Home
+use Controller\Base;
+
+class Home extends Base
 {
 	function index(\Base $f3, $params)
 	{

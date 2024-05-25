@@ -13,6 +13,10 @@ require FW_DIR . '/functions.php';
 // Fat Free Rendering! 
 $f3 = \Base::instance();
 $f3->set('AUTOLOAD', FW_DIR . '/');
+$f3->set('CACHE', 'folder=/tmp/f3filescache/');
+
+// Enable sessions 
+
 
 // Error reporting
 if (defined('ENVIRONMENT') && ENVIRONMENT == 'development') {

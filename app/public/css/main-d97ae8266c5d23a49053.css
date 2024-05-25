@@ -320,6 +320,7 @@ button {
     margin: 32px 0 0; }
 
 input[type="text"],
+input[type="password"],
 input[type="email"],
 textarea {
   font-size: 1rem;
@@ -328,6 +329,7 @@ textarea {
   border-radius: 0;
   border: none; }
   input[type="text"]:focus,
+  input[type="password"]:focus,
   input[type="email"]:focus,
   textarea:focus {
     font-weight: 600; }
@@ -574,9 +576,8 @@ a.delete {
           position: absolute;
           top: 56px;
           right: 0;
-          display: flex;
+          padding-bottom: 20px;
           justify-content: space-between;
-          align-items: center;
           background-color: var(--primary-color-bg);
           box-shadow: 0 2px 20px var(--primary-color-bg);
           pointer-events: none;
@@ -586,6 +587,24 @@ a.delete {
           visibility: hidden;
           -webkit-backface-visibility: hidden;
           -webkit-transform-style: preserve-3d; }
+          .topbar .menu-items .menu label .menu-panel::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            right: 0;
+            width: 4px;
+            height: calc(100% - 4px);
+            background-color: var(--primary-color);
+            transform: translate(100%, 4px); }
+          .topbar .menu-items .menu label .menu-panel::after {
+            content: '';
+            position: absolute;
+            bottom: 0;
+            right: 0;
+            width: calc(100% - 4px);
+            height: 4px;
+            background-color: var(--primary-color);
+            transform: translate(4px, 100%); }
           .topbar .menu-items .menu label .menu-panel ul,
           .topbar .menu-items .menu label .menu-panel li {
             list-style: none; }
@@ -601,8 +620,22 @@ a.delete {
             max-width: 320px;
             font-weight: 500;
             font-size: 1.125rem; }
-            .topbar .menu-items .menu label .menu-panel li a [class^="icon-"], .topbar .menu-items .menu label .menu-panel li a [class*=" icon-"] {
+            .topbar .menu-items .menu label .menu-panel li a [class^="icon-"],
+            .topbar .menu-items .menu label .menu-panel li a [class*=" icon-"] {
               margin-right: 1rem; }
+            .topbar .menu-items .menu label .menu-panel li a.btn-smaller {
+              font-size: 0.7rem;
+              padding: 0.25rem 0.7rem; }
+            .topbar .menu-items .menu label .menu-panel li a.smaller {
+              font-size: 0.8rem; }
+          .topbar .menu-items .menu label .menu-panel ul.row {
+            flex-direction: row;
+            justify-content: center; }
+            .topbar .menu-items .menu label .menu-panel ul.row li a {
+              font-size: 0.875rem; }
+              .topbar .menu-items .menu label .menu-panel ul.row li a [class^="icon-"],
+              .topbar .menu-items .menu label .menu-panel ul.row li a [class*=" icon-"] {
+                margin-right: 0.5rem; }
     .topbar .menu-items .menu-cb:checked + label .spinner-container {
       transform: rotate(-270deg); }
     .topbar .menu-items .menu-cb:checked + label .menu-panel {

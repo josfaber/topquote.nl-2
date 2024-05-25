@@ -100,6 +100,7 @@ class DataProxy
 			return false;
 		}
 
+		/** @var QuoteModel */
 		$quote = new QuoteModel($results[0]);
 		$this->to_cache($cache_key, json_encode($quote), $cache_time);
 
@@ -115,6 +116,23 @@ class DataProxy
 			AND modkey = ? 
 			LIMIT 1
 		", [$quote_id, $modkey]);
+
+		if (!$results || $this->db->count() == 0) {
+			return false;
+		}
+
+		return $results;
+	}
+
+	public function get_group_owner($group_id, $modkey)
+	{
+		$results = $this->db->exec("
+			SELECT * 
+			FROM group_owner 
+			WHERE group_id = ? 
+			AND modkey = ? 
+			LIMIT 1
+		", [$group_id, $modkey]);
 
 		if (!$results || $this->db->count() == 0) {
 			return false;
@@ -149,10 +167,52 @@ class DataProxy
 		return $quote;
 	}
 
-	public function get_quotes($by = null, $from = null, $tag = null, $orderby = 'created', $order = 'DESC', $quotes_per_page = QUOTES_PER_PAGE, $page = 1, $AND = "")
+	public function get_group_by_slug($slug)
+	{
+		$cache_key = 'group_' . md5($slug);
+		$cache_time = 60 * 60;
+		if ($group = $this->from_cache($cache_key)) {
+			return json_decode($group, true);
+		}
+
+		$results = $this->db->exec("
+			SELECT *  
+			FROM groups 
+			WHERE slug = ? 
+			LIMIT 1
+		", [$slug]);
+
+		if (!$results || $this->db->count() == 0) {
+			return false;
+		}
+
+		$group = $results[0];
+		$this->to_cache($cache_key, json_encode($group), $cache_time);
+
+		return $group;
+	}
+
+	public function get_group_by_id($id)
+	{
+		$results = $this->db->exec("
+			SELECT *  
+			FROM groups 
+			WHERE id = ? 
+			LIMIT 1
+		", [$id]);
+
+		if (!$results || $this->db->count() == 0) {
+			return false;
+		}
+
+		$group = $results[0];
+
+		return $group;
+	}
+
+	public function get_quotes($by = null, $from = null, $tag = null, $orderby = 'created', $order = 'DESC', $quotes_per_page = QUOTES_PER_PAGE, $page = 1, $AND = "", $group_id = null)
 	{
 		$key_post = ($by ?? "") . '-' . ($from ?? "") . '-' . ($tag ?? "") . '-' . ($orderby ?? "") . '-' . ($order ?? "") . '-' . ($quotes_per_page ?? "") . '-' . ($page ?? "") . '-' . ($AND ?? "");
-		// !d($key_post, md5($key_post));
 		$cache_key = 'quotes_' . md5($key_post);
 		$cache_time = $orderby == self::$ORDER_RANDOM ? 60 * 5 : 60 * 30;
 
@@ -179,8 +239,14 @@ class DataProxy
 		if ($tag != null) {
 			$WHERE = "WHERE tags LIKE :tag ";
 			$bounds = [":tag" => "%{$tag}%"];
-			// $WHERE = "WHERE find_in_set(:tag, tags_lc)";
-			// $bounds = [":tag" => $tag];
+		}
+
+		if (!is_null($group_id)) {
+			$PRIVATE_GROUP = "";
+			$WHERE = "WHERE group_id = :group_id ";
+			$bounds = [":group_id" => $group_id];
+		} else {
+			$PRIVATE_GROUP = " AND is_private = 0 ";
 		}
 
 		$LIMIT = "LIMIT {$offset_base}, {$quotes_per_page}";
@@ -208,11 +274,10 @@ class DataProxy
 			{$FROM}
 			{$WHERE}
 			{$AND}
+			{$PRIVATE_GROUP}
 			{$ORDER}
 			{$LIMIT}
 		";
-
-		// !d($key_post, $sql);
 
 		$results = $this->db->exec($sql, $bounds);
 
@@ -235,7 +300,6 @@ class DataProxy
 	{
 		// $key_post = ($terms ?? "") . '-' . ($quotes_per_page ?? "") . '-' . ($page ?? "");
 		$key_post = ($terms ?? "");
-		// !d($key_post, md5($key_post));
 		$cache_key = 'search_' . md5($key_post);
 		$cache_time = 60 * 15;
 
@@ -271,8 +335,6 @@ class DataProxy
 			":tags_like" => "%" . $termsAsTags . "%",
 		]);
 
-		// !d($sql, $terms, $results, "%" . $termsAsTags);
-
 		if (!$results || $this->db->count() == 0) {
 			return false;
 		}
@@ -300,7 +362,6 @@ class DataProxy
 
 		$sql = "SELECT quote_lc, tags, sayer_lc FROM quotes WHERE id = :id LIMIT 1";
 		$terms = $this->db->exec($sql, [":id" => $quote_id]);
-		// !d($sql, $quote_id, $terms[0]["quote_lc"], $terms[0]["tags"], $this->db->count());
 
 		$sql = "
 			SELECT *, 
@@ -325,8 +386,6 @@ class DataProxy
 			":sayer_lc" => $terms[0]["sayer_lc"]
 		]);
 
-		// !d($sql, $quote_id, $results, $this->db->count());
-
 		if (!$results || $this->db->count() == 0) {
 			return false;
 		}
@@ -340,43 +399,6 @@ class DataProxy
 			"results" => $results
 		];
 	}
-
-	// function hydrate_quote($quote)
-	// {
-	// 	// $quote["tags"] = explode(",", $quote["tags"]);
-	// 	// $quote["tags_links"] = implode("", array_map(function ($tag) {
-	// 	// 	return "<a class=\"tag\" href='" . site_url("quotes/tag") . "/" . strtolower(trim($tag)) . "' title='Alle uitspraken met tag {$tag}'>{$tag}</a>";
-	// 	// }, $quote["tags"]));
-	// 	// $quote["link"] = $this->get_quote_link($quote);
-	// 	// $quote["sayer_link"] = $this->get_sayer_link($quote);
-	// 	// $quote["submitter_link"] = $this->get_submitter_link($quote);
-	// 	// $quote["ago"] = time_elapsed_string($quote["created"]);
-	// 	return $quote;
-	// }
-
-	// function get_quote_link($quote)
-	// {
-	// 	if (is_string($quote)) {
-	// 		$quote = $this->get_quote($quote);
-	// 	}
-	// 	return site_url("/quote/{$quote['slug']}");
-	// }
-
-	// function get_sayer_link($quote)
-	// {
-	// 	if (is_string($quote)) {
-	// 		$quote = $this->get_quote($quote);
-	// 	}
-	// 	return site_url("/quotes/by/{$quote['sayer_slug']}");
-	// }
-
-	// function get_submitter_link($quote)
-	// {
-	// 	if (is_string($quote)) {
-	// 		$quote = $this->get_quote($quote);
-	// 	}
-	// 	return site_url("/quotes/from/{$quote['submitter_slug']}");
-	// }
 
 	public function get_top_tags()
 	{

@@ -2,7 +2,11 @@
 
 namespace Controller;
 
-class Quote
+use Controller\Base;
+
+use TopQuote\Model\QuoteModel;
+
+class Quote extends Base
 {
 
 	function detail(\Base $f3, $params)
@@ -19,21 +23,12 @@ class Quote
 			$f3->error(404);
 		}
 
-		// !d($params["slug"], $quote["slug"]);
-		// exit;
-
 		// redirect to canonical URL
 		if ($params["slug"] != $quote->getSlug()) {
 			$f3->reroute(site_url("quote/{$quote->getSlug()}"));
 		}
 
-		$related = $dataproxy->get_related_quotes($quote->getId());
-		// !d($related);
-		if (!$related) {
-			$related = array("results" => []);
-		}
-
-		// !d( $results );
+		$related = $dataproxy->get_related_quotes($quote->getId()) ?? ["results" => []];
 
 		render_template('quote.html.twig', [
 			"is_single_quote" => true,
@@ -56,6 +51,7 @@ class Quote
 		}
 
 		global $dataproxy;
+		/** @var QuoteModel */
 		$quote = $dataproxy->get_quote($_GET["id"], true);
 		$quote_owner = $dataproxy->get_quote_owner($_GET["id"], $_GET["key"]);
 
@@ -65,12 +61,12 @@ class Quote
 
 		render_template('add.html.twig', [
 			"edit_url" => site_url('mod'),
-			"quote_id" => $quote["id"],
+			"quote_id" => $quote->getId(),
 			"modkey" => $_GET["key"],
-			"quote" => $quote["quote"],
-			"by" => $quote["sayer"],
-			"from" => $quote["submitter"],
-			"tags" => implode(",", $quote["tags"]),
+			"quote" => $quote->getQuote(),
+			"by" => $quote->getSayer(),
+			"from" => $quote->getSubmitter(),
+			"tags" => implode(",", $quote->getTags()),
 			"edit" => true
 		]);
 	}
@@ -83,6 +79,7 @@ class Quote
 		}
 
 		global $dataproxy;
+		/** @var QuoteModel */
 		$quote = $dataproxy->get_quote($_POST["quote_id"], true);
 		$quote_owner = $dataproxy->get_quote_owner($_POST["quote_id"], $_POST["modkey"]);
 
@@ -123,7 +120,7 @@ class Quote
 		$slug = slugify($quote, 200);
 		$sayer = trim($_POST["by"]);
 		$submitter = trim($_POST["from"]);
-		$tags = implode(",", array_map("tagify", explode(",", $_POST["tags"])));
+		$tags = array_map("tagify", explode(",", $_POST["tags"]));
 
 		$db_quote->slug = $slug;
 		$db_quote->quote = $quote;
@@ -134,8 +131,7 @@ class Quote
 		$db_quote->submitter = $submitter;
 		$db_quote->submitter_lc = strtolower($submitter);
 		$db_quote->submitter_slug = slugify($submitter);
-		$db_quote->tags = $tags;
-		$db_quote->tags_lc = strtolower($tags);
+		$db_quote->tags = serialize($tags);
 		$db_quote->save();
 
 		render_template('jump.html.twig', [
@@ -160,7 +156,7 @@ class Quote
 			$slug = slugify($quote, 200);
 			$sayer = trim($_POST["by"]);
 			$submitter = trim($_POST["from"]);
-			$tags = implode(",", array_map("tagify", explode(",", $_POST["tags"])));
+			$tags = array_map("tagify", explode(",", $_POST["tags"]));
 
 			$email = trim($_POST["email"]);
 			// @todo validate email 
@@ -179,8 +175,7 @@ class Quote
 			$db_quote->submitter = $submitter;
 			$db_quote->submitter_lc = strtolower($submitter);
 			$db_quote->submitter_slug = slugify($submitter);
-			$db_quote->tags = $tags;
-			$db_quote->tags_lc = strtolower($tags);
+			$db_quote->tags = serialize($tags);
 			$db_quote->save();
 
 			$quote_id = $db_quote->id;
@@ -194,7 +189,7 @@ class Quote
 			$db_quote_owner->save();
 
 			$html = "<blockquote><p>{$quote}</p><cite>{$sayer}</cite></blockquote><ul>";
-			foreach (explode(",", $tags) as $tag) {
+			foreach ($tags as $tag) {
 				$html .= "<li>{$tag}</li>";
 			}
 			$html .= "</ul>";

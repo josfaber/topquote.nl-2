@@ -9,8 +9,11 @@ import copy from 'copy-to-clipboard';
 let main_el,
     menucb,
     addForm,
+    addGroupForm,
+    groupLoginForm,
     feedbackForm,
     btn_delete,
+    btn_delete_group,
     btn_search;
 
 const updateColor = ( c ) => {
@@ -306,6 +309,41 @@ document.addEventListener( 'DOMContentLoaded', ( event ) => {
         } );
     }
 
+    // handle add group form 
+    addGroupForm = document.getElementById( 'addGroupForm' );
+    if ( addGroupForm )
+    {
+        const f_email = document.getElementById( 'f_email' );
+        !f_email || ( f_email.value = Cookies.get( 'tqeml' ) || "" );
+        addGroupForm.addEventListener( 'submit', ( e ) => {
+            e.preventDefault();
+            grecaptcha.ready( function () {
+                grecaptcha.execute( window.tqd.rsk, { action: 'submit' } ).then( ( token ) => {
+                    document.getElementById( 'rtoken' ).value = token;
+                    if ( f_email ) Cookies.set( 'tqeml', f_email.value, { expires: 365 } );
+                    showLoader();
+                    e.target.submit();
+                } );
+            } );
+        } );
+    }
+
+    // handle group login form 
+    groupLoginForm = document.getElementById( 'groupLoginForm' );
+    if ( groupLoginForm )
+    {
+        groupLoginForm.addEventListener( 'submit', ( e ) => {
+            e.preventDefault();
+            grecaptcha.ready( function () {
+                grecaptcha.execute( window.tqd.rsk, { action: 'submit' } ).then( ( token ) => {
+                    document.getElementById( 'rtoken' ).value = token;
+                    showLoader();
+                    e.target.submit();
+                } );
+            } );
+        } );
+    }
+
     // handle delete on editForm
     btn_delete = document.getElementById( 'btnDelete' );
     if ( btn_delete )
@@ -316,6 +354,20 @@ document.addEventListener( 'DOMContentLoaded', ( event ) => {
             {
                 document.getElementById( 'f_is_delete' ).value = 1;
                 document.getElementById( 'editForm' ).submit();
+            }
+        } );
+    }
+
+    // handle delete on group editForm
+    btn_delete_group = document.getElementById( 'btnDeleteGroup' );
+    if ( btn_delete_group )
+    {
+        btn_delete_group.addEventListener( 'click', ( e ) => {
+            e.preventDefault();
+            if ( confirm( "Weet je zeker dat je de groep en alle quotes in die groep wilt verwijderen?" ) )
+            {
+                document.getElementById( 'f_is_delete' ).value = 1;
+                document.getElementById( 'editGroupForm' ).submit();
             }
         } );
     }

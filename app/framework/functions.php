@@ -33,17 +33,24 @@ function get_css_js_array($extra_css_files = [], $extra_js_files = [])
 function get_defaults_array()
 {
     global $assets_manifest, $orderby, $order, $page, $f3;
+
     $inlinecss = file_get_contents(PUBLIC_DIR . "/" . $assets_manifest["inline.css"]);
+
     return [
         "tqd" => array_merge($f3->get("PARAMS"), [ // merge filter and slug with defaults
-            "site_url"        => site_url(),
-            "api_url"        => site_url('api'),
-            "orderby"        => $orderby,
-            "order"            => $order,
+            "site_url" => site_url(),
+            "api_url" => site_url('api'),
+            "orderby" => $orderby,
+            "order" => $order,
+            "ses_grp_id" => $f3->get('SESSION.tq_group_id'),
+            "ses_grp_h" => $f3->get('SESSION.tq_group_h'),
+            "ses_grp_name" => $f3->get('SESSION.tq_group_name'),
+            "ses_grp_slug" => $f3->get('SESSION.tq_group_slug'),
+            "ses_loggedin" => !empty($f3->get('SESSION.tq_group_id')) && !empty($f3->get('SESSION.tq_group_h')),
         ]),
         "tqd_num" => [
-            "page"            => $page,
-            "qpp"            => QUOTES_PER_PAGE,
+            "page" => $page,
+            "qpp" => QUOTES_PER_PAGE,
         ],
         "website_schema" => get_website_schema(),
         "site_title" => SITE_TITLE,
@@ -54,7 +61,7 @@ function get_defaults_array()
     ];
 }
 
-function render_template($filename, $vars, $extra_css_files = [], $extra_js_files = [])
+function render_template($filename, $vars = [], $extra_css_files = [], $extra_js_files = [])
 {
     $template = get_twig()->load($filename);
     echo $template->render(array_merge(
