@@ -1,15 +1,12 @@
 {
   ".DS_Store": ".DS_Store",
-  "font/icomoon.eot?x5dx53": "font/icomoon.eot",
-  "font/icomoon.ttf?x5dx53": "font/icomoon.ttf",
-  "font/icomoon.woff2?x5dx53": "font/icomoon.woff2",
-  "font/icomoon.woff?x5dx53": "font/icomoon.woff",
-  "home.js": "js/home-a5659d1153e8bdac26de.js",
-  "inline.css": "css/inline-a5659d1153e8bdac26de.css",
-  "inline.js": "js/inline-a5659d1153e8bdac26de.js",
-  "main.css": "css/main-a5659d1153e8bdac26de.css",
-  "main.js": "js/main-a5659d1153e8bdac26de.js",
-  "quotes.js": "js/quotes-a5659d1153e8bdac26de.js",
-  "slide.js": "js/slide-a5659d1153e8bdac26de.js",
+  "home.js": "js/home-4bbc64aff323a07e5b1c.js",
+  "icomoon.svg?x5dx53": "e3094a32dd0f3735ec5b.svg?x5dx53",
+  "inline.css": "css/inline-4bbc64aff323a07e5b1c.css",
+  "inline.js": "js/inline-4bbc64aff323a07e5b1c.js",
+  "main.css": "css/main-4bbc64aff323a07e5b1c.css",
+  "main.js": "js/main-4bbc64aff323a07e5b1c.js",
+  "quotes.js": "js/quotes-4bbc64aff323a07e5b1c.js",
+  "slide.js": "js/slide-4bbc64aff323a07e5b1c.js",
   "version": "1.1.1"
 }

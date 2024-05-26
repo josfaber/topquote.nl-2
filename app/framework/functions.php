@@ -12,7 +12,14 @@ function uri_segments()
 function get_twig()
 {
     $loader = new \Twig\Loader\FilesystemLoader(BASE_DIR . '/templates');
-    return new \Twig\Environment($loader, USE_TWIG_CACHE ? array('cache' => BASE_DIR . '/templates/cache') : array('cache' => false));
+    // return new \Twig\Environment($loader, USE_TWIG_CACHE ? array('cache' => BASE_DIR . '/templates/cache') : array('cache' => false));
+    $twig = new \Twig\Environment($loader, [
+        'debug' => true,
+        'cache' => USE_TWIG_CACHE ? BASE_DIR . '/templates/cache' : false,
+    ]);
+
+    $twig->addExtension(new \Twig\Extension\DebugExtension());
+    return $twig;
 }
 
 function get_asset_manifest()

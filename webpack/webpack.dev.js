@@ -18,18 +18,18 @@ module.exports = merge( common, {
         rules: [
             {
                 test: /\.(png|jpg|jpeg|gif)$/,
-                type: 'asset/resource',
+                type: 'asset',
                 generator: {
                     filename: 'img/[name][ext]',
                 },
             },
             {
                 test: /\.svg$/,
-                type: 'asset/inline',
+                type: 'asset',
             },
             {
                 test: /\.(woff|woff2|eot|ttf|otf)$/,
-                type: 'asset/resource',
+                type: 'asset',
                 generator: {
                     filename: 'font/[name][ext]',
                 },

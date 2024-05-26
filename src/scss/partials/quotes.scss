@@ -71,7 +71,8 @@ blockquote {
         //     align-items: center;
         // }
                         
-        [class^="icon-"], [class*=" icon-"] {
+        [class^="icon-"], [class*=" icon-"],
+        [class^="icon2-"], [class*=" icon2-"] {
             margin-left: 0.5em;
             margin-right: 0.5em;
 

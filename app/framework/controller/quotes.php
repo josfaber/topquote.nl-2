@@ -153,7 +153,6 @@ class Quotes extends Base
 
 		// get quotes
 		$quotes = $dataproxy->search_quotes($params["terms"]);
-		// !d($params);
 
 		render_template('quotes.html.twig', [
 			"is_search" => true,

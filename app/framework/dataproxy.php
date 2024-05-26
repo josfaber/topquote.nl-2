@@ -298,6 +298,8 @@ class DataProxy
 	// public function search_quotes($terms = "", $quotes_per_page = QUOTES_PER_PAGE, $page = 1)
 	public function search_quotes($terms = "")
 	{
+		global $f3;
+
 		// $key_post = ($terms ?? "") . '-' . ($quotes_per_page ?? "") . '-' . ($page ?? "");
 		$key_post = ($terms ?? "");
 		$cache_key = 'search_' . md5($key_post);
@@ -307,38 +309,55 @@ class DataProxy
 			return ["results" => json_decode($results, true)];
 		}
 
-		// $offset_base = ($page - 1) * $quotes_per_page;
+		// !d(
+		// 	$f3->get('SESSION.tq_group_id'),
+		// 	$f3->get('SESSION.tq_group_h'),
+		// );
+		// exit;
 
-		// $LIMIT = "LIMIT {$offset_base}, {$quotes_per_page}";
 		$LIMIT = " LIMIT 400 ";
 
 		$termsAsTags = tagify($terms);
 
-		$sql = "
-			SELECT *, MATCH (quote_lc,sayer_lc,submitter_lc,tags) AGAINST (:terms IN NATURAL LANGUAGE MODE) AS score 
-			FROM quotes 
-			WHERE 1 = 2 
-			OR MATCH (quote_lc,sayer_lc,submitter_lc,tags) AGAINST (:terms IN NATURAL LANGUAGE MODE) 
-			OR MATCH (quote_lc,sayer_lc,submitter_lc,tags) AGAINST (:tags IN NATURAL LANGUAGE MODE) 
-			OR sayer_lc LIKE :tags_like 
-			OR submitter_lc LIKE :tags_like 
-			OR tags LIKE :tags_like 
-			OR quote_lc LIKE :terms_like 
-			ORDER BY score DESC
-			{$LIMIT}  
-		";
-
-		$results = $this->db->exec($sql, [
+		$bounds = [
 			":terms" => $terms,
 			":terms_like" => "%" . $terms . "%",
 			":tags" => $termsAsTags,
 			":tags_like" => "%" . $termsAsTags . "%",
-		]);
+		];
+
+		$PRIVATE_JOIN = " ";
+		$PRIVATE_GROUP = " AND is_private = 0 ";
+		if (!empty($f3->get('SESSION.tq_group_id')) && !empty($f3->get('SESSION.tq_group_h'))) {
+			$PRIVATE_JOIN = " LEFT JOIN groups ON quotes.group_id = groups.id ";
+			$PRIVATE_GROUP = " AND (is_private = 0 OR (quotes.group_id = :group_id AND groups.hash = :group_hash )) ";
+			$bounds[":group_id"] = $f3->get('SESSION.tq_group_id');
+			$bounds[":group_hash"] = $f3->get('SESSION.tq_group_h');
+		}
+
+		$sql = "
+			SELECT quotes.*, MATCH (quote_lc,sayer_lc,submitter_lc,tags) AGAINST (:terms IN NATURAL LANGUAGE MODE) AS score 
+			FROM quotes 
+			{$PRIVATE_JOIN}
+			WHERE (
+				1 = 2 
+				OR MATCH (quote_lc,sayer_lc,submitter_lc,tags) AGAINST (:terms IN NATURAL LANGUAGE MODE) 
+				OR MATCH (quote_lc,sayer_lc,submitter_lc,tags) AGAINST (:tags IN NATURAL LANGUAGE MODE) 
+				OR sayer_lc LIKE :tags_like 
+				OR submitter_lc LIKE :tags_like 
+				OR tags LIKE :tags_like 
+				OR quote_lc LIKE :terms_like
+				)
+			{$PRIVATE_GROUP}
+			ORDER BY score DESC
+			{$LIMIT}  
+		";
+
+		$results = $this->db->exec($sql, $bounds);
 
 		if (!$results || $this->db->count() == 0) {
 			return false;
 		}
-
 		$results = array_map(function ($x) {
 			return new QuoteModel($x);
 		}, $results);
@@ -374,6 +393,7 @@ class DataProxy
 				OR MATCH (tags) AGAINST (:tags IN NATURAL LANGUAGE MODE) 
 				OR MATCH (sayer_lc) AGAINST (:sayer_lc IN NATURAL LANGUAGE MODE)
 			) 
+			AND is_private = 0 
 			ORDER BY quote_score DESC, tags_score DESC, sayer_score DESC
 			{$LIMIT}  
 		";

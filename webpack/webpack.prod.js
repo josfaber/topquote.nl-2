@@ -51,7 +51,7 @@ module.exports = merge(common, {
             },
             {
                 test: /\.(woff|woff2|eot|ttf|otf)$/,
-                type: 'asset/resource',
+                type: 'asset',
                 generator: {
                     filename: 'font/[hash][ext][query]',
                 },
