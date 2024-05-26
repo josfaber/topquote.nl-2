@@ -107,7 +107,6 @@ class Quotes extends Base
 	 */
 	function group(\Base $f3, $params)
 	{
-		global $f3;
 		global $assets_manifest;
 		global $dataproxy;
 

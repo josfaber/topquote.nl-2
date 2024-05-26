@@ -340,6 +340,38 @@ fieldset {
   box-sizing: border-box; }
   fieldset.submit button {
     margin-top: 1rem; }
+  fieldset.radios {
+    display: flex;
+    flex-direction: column;
+    margin-left: 20px; }
+    fieldset.radios .radio {
+      margin: 10px 0 24px; }
+      fieldset.radios .radio input {
+        display: none; }
+      fieldset.radios .radio label {
+        position: relative;
+        padding-left: 40px;
+        height: 24px;
+        display: flex;
+        align-items: center; }
+        fieldset.radios .radio label::before, fieldset.radios .radio label::after {
+          position: absolute;
+          content: "";
+          display: block;
+          cursor: pointer;
+          left: 0;
+          top: 0;
+          width: 24px;
+          height: 24px;
+          border-radius: 50%; }
+        fieldset.radios .radio label::after {
+          box-shadow: 0 0 0 2px black, 0 0 0 4px #a7a7a7; }
+      fieldset.radios .radio p.info {
+        padding-left: 42px; }
+      fieldset.radios .radio input:checked ~ label::before {
+        background: var(--primary-color); }
+      fieldset.radios .radio input:checked ~ label::after {
+        box-shadow: 0 0 0 2px black, 0 0 0 4px var(--primary-color); }
 
 .add-form .cols {
   display: -webkit-box;
@@ -455,7 +487,8 @@ a.delete {
   .share-container .share-buttons {
     display: flex;
     align-items: center; }
-    .share-container .share-buttons [class^="icon-"], .share-container .share-buttons [class*=" icon-"] {
+    .share-container .share-buttons [class^="icon-"],
+    .share-container .share-buttons [class*=" icon-"] {
       font-size: 1.2rem;
       margin: 0.6rem 0.8rem;
       cursor: pointer;
@@ -463,7 +496,8 @@ a.delete {
   @media screen and (max-width: 540px) {
     .share-container {
       flex-direction: column; }
-      .share-container .share-buttons [class^="icon-"], .share-container .share-buttons [class*=" icon-"] {
+      .share-container .share-buttons [class^="icon-"],
+      .share-container .share-buttons [class*=" icon-"] {
         font-size: 2rem;
         margin: 0.6rem 1.2rem; } }
 

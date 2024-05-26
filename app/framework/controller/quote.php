@@ -39,7 +39,14 @@ class Quote extends Base
 
 	function add(\Base $f3, $params)
 	{
+		global $dataproxy;
+
+		if (!empty($f3->get('SESSION.tq_group_id')) && !empty($f3->get('SESSION.tq_group_h'))) {
+			$group = $dataproxy->get_group_by_id($f3->get('SESSION.tq_group_id'));
+		}
+
 		render_template('add.html.twig', [
+			"group" => $group ?? null,
 			"RECAPTCHA_SITE_KEY" => RECAPTCHA_SITE_KEY,
 		]);
 	}
@@ -158,6 +165,8 @@ class Quote extends Base
 			$submitter = trim($_POST["from"]);
 			$tags = array_map("tagify", explode(",", $_POST["tags"]));
 
+			$group_id = !empty($_POST["group"]) ? $_POST["group"] : null;
+
 			$email = trim($_POST["email"]);
 			// @todo validate email 
 			// $modkey = Uuid::uuid4();
@@ -176,6 +185,12 @@ class Quote extends Base
 			$db_quote->submitter_lc = strtolower($submitter);
 			$db_quote->submitter_slug = slugify($submitter);
 			$db_quote->tags = serialize($tags);
+
+			if (!empty($group_id)) {
+				$db_quote->group_id = $group_id;
+				$db_quote->is_private = 1;
+			}
+
 			$db_quote->save();
 
 			$quote_id = $db_quote->id;

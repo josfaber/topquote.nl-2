@@ -1,5 +1,3 @@
-
-
 a.btn,
 button {
     position: relative;
@@ -18,7 +16,7 @@ button {
     @include medium65;
     border: none;
     // border-bottom: 4px solid var(--primary-color);
-    
+
     &::after {
         position: absolute;
         bottom: 0;
@@ -101,6 +99,67 @@ fieldset {
 
     &.submit button {
         margin-top: 1rem;
+    }
+
+    &.radios {
+        display: flex;
+        flex-direction: column;
+        margin-left: 20px;
+
+        .radio {
+            margin: 10px 0 24px;
+
+            input {
+                display: none;
+            }
+    
+            label {
+                position: relative;
+                padding-left: 40px;
+                height: 24px;
+                display: flex;
+                align-items: center;
+                
+                &::before,
+                &::after {
+                    position: absolute;
+                    content: "";
+                    display: block;
+                    cursor: pointer;
+                    left: 0;
+                    top: 0;
+                    width: 24px;
+                    height: 24px;
+                    border-radius: 50%;
+                }
+                
+                &::before {
+                    // background: grey;
+                }
+    
+                &::after {
+                    box-shadow: 0 0 0 2px black, 0 0 0 4px $lighter-grey;
+                }
+            }
+
+            p.info {
+                padding-left: 42px;
+            }
+    
+            input:checked {
+                & ~ label {
+    
+                    &::before {
+                        background: var(--primary-color);
+                    }
+    
+                    &::after {
+                        box-shadow: 0 0 0 2px black, 0 0 0 4px var(--primary-color);
+                    }
+                }
+            }
+        }
+
     }
 }
 
@@ -199,7 +258,7 @@ a.delete {
     transition: transform 300ms $ease-smooth;
     display: flex;
     align-items: center;
-    
+
     &.active {
         transform: translate(-50%, 0);
         transition: transform 400ms $ease-bounce;
@@ -251,7 +310,8 @@ a.delete {
         display: flex;
         align-items: center;
 
-        [class^="icon-"], [class*=" icon-"] {
+        [class^="icon-"],
+        [class*=" icon-"] {
             font-size: 1.2rem;
             margin: 0.6rem 0.8rem;
             cursor: pointer;
@@ -264,7 +324,8 @@ a.delete {
 
         .share-buttons {
 
-            [class^="icon-"], [class*=" icon-"] {
+            [class^="icon-"],
+            [class*=" icon-"] {
                 font-size: 2rem;
                 margin: 0.6rem 1.2rem;
             }
@@ -296,10 +357,21 @@ a.delete {
 
 .whitespace {
 
-    &.h20 { height: 20px; }
-    &.h40 { height: 40px; }
-    &.h80 { height: 80px; }
-    &.h120 { height: 120px; }
+    &.h20 {
+        height: 20px;
+    }
+
+    &.h40 {
+        height: 40px;
+    }
+
+    &.h80 {
+        height: 80px;
+    }
+
+    &.h120 {
+        height: 120px;
+    }
 }
 
 .ascii {

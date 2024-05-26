@@ -6,8 +6,8 @@ class Base
 {
 	function __construct()
 	{
-		global $f3;
-		global $dataproxy;
+		// global $f3;
+		// global $dataproxy;
 
 		// !d(
 		// 	$f3->get('SESSION.tq_group_id'),

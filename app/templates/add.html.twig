@@ -53,9 +53,24 @@
             <div class="v"><input type="text" name="tags" id="f_tags" value="{{ tags }}"></div>
         </fieldset>
         {% if not edit %}
-        <fieldset><label for="f_email">E-mailadres</label>
+        <fieldset>
+            <label for="f_email">E-mailadres</label>
             <div class="v"><input required type="email" name="email" id="f_email" value="{{ email }}"></div>
             <p class="info">Je krijgt een mail met link om de quote te kunnen verwijderen. En misschien ooit een nieuwtje. We geven &rsquo;m nooit aan derden. Beloofd!</p>
+        </fieldset>
+        {% endif %}
+        {% if not group is empty  %}
+        <fieldset class="radios">
+            <div class="radio">
+                <input type="radio" name="group" id="f_public" value="0" checked>
+                <label for="f_public">Openbaar</label>
+                <p class="info">Iedereen kan deze quote op de website zien</p>
+            </div>
+            <div class="radio">
+                <input type="radio" name="group" id="f_group" value="{{ tqd.ses_grp_id }}"> 
+                <label for="f_group">Privégroep '{{ tqd.ses_grp_name }}'</label>
+                <p class="info">Deze quote is alleen te zien als je bent ingelogd op de groep '{{ tqd.ses_grp_name }}'</p>
+            </div>
         </fieldset>
         {% endif %}
         <fieldset class="submit">

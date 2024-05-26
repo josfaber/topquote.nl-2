@@ -10,7 +10,6 @@ class Group extends Base
 {
 	function login(\Base $f3, $params)
 	{
-		global $f3;
 		global $dataproxy;
 
 		$group = $dataproxy->get_group_by_slug($params["slug"]);
@@ -27,7 +26,6 @@ class Group extends Base
 
 	function login_handler(\Base $f3, $params)
 	{
-		global $f3;
 		global $dataproxy;
 
 		$group = $dataproxy->get_group_by_slug($params["slug"]);
@@ -71,7 +69,6 @@ class Group extends Base
 
 	function logout_handler(\Base $f3, $params)
 	{
-		global $f3;
 
 		$f3->set('SESSION.tq_group_id', null);
 		$f3->set('SESSION.tq_group_h', null);
@@ -82,7 +79,6 @@ class Group extends Base
 
 	function login_magic(\Base $f3, $params)
 	{
-		global $f3;
 		global $dataproxy;
 
 		$group = $dataproxy->get_group_by_slug($params["slug"]);
