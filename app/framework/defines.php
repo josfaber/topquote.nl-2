@@ -3,9 +3,9 @@
 define("SITE_URL", 					rtrim(getenv('SITE_URL'), '/'));
 define("API_URL", 					rtrim(getenv('API_URL'), '/'));
 define("SERVICE_URL",				rtrim(getenv('SERVICE_URL'), '/'));
-define("ENVIRONMENT",				getenv('ENVIRONMENT') ?? 'production');
+define("ENVIRONMENT",				getenv('ENVIRONMENT') ?: 'production');
 
-define('CACHE_DIR', 			 	getenv('CACHE_DIR') ?? '/var/www/cache');
+define('CACHE_DIR', 			 	getenv('CACHE_DIR') ?: '/var/www/cache');
 
 define("USE_TWIG_CACHE", 			getenv('USE_TWIG_CACHE') == "true");
 

@@ -4,6 +4,7 @@
   "css/main-78faf8f2e107fb6a5782.css.map": "css/main-78faf8f2e107fb6a5782.css.map",
   "font/icomoon.svg?x5dx53": "font/icomoone3094a32dd0f3735ec5b.svg?x5dx53",
   "home.js": "js/home-78faf8f2e107fb6a5782.js",
+  "img/.DS_Store": "img/.DS_Store",
   "img/donate-ko-fi.png": "img/donate-ko-fi.png",
   "inline.css": "css/inline-78faf8f2e107fb6a5782.css",
   "inline.js": "js/inline-78faf8f2e107fb6a5782.js",
@@ -17,5 +18,5 @@
   "main.js": "js/main-78faf8f2e107fb6a5782.js",
   "quotes.js": "js/quotes-78faf8f2e107fb6a5782.js",
   "slide.js": "js/slide-78faf8f2e107fb6a5782.js",
-  "version": "1.1.1_2024919_1118"
+  "version": "1.1.1_2024919_1257"
 }

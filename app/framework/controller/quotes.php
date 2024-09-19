@@ -34,7 +34,7 @@ class Quotes extends Base
 	/** 
 	 * Quotes by sayer
 	 */
-	function by(\Base $f3, $params)
+	function sayer(\Base $f3, $params)
 	{
 		global $assets_manifest;
 		global $dataproxy;
@@ -44,7 +44,7 @@ class Quotes extends Base
 
 		// get quotes
 		$quotes = $dataproxy->get_quotes($params["slug"], null, null, $orderby, $order, QUOTES_PER_PAGE);
-		$sayer = $quotes ? $quotes["results"][0]["sayer"] : $params["slug"];
+		$sayer = $quotes ? $quotes["results"][0]->getSayer() : $params["slug"];
 
 		render_template('quotes.html.twig', [
 			"list_title" => "Alle uitspraken van <span class=\"em\">{$sayer}</span>",
@@ -58,7 +58,7 @@ class Quotes extends Base
 	/** 
 	 * Quotes from submitter
 	 */
-	function from(\Base $f3, $params)
+	function submitter(\Base $f3, $params)
 	{
 		global $assets_manifest;
 		global $dataproxy;
@@ -68,7 +68,7 @@ class Quotes extends Base
 
 		// get quotes
 		$quotes = $dataproxy->get_quotes(null, $params["slug"], null, $orderby, $order, QUOTES_PER_PAGE);
-		$submitter = $quotes ? $quotes["results"][0]["submitter"] : $params["slug"];
+		$submitter = $quotes ? $quotes["results"][0]->getSubmitter() : $params["slug"];
 
 		render_template('quotes.html.twig', [
 			"list_title" => "Alle uitspraken opgeslagen door <span class=\"em\">{$submitter}</span>",
