@@ -600,17 +600,17 @@ class DataProxy
 
 	public function get_all_tags_slugs()
 	{
-		$cache_key = 'all_tags_slugs';
-		$cache_time = 60 * 60 * 24;
-		if ($all_tags = $this->from_cache($cache_key)) {
-			return json_decode($all_tags, true);
-		}
+		// $cache_key = 'all_tags_slugs';
+		// $cache_time = 60 * 60 * 24;
+		// if ($all_tags = $this->from_cache($cache_key)) {
+		// 	return json_decode($all_tags, true);
+		// }
 
 		$all_tags = $this->db->exec("
-			SELECT DISTINCT(tags_lc)   
+			SELECT tags   
 			FROM quotes 
-			ORDER BY tags_lc ASC
-		");
+			");
+			// ORDER BY tags ASC
 
 		if (!$all_tags || $this->db->count() == 0) {
 			return false;
@@ -618,7 +618,13 @@ class DataProxy
 
 		$all_single_tags = [];
 		foreach ($all_tags as $mtags) {
-			$single_tags = explode(",", $mtags["tags_lc"]);
+			// !d(unserialize($mtags["tags"]));
+			// exit;
+			// $single_tags = explode(",", unserialize($mtags["tags"]));
+			$single_tags = unserialize($mtags["tags"]);
+			if (!is_array($single_tags)) {
+				continue;
+			}
 			foreach ($single_tags as $tag) {
 				$all_single_tags[] = $tag;
 			}
@@ -627,7 +633,7 @@ class DataProxy
 			return !empty($tag) && preg_match("/^[a-zA-Z0-9]+$/", $tag) == 1;
 		});
 
-		$this->to_cache($cache_key, json_encode($all_single_tags), $cache_time);
+		// $this->to_cache($cache_key, json_encode($all_single_tags), $cache_time);
 
 		return $all_single_tags;
 	}
