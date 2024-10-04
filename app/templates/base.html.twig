@@ -30,6 +30,21 @@
 			gtag('config', 'G-6YFKGSMEFN', {'anonymize_ip': true});
 		</script>
 		<script async src="https://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js?client=ca-pub-2356098750828124" crossorigin="anonymous"></script>
+		<!-- Matomo -->
+		<script>
+		var _paq = window._paq = window._paq || [];
+		/* tracker methods like "setCustomDimension" should be called before "trackPageView" */
+		_paq.push(['trackPageView']);
+		_paq.push(['enableLinkTracking']);
+		(function() {
+			var u="//analytics.mmsrv.nl/";
+			_paq.push(['setTrackerUrl', u+'matomo.php']);
+			_paq.push(['setSiteId', '2']);
+			var d=document, g=d.createElement('script'), s=d.getElementsByTagName('script')[0];
+			g.async=true; g.src=u+'matomo.js'; s.parentNode.insertBefore(g,s);
+		})();
+		</script>
+		<!-- End Matomo Code -->
 	</head>
 
 	<body class="{% if is_home %}home{% endif %}{% if is_single_quote %} single-quote {% endif %} {% if constant('ENVIRONMENT') == 'development' %}dev{% endif %} {% block extra_body_classes %}{% endblock %}">
