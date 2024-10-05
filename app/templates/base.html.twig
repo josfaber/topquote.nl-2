@@ -17,37 +17,21 @@
 				- topquote</title>
 			<link rel="shortcut icon" href="/favicon.ico">
 		{% endblock %}
-		<script id="cookieyes" type="text/javascript" src="https://cdn-cookieyes.com/client_data/2b1dc6bf53e833741ae1003a/script.js"></script>
-
-		<script async src="https://www.googletagmanager.com/gtag/js?id=G-6YFKGSMEFN"></script>
-		<script>
-			window.dataLayer = window.dataLayer || [];
-			function gtag() {
-			dataLayer.push(arguments);
-			}
-			gtag('js', new Date());
-
-			gtag('config', 'G-6YFKGSMEFN', {'anonymize_ip': true});
-		</script>
+		<!-- Google Tag Manager -->
+		<script>(function(w,d,s,l,i){w[l]=w[l]||[];w[l].push({'gtm.start':
+		new Date().getTime(),event:'gtm.js'});var f=d.getElementsByTagName(s)[0],
+		j=d.createElement(s),dl=l!='dataLayer'?'&l='+l:'';j.async=true;j.src=
+		'https://www.googletagmanager.com/gtm.js?id='+i+dl;f.parentNode.insertBefore(j,f);
+		})(window,document,'script','dataLayer','GTM-M8J9TTX4');</script>
+		<!-- End Google Tag Manager -->
 		<script async src="https://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js?client=ca-pub-2356098750828124" crossorigin="anonymous"></script>
-		<!-- Matomo -->
-		<script>
-		var _paq = window._paq = window._paq || [];
-		/* tracker methods like "setCustomDimension" should be called before "trackPageView" */
-		_paq.push(['trackPageView']);
-		_paq.push(['enableLinkTracking']);
-		(function() {
-			var u="//analytics.mmsrv.nl/";
-			_paq.push(['setTrackerUrl', u+'matomo.php']);
-			_paq.push(['setSiteId', '2']);
-			var d=document, g=d.createElement('script'), s=d.getElementsByTagName('script')[0];
-			g.async=true; g.src=u+'matomo.js'; s.parentNode.insertBefore(g,s);
-		})();
-		</script>
-		<!-- End Matomo Code -->
 	</head>
 
 	<body class="{% if is_home %}home{% endif %}{% if is_single_quote %} single-quote {% endif %} {% if constant('ENVIRONMENT') == 'development' %}dev{% endif %} {% block extra_body_classes %}{% endblock %}">
+		<!-- Google Tag Manager (noscript) -->
+		<noscript><iframe src="https://www.googletagmanager.com/ns.html?id=GTM-M8J9TTX4"
+		height="0" width="0" style="display:none;visibility:hidden"></iframe></noscript>
+		<!-- End Google Tag Manager (noscript) -->
 		<nav>
 			{% block nav %}
 				{{ include('partials/nav.html.twig') }}
@@ -76,12 +60,9 @@
 		{% block scripts %}
 			<script>
 				window.tqd = {
-is_search:{% if is_search %}true
-{% else %}
-false
-{% endif %},
-rsk: '{{ RECAPTCHA_SITE_KEY }}',{% for key, value in tqd %}{{ key }} : '{{ value }}',{% endfor %}{% for key, value in tqd_num %}{{ key }} : {{ value }},{% endfor %}
-};
+					is_search:{% if is_search %}true{% else %}false{% endif %},
+					rsk: '{{ RECAPTCHA_SITE_KEY }}',{% for key, value in tqd %}{{ key }} : '{{ value }}',{% endfor %}{% for key, value in tqd_num %}{{ key }} : {{ value }},{% endfor %}
+				};
 			</script>
 			{% for js_file in js_files %}
 				<script defer src="{{ js_file}}"></script>

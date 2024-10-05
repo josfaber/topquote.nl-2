@@ -77,7 +77,7 @@ $all_sayers = $dataproxy->get_all_sayers_slugs();
 $sitemap = $sitemap_header;
 foreach ($all_sayers as $quote) {
 	$sitemap .= '<url>' . PHP_EOL;
-	$sitemap .= '	<loc>https://topquote.nl/quotes/by/' . $quote["sayer_slug"] . '</loc>' . PHP_EOL;
+	$sitemap .= '	<loc>https://topquote.nl/quotes/sayer/' . $quote["sayer_slug"] . '</loc>' . PHP_EOL;
 	$sitemap .= '	<lastmod>' . $now . '</lastmod>' . PHP_EOL;
 	$sitemap .= '</url>' . PHP_EOL;
 }
@@ -93,7 +93,7 @@ $all_submitters = $dataproxy->get_all_submitters_slugs();
 $sitemap = $sitemap_header;
 foreach ($all_submitters as $quote) {
 	$sitemap .= '<url>' . PHP_EOL;
-	$sitemap .= '	<loc>https://topquote.nl/quotes/from/' . $quote["submitter_slug"] . '</loc>' . PHP_EOL;
+	$sitemap .= '	<loc>https://topquote.nl/quotes/submitter/' . $quote["submitter_slug"] . '</loc>' . PHP_EOL;
 	$sitemap .= '	<lastmod>' . $now . '</lastmod>' . PHP_EOL;
 	$sitemap .= '</url>' . PHP_EOL;
 }

@@ -77,7 +77,7 @@
 				{% for submitter in top_submitters %}
 					<li>
 						<span class="icon-pencil"></span>
-						<a href="{{ site_url }}/quotes/from/{{ submitter.submitter_slug }}">{{ submitter.submitter }}</a>
+						<a href="{{ site_url }}/quotes/submitter/{{ submitter.submitter_slug }}">{{ submitter.submitter }}</a>
 					</li>
 				{% endfor %}
 			</ul>
@@ -105,7 +105,7 @@
 				{% for sayer in top_sayers %}
 					<li>
 						<span class="icon-topquote-logo-outlines"></span>
-						<a href="{{ site_url }}/quotes/by/{{ sayer.sayer_slug }}">{{ sayer.sayer }}</a>
+						<a href="{{ site_url }}/quotes/sayer/{{ sayer.sayer_slug }}">{{ sayer.sayer }}</a>
 					</li>
 				{% endfor %}
 			</ul>
