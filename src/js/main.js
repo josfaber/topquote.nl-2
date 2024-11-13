@@ -6,19 +6,19 @@ import Cookies from 'js-cookie';
 
 import copy from 'copy-to-clipboard';
 
-let main_el,
-    menucb,
-    addForm,
-    addGroupForm,
-    groupLoginForm,
-    feedbackForm,
-    btn_delete,
-    btn_delete_group,
-    btn_search;
+let main_el;
+let menucb;
+let addForm;
+let addGroupForm;
+let groupLoginForm;
+let feedbackForm;
+let btn_delete;
+let btn_delete_group;
+let btn_search;
 
 const updateColor = ( c ) => {
     // set doc's primary color
-    let altClr = getComputedStyle( document.documentElement ).getPropertyValue( `--alt-color-${ c }` );
+    const altClr = getComputedStyle( document.documentElement ).getPropertyValue( `--alt-color-${ c }` );
     document.documentElement.style.setProperty( '--primary-color', altClr );
     document.documentElement.style.setProperty( '--primary-color-bg', c < 6 ? '#000' : '#f4f4f4' );
     document.documentElement.style.setProperty( '--primary-color-wh', c < 6 ? '#fff' : '#333' );
@@ -37,7 +37,7 @@ if ( !tqcnum )
     tqcnum = 0;
     window.localStorage.setItem( 'topquote-color-num', tqcnum );
 }
-let color_transition_time = getComputedStyle( document.documentElement ).getPropertyValue( '--color-transition-time' );
+const color_transition_time = getComputedStyle( document.documentElement ).getPropertyValue( '--color-transition-time' );
 document.documentElement.style.setProperty( '--color-transition-time', '0ms' );
 setTimeout( () => updateColor( tqcnum ), 20 );
 setTimeout( () => document.documentElement.style.setProperty( '--color-transition-time', `${ color_transition_time }` ), transitionTimeoutTime );
@@ -56,7 +56,7 @@ const copyUrl = () => {
 };
 
 const tweetUrl = () => {
-    window.open( `https://twitter.com/intent/tweet?text=${ encodeURIComponent( document.getElementById( 'share-url' ).innerText ) }`, '_blank' );
+    window.open( `https://x.com/intent/post?text=${ encodeURIComponent( document.getElementById( 'share-url' ).innerText ) }`, '_blank' );
     bodyClickHandler();
 };
 
@@ -65,14 +65,14 @@ const mailUrl = () => {
     bodyClickHandler();
 };
 
-const likeQuote = ( id ) => {
-    id = parseInt( id );
+const likeQuote = ( quoteId ) => {
+    const id = Number.parseInt( quoteId );
     // get cookie 
     // const likes_array = (Cookies.get( `tql` ) || "")
     const likes_array = ( window.localStorage.getItem( 'topquote-likes' ) || "" )
         .split( ',' )
         .filter( ( x ) => x !== "" )
-        .map( ( x ) => parseInt( x ) );
+        .map( ( x ) => Number.parseInt( x ) );
     // console.log( likes_array, id, likes_array.includes( id ) );
 
     // const quote_like_cookie = Cookies.get( `tql${id}` );
@@ -82,16 +82,16 @@ const likeQuote = ( id ) => {
         const anim = document.getElementById( `q${ id }-anim` );
         !anim || anim.classList.add( 'active' );
 
-        let data = new URLSearchParams();
+        const data = new URLSearchParams();
         data.append( 'id', id );
 
         axios( {
             method: 'post',
-            url: window.tqd.api_url + '/vote',
+            url: `${window.tqd.api_url}/vote`,
             headers: { 'X-Requested-With': 'XMLHttpRequest' },
             data,
         } )
-            .then( function ( response ) {
+            .then( ( response ) => {
                 // console.log( response.data );
                 const message = response.data.message || false;
                 console.log( 'message', message );
@@ -111,7 +111,7 @@ const likeQuote = ( id ) => {
                 // Cookies.set( `tql`, likes_array.join(','), { expires: 365 * 10 } );
                 window.localStorage.setItem( 'topquote-likes', likes_array.join( ',' ) );
             } )
-            .catch( function ( error ) {
+            .catch( ( error ) => {
                 // handle error
                 console.log( error );
             } );
@@ -166,30 +166,32 @@ window.updateLikeButtons = () => {
     const likes_array = ( window.localStorage.getItem( 'topquote-likes' ) || "" )
         .split( ',' )
         .filter( ( x ) => x !== "" )
-        .map( ( x ) => parseInt( x ) );
+        .map( ( x ) => Number.parseInt( x ) );
     // console.log( likes_array );
     const like_buttons = document.querySelectorAll( '.quote-btn-like' );
-    like_buttons.forEach( ( el ) => {
-        const id = parseInt( el.dataset.id );
+    for ( const el of like_buttons )
+    {
+        const id = Number.parseInt( el.dataset.id );
         if ( likes_array.includes( id ) )
         {
             el.classList.add( 'priclr' );
             el.parentElement.querySelector( '.anim > .heart > .icon' ).classList.add( 'priclr' );
         }
-    } );
+    }
 };
 
 window.activateLikeButtons = () => {
     // console.log( 'activate like buttons' );
     const like_buttons = document.querySelectorAll( '.quote-btn-like' );
-    like_buttons.forEach( ( el ) => {
+    for ( const el of like_buttons )
+    {
         el.addEventListener( 'click', ( e ) => {
             e.preventDefault();
             el.classList.add( 'priclr' );
             el.parentElement.querySelector( '.anim > .heart > .icon' ).classList.add( 'priclr' );
             likeQuote( e.target.dataset.id );
         } );
-    } );
+    }
 };
 
 /**
@@ -199,7 +201,7 @@ document.addEventListener( 'DOMContentLoaded', ( event ) => {
     // console.log( 'main' );
 
     window.dataLayer = window.dataLayer || [];
-    function gtag() { dataLayer.push( arguments ); }
+    function gtag(...args) { dataLayer.push( args ); }
     gtag( 'js', new Date() );
     gtag( 'config', 'G-6YFKGSMEFN' );
 
@@ -208,12 +210,13 @@ document.addEventListener( 'DOMContentLoaded', ( event ) => {
 
     // share 
     const share_buttons = document.querySelectorAll( '.quote-btn-share' );
-    share_buttons.forEach( ( el ) => {
+    for ( const el of share_buttons )
+    {
         el.addEventListener( 'click', ( e ) => {
             e.preventDefault();
             shareQuote( e.target.dataset.url );
         } );
-    } );
+    }
 
     // like 
     // const like_buttons = document.querySelectorAll( '.quote-btn-like' );
@@ -241,27 +244,31 @@ document.addEventListener( 'DOMContentLoaded', ( event ) => {
     }, 50 ) );
 
     // onchange clr 
-    document.querySelectorAll( '.clr' ).forEach( ( el ) => el.addEventListener( "click", ( e ) => {
-        e.preventDefault();
-        let c = el.dataset.c;
-        !c || updateColor( c );
-        // update storage 
-        window.localStorage.setItem( 'topquote-color-num', c );
-    } ) );
+    for ( const el of document.querySelectorAll( '.clr' ) )
+    {
+        el.addEventListener( "click", ( e ) => {
+            e.preventDefault();
+            const c = el.dataset.c;
+            !c || updateColor( c );
+            // update storage 
+            window.localStorage.setItem( 'topquote-color-num', c );
+        } );
+    }
 
     // if in large mode, check for sayer height 
     // console.log(window.innerWidth);
     if ( window.innerWidth >= 1024 )
     {
         // for every blockquote 
-        document.querySelectorAll( 'blockquote' ).forEach( ( el ) => {
-            let sayer_el = el.querySelector( '.sayer' );
-            let meta_el = el.querySelector( '.meta' );
-            if ( !sayer_el || !meta_el ) return;
-            let sayer_top = sayer_el.getBoundingClientRect().top;
-            let sayer_height = sayer_el.offsetHeight;
+        for ( const el of document.querySelectorAll( 'blockquote' ) )
+        {
+            const sayer_el = el.querySelector( '.sayer' );
+            const meta_el = el.querySelector( '.meta' );
+            if ( !sayer_el || !meta_el ) continue;
+            const sayer_top = sayer_el.getBoundingClientRect().top;
+            const sayer_height = sayer_el.offsetHeight;
             meta_el.style.top = `${ 4 + sayer_height }px`;
-        } );
+        }
     }
 
     // handle feedback form 
@@ -269,13 +276,13 @@ document.addEventListener( 'DOMContentLoaded', ( event ) => {
     if ( feedbackForm )
     {
         const f_email = document.getElementById( 'f_email' );
-        !f_email || ( f_email.value = Cookies.get( 'tqeml' ) || "" );
+        if (f_email) f_email.value = Cookies.get( 'tqeml' ) || "";
         const f_from = document.getElementById( 'f_from' );
-        !f_from || ( f_from.value = Cookies.get( 'tqfrm' ) || "" );
+        if (f_from) f_from.value = Cookies.get( 'tqfrm' ) || "";
 
         feedbackForm.addEventListener( 'submit', ( e ) => {
             e.preventDefault();
-            grecaptcha.ready( function () {
+            grecaptcha.ready( () => {
                 grecaptcha.execute( window.tqd.rsk, { action: 'submit' } ).then( ( token ) => {
                     document.getElementById( 'rtoken' ).value = token;
                     if ( f_email ) Cookies.set( 'tqeml', f_email.value, { expires: 365 } );
@@ -292,12 +299,12 @@ document.addEventListener( 'DOMContentLoaded', ( event ) => {
     if ( addForm )
     {
         const f_email = document.getElementById( 'f_email' );
-        !f_email || ( f_email.value = Cookies.get( 'tqeml' ) || "" );
+        if ( f_email ) f_email.value = Cookies.get( 'tqeml' ) || "";
         const f_from = document.getElementById( 'f_from' );
-        !f_from || ( f_from.value = Cookies.get( 'tqfrm' ) || "" );
+        if ( f_from ) f_from.value = Cookies.get( 'tqfrm' ) || "";
         addForm.addEventListener( 'submit', ( e ) => {
             e.preventDefault();
-            grecaptcha.ready( function () {
+            grecaptcha.ready( () => {
                 grecaptcha.execute( window.tqd.rsk, { action: 'submit' } ).then( ( token ) => {
                     document.getElementById( 'rtoken' ).value = token;
                     if ( f_email ) Cookies.set( 'tqeml', f_email.value, { expires: 365 } );
@@ -314,10 +321,10 @@ document.addEventListener( 'DOMContentLoaded', ( event ) => {
     if ( addGroupForm )
     {
         const f_email = document.getElementById( 'f_email' );
-        !f_email || ( f_email.value = Cookies.get( 'tqeml' ) || "" );
+        if ( f_email ) f_email.value = Cookies.get( 'tqeml' ) || "";
         addGroupForm.addEventListener( 'submit', ( e ) => {
             e.preventDefault();
-            grecaptcha.ready( function () {
+            grecaptcha.ready( () => {
                 grecaptcha.execute( window.tqd.rsk, { action: 'submit' } ).then( ( token ) => {
                     document.getElementById( 'rtoken' ).value = token;
                     if ( f_email ) Cookies.set( 'tqeml', f_email.value, { expires: 365 } );
@@ -334,7 +341,7 @@ document.addEventListener( 'DOMContentLoaded', ( event ) => {
     {
         groupLoginForm.addEventListener( 'submit', ( e ) => {
             e.preventDefault();
-            grecaptcha.ready( function () {
+            grecaptcha.ready( () => {
                 grecaptcha.execute( window.tqd.rsk, { action: 'submit' } ).then( ( token ) => {
                     document.getElementById( 'rtoken' ).value = token;
                     showLoader();
@@ -383,7 +390,7 @@ document.addEventListener( 'DOMContentLoaded', ( event ) => {
             if ( e.keyCode === 13 )
             { // enter
                 const terms = document.getElementById( 'terms' );
-                !terms || ( window.location.href = tqd.site_url + '/quotes/search/' + encodeURIComponent( terms.value ) );
+                if ( terms ) window.location.href = `${ tqd.site_url }/quotes/search/${ encodeURIComponent( terms.value ) }`;
             } else if ( e.keyCode === 27 )
             { // esc
                 terms_input.value = '';

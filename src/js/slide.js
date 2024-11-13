@@ -17,9 +17,9 @@ document.addEventListener( 'DOMContentLoaded', ( event ) => {
     const quote_el = document.getElementById( 'quote' );
     const sayer_el = document.getElementById( 'sayer' );
 
-    let timeout,
-        current = -1,
-        delay = 7;
+    let timeout;
+    let current = -1;
+    const delay = 7;
 
     const get_quote = () => {
         if (++current >= window.tqd_sl_q.length) {
@@ -31,7 +31,7 @@ document.addEventListener( 'DOMContentLoaded', ( event ) => {
 
     const slideOut = () => {
         // console.log( 'slideOut', slide_el);
-        slide_el.style.transition = `opacity 500ms ease-in, transform 500ms ease-in`;
+        slide_el.style.transition = 'opacity 500ms ease-in, transform 500ms ease-in';
         setTimeout( () => {
             slide_el.style.opacity = 0;
             slide_el.style.transform = 'translateX(-50px)';
@@ -40,7 +40,7 @@ document.addEventListener( 'DOMContentLoaded', ( event ) => {
 
     const slideIn = () => {
         // console.log( 'slideIn', slide_el);
-        slide_el.style.transition = `opacity 1s ease-out, transform 1s ease-out`;
+        slide_el.style.transition = 'opacity 1s ease-out, transform 1s ease-out';
         setTimeout( () => {
             slide_el.style.opacity = 1;
             slide_el.style.transform = 'translateX(0)';
@@ -69,8 +69,8 @@ document.addEventListener( 'DOMContentLoaded', ( event ) => {
         // 1s
         setTimeout( slideIn, 570 );
 
-        timeout = setTimeout( slide, (delay + 2) * 1000 );
-    }   
+        timeout = setTimeout( slide, ( delay + 2 ) * 1000 );
+    }
 
     slide();
 

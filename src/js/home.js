@@ -10,7 +10,7 @@ const map = ( value, min1, max1, min2, max2 ) => { return interpolate( normalize
  * On document ready
  */
 document.addEventListener( 'DOMContentLoaded', ( event ) => {
-  console.log( 'home' );
+  console.log( 'home!' );
 
   const sliderDelay = 7;
   const sliderDuration = 0.4;
@@ -81,16 +81,16 @@ document.addEventListener( 'DOMContentLoaded', ( event ) => {
   // hide title on home no scroll 
   const title_bg_el = document.getElementById( 'home_title_bg' );
   const title_el = document.getElementById( 'home_title' );
-  const root_font_size = parseFloat( window.getComputedStyle( document.documentElement ).fontSize );
-  const title_el_margin = parseFloat( window.getComputedStyle( title_el ).marginTop );
-  const max_title_size_rem = parseFloat( window.getComputedStyle( title_el ).fontSize ) / root_font_size;
-  const topbar_height = parseFloat( window.getComputedStyle( document.getElementById( 'topbar' ) ).height );
+  const root_font_size = Number.parseFloat( window.getComputedStyle( document.documentElement ).fontSize );
+  const title_el_margin = Number.parseFloat( window.getComputedStyle( title_el ).marginTop );
+  const max_title_size_rem = Number.parseFloat( window.getComputedStyle( title_el ).fontSize ) / root_font_size;
+  const topbar_height = Number.parseFloat( window.getComputedStyle( document.getElementById( 'topbar' ) ).height );
   const travel_distance = topbar_height + title_el_margin + 13;
   // console.log(travel_distance);
 
   let fontSize = max_title_size_rem;
   window.onscroll = ( () => {
-    let scrollPos = window.pageYOffset;
+    const scrollPos = window.pageYOffset;
     // console.log(scrollPos);
     fontSize = map( Math.min( travel_distance, scrollPos ), 0, travel_distance, max_title_size_rem, 1.125 );
     title_bg_el.style.fontSize = `${ fontSize }rem`;
@@ -109,8 +109,9 @@ document.addEventListener( 'DOMContentLoaded', ( event ) => {
     }
   } );
 
-  document.querySelectorAll( '.sliding-quotes' ).forEach( ( el ) => {
+  for ( const el of document.querySelectorAll( '.sliding-quotes' ) )
+  {
     el.classList.add( 'active' );
-  } );
+  }
 
 } );

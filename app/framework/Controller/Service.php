@@ -26,29 +26,12 @@ class Service extends Base
 		// 
 		if (!file_exists($filepath) || isset($_GET["regen"])) {
 
-			// $URL = "http://192.168.2.108:3000/api/quote";
-			// $URL = "https://topquote.nl/api/quote";
-			$URL = API_URL . "/quote";
-
-			$ch = curl_init();
-			curl_setopt($ch, CURLOPT_RETURNTRANSFER, true);
-			curl_setopt($ch, CURLOPT_URL, "{$URL}/{$id}");
-			curl_setopt($ch, CURLOPT_HTTPHEADER, ['X-Requested-With: XMLHttpRequest']);
-			curl_setopt($ch, CURLOPT_POST, 1);
-			curl_setopt($ch, CURLOPT_VERBOSE, 1);
-			$result = curl_exec($ch);
-			$err = curl_error($ch);
-			curl_close($ch);
-			if ($err) {
-				var_dump($err);
-			}
-			if (!$result) {
-				die('"error getting quote data"');
-			}
-
-			$quote = json_decode($result, true);
-			if (!$quote) {
-				die('"error parsing quote data"');
+			global $dataproxy;
+			/** @var QuoteModel */
+			$quote = $dataproxy->get_quote($id);
+			
+			if ($quote == false) {
+				$f3->error(404);
 			}
 
 			$width 	= 2480;
@@ -66,15 +49,15 @@ class Service extends Base
 			$wrapping		= 32;
 			$padding		= 240;
 
-			$wrapped_quote = wordwrap($quote["quote"], $wrapping, "\n");
+			$wrapped_quote = wordwrap($quote->getQuote(), $wrapping, "\n");
 			$quoteText = $this->tryText(200, $font, $wrapped_quote, $width - 2 * $padding, $height - 2 * $padding);
-			$sayer 		= $this->tryText(80, $font, $quote["sayer"], 0.5 * $width, $height - 4 * $padding);
+			$sayer 		= $this->tryText(80, $font, $quote->getSayer(), 0.5 * $width, $height - 4 * $padding);
 
 			// quote
 			imagettftext($im, $quoteText["size"], 0, round(0.5 * ($width - $quoteText["tw"])), round(0.5 * ($height - $quoteText["th"] + 3 * 36)), $fg, $font, $wrapped_quote);
 
 			// sayer
-			imagettftext($im, $sayer["size"], 0, $padding, $height - 320, $fg, $font, $quote["sayer"]);
+			imagettftext($im, $sayer["size"], 0, $padding, $height - 320, $fg, $font, $quote->getSayer());
 
 			// ad
 			imagettftext($im, 40, 0, $padding, $height - 200, $adclr, $font, "topquote.nl");
@@ -106,30 +89,13 @@ class Service extends Base
 
 		// 
 		if (!file_exists($filepath) || isset($_GET["regen"])) {
-
-			// $URL = "http://192.168.2.108:3000/api/quote";
-			// $URL = "https://topquote.nl/api/quote";
-			$URL = API_URL . "/quote";
-
-			$ch = curl_init();
-			curl_setopt($ch, CURLOPT_RETURNTRANSFER, true);
-			curl_setopt($ch, CURLOPT_URL, "{$URL}/{$id}");
-			curl_setopt($ch, CURLOPT_HTTPHEADER, ['X-Requested-With: XMLHttpRequest']);
-			curl_setopt($ch, CURLOPT_POST, 1);
-			curl_setopt($ch, CURLOPT_VERBOSE, 1);
-			$result = curl_exec($ch);
-			$err = curl_error($ch);
-			curl_close($ch);
-			if ($err) {
-				var_dump($err);
-			}
-			if (!$result) {
-				die('"error getting quote data"');
-			}
-
-			$quote = json_decode($result, true);
-			if (!$quote) {
-				die('"error parsing quote data"');
+		
+			global $dataproxy;
+			/** @var QuoteModel */
+			$quote = $dataproxy->get_quote($id);
+			
+			if ($quote == false) {
+				$f3->error(404);
 			}
 
 			$width 	= 1920;
@@ -148,15 +114,15 @@ class Service extends Base
 			$padding_w		= 280;
 			$padding_h		= 240;
 
-			$wrapped_quote = wordwrap($quote["quote"], $wrapping, "\n");
+			$wrapped_quote = wordwrap($quote->getQuote(), $wrapping, "\n");
 			$quoteText = $this->tryText(50, $font, $wrapped_quote, $width - 2 * $padding_w, $height - 2 * $padding_h);
-			$sayer 		= $this->tryText(35, $font, $quote["sayer"], 0.5 * $width, $height - 4 * $padding_h);
+			$sayer 		= $this->tryText(35, $font, $quote->getSayer(), 0.5 * $width, $height - 4 * $padding_h);
 
 			// quote
 			imagettftext($im, $quoteText["size"], 0, round(0.5 * ($width - $quoteText["tw"])), round(0.5 * ($height - $quoteText["th"] + 3 * 36)), $fg, $font, $wrapped_quote);
 
 			// sayer
-			imagettftext($im, $sayer["size"], 0, round(0.5 * ($width - $sayer["tw"])), 180, $fg, $font, $quote["sayer"]);
+			imagettftext($im, $sayer["size"], 0, round(0.5 * ($width - $sayer["tw"])), 180, $fg, $font, $quote->getSayer());
 
 			// ad
 			imagettftext($im, 20, 0, 100, $height - 80, $adclr, $font, "topquote.nl");
